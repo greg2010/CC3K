@@ -12,24 +12,14 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-4.9
-      env: COMPILER=g++-4.9
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
             - g++-5
       env: COMPILER=g++-5
 
-before_script:
-  cd $TRAVIS_BUILD_DIR/hello
-  make
-  cd $TRAVIS_BUILD_DIR/failedTest
-  make
 script:
-  cd $TRAVIS_BUILD_DIR/hello
-  ./hello
-  cd $TRAVIS_BUILD_DIR/failedTest
-  ./failedTest
+  - export CXX=$COMPILER CC=$CCOMPILER
+  - cd $TRAVIS_BUILD_DIR/hello
+  - make
+  - cd $TRAVIS_BUILD_DIR/failedTest
+  - make
+  - $TRAVIS_BUILD_DIR/hello/hello
+  - $TRAVIS_BUILD_DIR/failedTest/failedTest
