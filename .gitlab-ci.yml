@@ -1,7 +1,9 @@
-script:
-  - cd $CI_PROJECT_DIR/hello
-  - make
-  - cd $CI_PROJECT_DIR/failedTest
-  - make
-  - $CI_PROJECT_DIR/hello/hello
-  - $CI_PROJECT_DIR/failedTest/failedTest
+build:
+  stage: build
+  script:
+    - cd $CI_PROJECT_DIR/hello
+    - make
+    - cd $CI_PROJECT_DIR/failedTest
+    - make
+    - $CI_PROJECT_DIR/hello/hello
+    - $CI_PROJECT_DIR/failedTest/failedTest
