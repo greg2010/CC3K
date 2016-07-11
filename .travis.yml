@@ -24,7 +24,12 @@ matrix:
       env: COMPILER=g++-5
 
 before_install:
-  # init configuration goes here
-
+  cd hello
+  make
+  cd ../failedTest
+  make
 script:
-  # build script goes here
+  cd hello
+  ./hello
+  cd ../failedTest
+  ./failedTest
