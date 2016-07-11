@@ -23,13 +23,13 @@ matrix:
             - g++-5
       env: COMPILER=g++-5
 
-before_install:
-  cd hello
-  make
-  cd ../failedTest
-  make
 script:
-  cd hello
+  cd $TRAVIS_BUILD_DIR/hello
+  make
+  cd $TRAVIS_BUILD_DIR/failedTest
+  make
+after_install:
+  cd $TRAVIS_BUILD_DIR/hello
   ./hello
-  cd ../failedTest
+  cd $TRAVIS_BUILD_DIR/failedTest
   ./failedTest
