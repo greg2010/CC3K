@@ -4,22 +4,22 @@ dist: trusty
 
 language: cpp
 
-
-include:
-  - compiler: gcc
-    addons:
-      apt:
-        sources:
-          - ubuntu-toolchain-r-test
-        packages:
-          - g++-5
-    env: COMPILER=g++-5
+matrix:
+  include:
+    - compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-5
+      env: COMPILER=g++-5
 
 script:
-  export CXX=$COMPILER CC=$CCOMPILER
-  cd $TRAVIS_BUILD_DIR/hello
-  make
-  cd $TRAVIS_BUILD_DIR/failedTest
-  make
-  $TRAVIS_BUILD_DIR/hello/hello
-  $TRAVIS_BUILD_DIR/failedTest/failedTest
+  - export CXX=$COMPILER CC=$CCOMPILER
+  - cd $TRAVIS_BUILD_DIR/hello
+  - make
+  - cd $TRAVIS_BUILD_DIR/failedTest
+  - make
+  - $TRAVIS_BUILD_DIR/hello/hello
+  - $TRAVIS_BUILD_DIR/failedTest/failedTest
