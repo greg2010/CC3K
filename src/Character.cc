@@ -1,13 +1,24 @@
 #include <cmath>
+#include <string>
 #include "Character.h"
 
-Character::Character(int HP, int atk, int def std::pair<int,int> coords) : Subject{coords}, HP{HP}, atk{atk}, def{def}, gold{0}, hasMovedThisTurn{false} { }
+Character::Character(int HP, int atk, int def, std::pair<int,int> coords) : Subject{coords},
+                                                                            HP{HP},
+                                                                            atk{atk},
+                                                                            def{def},
+                                                                            gold{0},
+                                                                            hasMovedThisTurn{false},
+                                                                            potPtr{nullptr} { }
 
 unsigned int Character::getHP() { return HP; }
 
-unsigned int Character::getAttack() { return atk; }
+unsigned int Character::getAttack() {
+    return potPtr ? atk + potPtr->getAtk() : atk;
+}
 
-unsigned int Character::getDefence() { return def; }
+unsigned int Character::getDefence() {
+    return potPtr ? def + potPtr->getDef() : def;
+}
 
 unsigned int Character::getGold() { return gold; }
 
@@ -66,19 +77,10 @@ void Character::resetMove() {
     hasMovedThisTurn = false;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void Character::pushPotion(std::shared_ptr<Potion> pot) {
+    if (potPtr) {
+        potPtr->push(pot);
+    } else {
+        potPtr = pot;
+    }
+}
