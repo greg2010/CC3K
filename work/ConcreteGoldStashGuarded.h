@@ -5,9 +5,8 @@
 class ConcreteGoldStashGuarded: public GoldStash{
 	int value;
 	bool free = false;
-	void freeGold();
-
 	public:
+		void freeGold();
 		bool const isGuardianAlive();
 };
 
