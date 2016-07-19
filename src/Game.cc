@@ -52,7 +52,6 @@ Floor* Game::getCurrentFloor(){
 
 bool Game::movePlayer(string dir)
 {
-    
     pair<int, int> coor = player->getCoordinates();
     int i = 0;  // assume vector<subject*> [0] starts from left most conor and moving right
     
@@ -93,11 +92,11 @@ bool Game::movePlayer(string dir)
         i = 6;
     }
     
-    vector<Subject *> adj = Floor::adjacent(player);
+    vector<std::shared_ptr<Subject> > adj = Floor::adjacent(player);
     if (adj[i] != nullptr){
-        if (dir == "we" && adj[i] -> getType() ==
+        if (dir == "we" && adj[i] -> Subject::getType() ==
             Stariway){
-            Game :: generateNextFloor();
+            generateNextFloor();
             return true;
         }
         else return false;
@@ -110,14 +109,15 @@ bool Game::movePlayer(string dir)
     return false;
 }
 
-void generateNextFloor(){
+void Game::generateNextFloor(){
     if (currFloor >= 5){
         cout << "You won" << endl;
+        delete floor;
     }
     else {
         currFloor++;
         delete floor;
-        floor = new Floor(player*);
+        floor = new Floor(player);
     }
     
 }
