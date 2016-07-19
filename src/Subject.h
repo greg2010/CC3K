@@ -31,7 +31,7 @@ public:
     std::pair<int, int> getCoordinates();
     virtual SubjectType getType() = 0;
     virtual bool isVisible();
-    void remove();
+    virtual void remove();
     virtual ~Subject() = default;
 protected:
     std::pair<int,int> coords;

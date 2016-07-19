@@ -7,22 +7,21 @@ Character::Character(int HP, int atk, int def, std::pair<int,int> coords) : Subj
                                                                             atk{atk},
                                                                             def{def},
                                                                             gold{0},
-                                                                            hasMovedThisTurn{false},
-                                                                            potPtr{nullptr} { }
+                                                                            hasMovedThisTurn{false} { }
 
 unsigned int Character::getHP() { return HP; }
 
 unsigned int Character::getAttack() {
-    return potPtr ? atk + potPtr->getAtk() : atk;
+    return atk;
 }
 
 unsigned int Character::getDefence() {
-    return potPtr ? def + potPtr->getDef() : def;
+    return def;
 }
 
 unsigned int Character::getGold() { return gold; }
 
-bool Character::move(std::string dir) {
+void Character::move(std::pair<int,int> newCoords) {
     /*
     int ns = 0;
     int ew = 0;
@@ -53,19 +52,14 @@ bool Character::move(std::string dir) {
     std::pair<int,int> curCoords = this->getCoordinates();
     std::pair<int,int> desiredCoords = std::make_pair(curCoords.first + ew, curCoords.second + ns);
     // TODO: check new coords (if needed)
-    this->coords = desiredCoords;
     */
-    return true;
+    this->coords = newCoords;
+    this->notifyObservers();
 }
 
 void Character::attackedBy(std::shared_ptr<Character> attacker) {
     int damage = std::ceil((100/(100+this->getDefence())) * attacker->getAttack());
-    int newHP = this->getHP() - damage;
-    if (newHP < 0) {
-        //TODO: death logic
-    } else {
-        this->HP = newHP;
-    }
+    this->changeHP(damage);
     this->notifyObservers();
 }
 
@@ -77,10 +71,19 @@ void Character::resetMove() {
     hasMovedThisTurn = false;
 }
 
-void Character::pushPotion(std::shared_ptr<Potion> pot) {
-    if (potPtr) {
-        potPtr->push(pot);
+void Character::addGold(int val) {
+    gold += val;
+}
+
+void Character::changeHP(int val) {
+    int newHP = this->getHP() - val;
+    if (newHP <= 0) {
+        //TODO: death logic
     } else {
-        potPtr = pot;
+        this->HP = newHP;
     }
 }
+
+
+
+

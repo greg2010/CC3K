@@ -4,26 +4,28 @@
 
 #include "Subject.h"
 
-class Character : Subject {
+class Character : public Subject {
 public:
     Character(int HP, int atk, int def, std::pair<int,int> coords); // Constructs character
     unsigned int getHP();
     virtual unsigned int getAttack();
     virtual unsigned int getDefence();
-    bool move(std::string dir); // Moves chararcter in direction dir. Checks if movement is possible (?)
-    void attackedBy(std::shared_ptr<Character> attacker); // Handles attacks
+    void move(std::pair<int,int> newCoords); // Moves chararcter in direction dir. Assumes that new coords are valid
+    virtual void attackedBy(std::shared_ptr<Character> attacker); // Handles attacks
     unsigned int getGold();
     bool hasMoved(); // getter for hasMovedThisTurn
     void resetMove(); // resets hasMovedThisTurn
-    void pushPotion(std::shared_ptr<Potion> pot); // Adds potion as decorator
     virtual ~Character() = 0;
+
+protected:
+    void addGold(int val);
+    void changeHP(int val);
 private:
     bool hasMovedThisTurn;
     int HP;
     int atk;
     int def;
     int gold;
-    std::shared_ptr<Potion> potPtr;
 };
 
 
