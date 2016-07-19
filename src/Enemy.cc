@@ -4,9 +4,6 @@ Enemy::Enemy(int HP, int atk, int def, std::pair<int,int> coords) : Character{HP
 
 }
 
-void Enemy::doTurn() {
-    // Enemy does turn here
-}
 
 bool Enemy::isHostile() { return true; }
 

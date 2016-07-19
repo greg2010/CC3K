@@ -21,7 +21,7 @@ public:
 
     SubjectType getType();
 
-    // void assignCoords (std::pair<int, int> coords); TODO: figure out why we have this function
+     void assignCoords (std::pair<int, int> coords);
 
     virtual unsigned int getAttack();
     virtual unsigned int getDefence();

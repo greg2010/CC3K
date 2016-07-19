@@ -51,5 +51,3 @@ std::shared_ptr<Observer> Subject::getController() {
     }
     return nullptr;
 }
-
-

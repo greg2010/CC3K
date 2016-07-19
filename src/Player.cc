@@ -65,3 +65,9 @@ void Player::doInteract(std::shared_ptr<ConcreteGoldStashGuarded> item) {
 void Player::doInteract(std::shared_ptr<PotHP> hpPot) {
     this->changeHP(hpPot->getHP);
 }
+
+void Player::assignCoords(std::pair<int, int> coords) {
+    this->coords = coords;
+    notifyObservers();
+}
+
