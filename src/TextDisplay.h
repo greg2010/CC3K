@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <map>
+#include <vector>
 
 class Item;
 class Subject;
@@ -30,12 +31,13 @@ enum class SubjectType {
 };
 class TextDisplay{
     std::map<SubjectType, char> charMap;
+    std::vector<std::vector <char> > grid;
 public:
     int w, h;
     TextDisplay(int width = 75, int height = 25);
     ~TextDisplay();
-    void notify(Subject* sub);
-    void notify(Item* pot);
+    void notify(std::shared_ptr<Subject> sub);
+    void notify(std::shared_ptr<Item> item);
     friend void operator<<(std::ostream &out, const TextDisplay td);
     void drawLayout();
 };

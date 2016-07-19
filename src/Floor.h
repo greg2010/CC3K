@@ -15,16 +15,19 @@
 
 class Subject;
 class Player;
-
+class TextDisplay;
 class Floor {
-    std::vector<std::vector <Subject*> > floorMap;
+    std::vector<std::vector <std::shared_ptr<Subject> > > floorMap;  // row < col>
+    std::shared_ptr<Player> player;
+    std::shared_ptr<TextDisplay> td;
 public:
     void readLayout();
     Floor(Player* player);
-    void notify(Subject* sub);
-    void deleteSubject(Subject* sub);
-    std::vector<Subject* > adjacent(Subject * sub);
-    bool move(std::string dir);
+    ~Floor();
+    void notify(std::shared_ptr<Subject> s);
+    void deleteSubject(std::shared_ptr<Subject> s);
+    std::vector<std::shared_ptr<Subject> > adjacent(std::shared_ptr<Subject> s);
+    bool move(std::string dir, std::shared_ptr<Subject> s);
 };
 
 #endif /* Floor_hpp */

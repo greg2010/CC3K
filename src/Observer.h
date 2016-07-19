@@ -14,5 +14,6 @@ class Subject;
 class Observer{
 public:
     virtual void Notify(Subject* sub) = 0;
+    virtual ~Observer();
 };
 #endif /* Observer_hpp */

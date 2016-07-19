@@ -15,6 +15,7 @@
 class Layout {
 public:
     const virtual std::vector< std::pair<int, int> > & getLocation();
+    
 };
 
 #endif /* Layout_hpp */
