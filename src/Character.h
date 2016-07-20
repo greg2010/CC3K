@@ -4,17 +4,22 @@
 
 #include "Subject.h"
 
-class Character : Subject {
+class Character : public Subject {
 public:
-    Character(int HP, int atk, int def, std::pair<int,int> coords);
+    Character(int HP, int atk, int def, std::pair<int,int> coords); // Constructs character
     unsigned int getHP();
-    unsigned int getAttack();
-    unsigned int getDefence();
-    bool move(std::string dir);
-    void attackedBy(std::shared_ptr<Character> attacker);
+    virtual unsigned int getAttack();
+    virtual unsigned int getDefence();
+    void move(std::pair<int,int> newCoords); // Moves chararcter in direction dir. Assumes that new coords are valid
+    virtual void attackedBy(std::shared_ptr<Character> attacker); // Handles attacks
     unsigned int getGold();
-    bool hasMoved();
-    void resetMove();
+    bool hasMoved(); // getter for hasMovedThisTurn
+    void resetMove(); // resets hasMovedThisTurn
+    virtual ~Character() = 0;
+
+protected:
+    void addGold(int val);
+    void changeHP(int val);
 private:
     bool hasMovedThisTurn;
     int HP;
