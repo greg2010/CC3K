@@ -5,7 +5,7 @@
 class Item: public Subject{
 
 	public:
-		Item();
+		Item(std::pair<int,int>coords);
 };
 
 #endif

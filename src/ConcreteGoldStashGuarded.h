@@ -8,6 +8,7 @@ class ConcreteGoldStashGuarded: public GoldStash{
 	int value;
 	bool free = false;
 	public:
+		ConcreteGoldStashGuarded(std::pair<int,int> coords, int value);
 		void freeGold();
 		void taken(Player &p) override;
 		bool const isGuardianAlive();

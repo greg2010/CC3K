@@ -5,6 +5,7 @@
 class ConcreteWA: public PotAT{
 	int value;
 	public:
+		ConcreteWA(std::pair<int,int>coords);
 		int getAtk() override;
 };
 

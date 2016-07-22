@@ -6,6 +6,7 @@ class ConcreteBD : public PotDE {
 	int value;
 
 	public:
+		ConcreteBD(std::pair<int,int> coords);
 		int getDef();
 };
 

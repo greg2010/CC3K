@@ -1,5 +1,7 @@
 #include "PotDE.h"
 
+PotDE::PotDE(std::pair<int,int> coords):Potion{coords}{}
+
 void PotDE::taken(Player &p){
 	p.interact(*this);
 }
