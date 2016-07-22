@@ -13,6 +13,7 @@ class Potion: public Item {
 		virtual int getAtk() = 0;
 		virtual int getDef() = 0;
 		SubjectType getType();
+		void push(Potion &other);
 
 	protected:
 		std::shared_ptr<Potion> decPot;
