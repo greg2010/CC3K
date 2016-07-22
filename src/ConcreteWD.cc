@@ -1,5 +1,9 @@
 #include "ConcreteWD.h"
 
 int ConreteWE::getDef(){
-	return value;
+	if (decPot){
+		return value + decPot->getDef();
+	} else {
+		return value;
+	}
 }

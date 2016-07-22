@@ -1,5 +1,9 @@
 #include "ConcreteBA.h"
 
 int ConcreteBA::getAtk(){
-	return value;
+	if (decPot){
+		return value + decPot->getAtk();
+	} else {
+		return value ;
+	}
 }

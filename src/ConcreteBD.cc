@@ -1,5 +1,9 @@
 #include "ConcreteBD.h"
 
 int ConcreteBD::getDef(){
-	return value;
+	if (decPot){
+		return value + decPot->getDef();
+	} else {
+		return value;
+	}
 }
