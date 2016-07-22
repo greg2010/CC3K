@@ -30,7 +30,37 @@ std::pair<int, int> Generator::generateLocation() {
     // do magic
 }
 
+void Generator::generatePotion(std::pair<int,int> coords){
+	int rand = RNG.getRandom(6);
 
+	if (rand == 0){
+		ConcreteRH(coords);
+	} else if (rand == 1){
+		ConcretePH(coords);
+	} else if (rand == 2){
+		ConcreteBA(coords);
+	} else if (rand == 3){
+		ConcreteWA(coords);
+	} else if (rand == 4){
+		ConcreteBD(coords);
+	} else {
+		ConcreteWD(coords);
+	}
+}
+
+bool Generator::generateGold(std::pair<int,int> coords){
+	int rand = RNG.getRandom(8);
+
+	if (rand >= 0 and rand <= 4){
+		ConcreteGoldStashGNormal(coords, 1);
+	} else if (rand == 5){
+		ConcreteGoldStashGuarded(coords);
+		// somehow check for a valid location for dragon
+		ConcreteDragon();
+	} else {
+		ConcreteGoldStashNormal(coords, 2);
+	}
+}
 
 
 
