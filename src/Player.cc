@@ -22,7 +22,7 @@ unsigned int Player::getDefence() {
 }
 
 
-void Player::pushPotion(std::shared_ptr<Potion> pot) {
+void Player::pushPotion(Potion &pot) {
     if (potDec) {
         potDec->push(pot);
     } else {
@@ -30,39 +30,39 @@ void Player::pushPotion(std::shared_ptr<Potion> pot) {
     }
 }
 
-void Player::interact(std::shared_ptr<ConcreteGoldStashNormal> item) {
+void Player::interact(ConcreteGoldStashNormal &item) {
     this->doInteract(item);
     item->remove();
 }
 
-void Player::interact(std::shared_ptr<ConcreteGoldStashGuarded> item) {
+void Player::interact(ConcreteGoldStashGuarded &item) {
     if (!item->isGuardianAlive()) {
         this->doInteract(item);
         item->remove();
     }
 }
 
-void Player::interact(std::shared_ptr<Potion> item) {
+void Player::interact(Potion &item) {
     this->pushPotion(item);
 }
 
-void Player::interact(std::shared_ptr<PotHP> hpPot) {
+void Player::interact(PotHP &hpPot) {
     this->doInteract(hpPot);
 }
 
-void Player::interact(std::shared_ptr<ConcreteStairway> item) {
+void Player::interact(ConcreteStairway &item) {
     // Maybe handle in Floor?
 }
 
-void Player::doInteract(std::shared_ptr<ConcreteGoldStashNormal> item) {
+void Player::doInteract(ConcreteGoldStashNormal &item) {
     this->addGold(item->getValue());
 }
 
-void Player::doInteract(std::shared_ptr<ConcreteGoldStashGuarded> item) {
+void Player::doInteract(ConcreteGoldStashGuarded &item) {
     this->addGold(item->getValue());
 }
 
-void Player::doInteract(std::shared_ptr<PotHP> hpPot) {
+void Player::doInteract(PotHP &hpPot) {
     this->changeHP(hpPot->getHP);
 }
 

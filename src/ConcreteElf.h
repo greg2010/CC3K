@@ -16,7 +16,7 @@ public:
     virtual unsigned int getDefence();
 
 protected:
-    virtual void doInteract(std::shared_ptr<PotHP> hpPot);
+    virtual void doInteract(PotHP &hpPot);
 };
 
 

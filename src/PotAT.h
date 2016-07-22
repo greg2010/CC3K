@@ -4,7 +4,7 @@
 
 class Player;
 
-class PotAt: public Potion{
+class PotAT: public Potion{
 
 	public:
 		void taken(Player &p) override;

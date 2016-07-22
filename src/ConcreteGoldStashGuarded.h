@@ -1,6 +1,6 @@
 #ifndef _CGSG_
 #define _CGSG_
-#include "GoldStash"
+#include "GoldStash.h"
 
 class Player;
 
@@ -11,6 +11,7 @@ class ConcreteGoldStashGuarded: public GoldStash{
 		void freeGold();
 		void taken(Player &p) override;
 		bool const isGuardianAlive();
+		int getGoldValue();
 };
 
 #endif

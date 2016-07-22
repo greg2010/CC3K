@@ -4,7 +4,7 @@
 
 #include "Character.h"
 
-class Enemy : Character {
+class Enemy : public Character {
 public:
     Enemy(int HP, int atk, int def, std::pair<int,int> coords);
     void doTurn();

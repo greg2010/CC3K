@@ -1,5 +1,5 @@
 #include "GoldStash.h"
 
-SubjectType GoldStash::getType(){
+SubjectType GoldStash::getType() {
 	return SubjectType::Gold;
-
+}

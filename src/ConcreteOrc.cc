@@ -4,10 +4,10 @@
 
 ConcreteOrc::ConcreteOrc(std::pair<int,int> coords) : Player{defaultHP, defaultAtk, defaultDef, coords} { }
 
-void ConcreteOrc::doInteract(std::shared_ptr<ConcreteGoldStashNormal> item) {
+void ConcreteOrc::doInteract(ConcreteGoldStashNormal &item) {
     this->addGold(item->getValue() * goldMultiplier);
 }
 
-void ConcreteOrc::doInteract(std::shared_ptr<ConcreteGoldStashGuarded> item) {
+void ConcreteOrc::doInteract(ConcreteGoldStashGuarded &item) {
     this->addGold(item->getValue() * goldMultiplier);
 }

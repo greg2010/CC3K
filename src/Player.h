@@ -3,6 +3,7 @@
 
 #include <memory>
 #include "Character.h"
+#include "Potion.h"
 
 class ConcreteGoldStashNormal;
 class Potion;
@@ -13,11 +14,11 @@ class ConcreteStairway;
 class Player : public Character {
 public:
     Player(int HP, int atk, int def, std::pair<int,int> coords);
-    void interact(std::shared_ptr<ConcreteGoldStashNormal> item);
-    void interact(std::shared_ptr<ConcreteGoldStashGuarded> item);
-    void interact(std::shared_ptr<Potion> item);
-    void interact(std::shared_ptr<PotHP> hpPot);
-    void interact(std::shared_ptr<ConcreteStairway> item);
+    void interact(ConcreteGoldStashNormal &item);
+    void interact(ConcreteGoldStashGuarded &item);
+    void interact(Potion &item);
+    void interact(PotHP &hpPot);
+    void interact(ConcreteStairway &item);
 
     SubjectType getType();
 
@@ -26,12 +27,12 @@ public:
     virtual unsigned int getAttack();
     virtual unsigned int getDefence();
 
-    void pushPotion(std::shared_ptr<Potion> pot); // Adds potion as decorator
+    void pushPotion(Potion &pot); // Adds potion as decorator
 protected:
-    virtual void doInteract(std::shared_ptr<ConcreteGoldStashNormal> item);
-    virtual void doInteract(std::shared_ptr<ConcreteGoldStashGuarded> item);
+    virtual void doInteract(ConcreteGoldStashNormal &item);
+    virtual void doInteract(ConcreteGoldStashGuarded &item);
 
-    virtual void doInteract(std::shared_ptr<PotHP> hpPot);
+    virtual void doInteract(PotHP &hpPot);
 
     unsigned int getPotAttack();
     unsigned int getPotDefence();

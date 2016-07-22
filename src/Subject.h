@@ -32,10 +32,8 @@ public:
     virtual SubjectType getType() = 0;
     virtual bool isVisible();
     virtual void remove();
-    virtual ~Subject() = default;
 protected:
     std::pair<int,int> coords;
-    std::shared_ptr<Observer> getController();
 private:
     std::vector<std::shared_ptr<Observer>> observers;
     bool visible;

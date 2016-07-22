@@ -15,8 +15,8 @@ public:
     ConcreteDwarf(std::pair<int,int> coords);
 
 protected:
-    virtual void doInteract(std::shared_ptr<ConcreteGoldStashNormal> item);
-    virtual void doInteract(std::shared_ptr<ConcreteGoldStashGuarded> item);
+    virtual void doInteract(ConcreteGoldStashNormal &item);
+    virtual void doInteract(ConcreteGoldStashGuarded &item);
 };
 
 

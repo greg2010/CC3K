@@ -1,5 +1,5 @@
 #include "ConcreteBD.h"
 
-int ConcreteDE::getDef(){
+int ConcreteBD::getDef(){
 	return value;
 }

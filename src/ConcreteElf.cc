@@ -4,7 +4,7 @@
 
 ConcreteElf::ConcreteElf(std::pair<int,int> coords) : Player{defaultHP, defaultAtk, defaultDef, coords} { }
 
-void ConcreteElf::doInteract(std::shared_ptr<PotHP> hpPot) {
+void ConcreteElf::doInteract(PotHP &hpPot) {
     this->changeHP(abs(hpPot->getHP()));
 }
 
