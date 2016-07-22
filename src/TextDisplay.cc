@@ -1,5 +1,5 @@
 //
-//  TextDisplay.cpp
+//  TextDisplay.cc
 //  cc3k
 //
 //  Created by YoY on 2016-07-18.
@@ -9,7 +9,7 @@
 #include "TextDisplay.h"
 #include "Subject.h"
 
-TextDisplay::TextDisplay(int width, int height): w(width), h(height) {
+TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, int width, int height): pc(pc), currFloor(currFloor), w(width), h(height) {
     charMap[SubjectType::Player] = '@';
     charMap[SubjectType::Goblin] = 'N';
     charMap[SubjectType::Vampire] = 'V';
@@ -24,10 +24,46 @@ TextDisplay::TextDisplay(int width, int height): w(width), h(height) {
 }
 
 
-void notify(std::shared_ptr<Subject> sub) {
-    
+void Text::notify(std::shared_ptr<Subject> sub, bool off) {
+    if (off){
+        grid[sub->getCoordinates().first][sub->getCoordinates().second] = '.';
+    }
+    else {
+        grid[sub->getCoordinates().first][sub->getCoordinates().second] = charMap[sub->getType()];
+    }
 }
             
-void notify(std::shared_ptr<Item> item) {
-    
+void Text::notify(std::shared_ptr<Item> item), bool off) {
+    if (off){
+        grid[item->getCoordinates().first][item->getCoordinates().second] = '.';
+    }
+    else {
+        grid[item->getCoordinates().first][item->getCoordinates().second] = charMap[item->getType()];
+    }
+}
+
+friend void operator<<(std::ostream &out, const TextDisplay td) {
+    for(int i = 0; i < td.grid.size(); i++){
+        for(int j = 0; j < td.grid[i].size(); j++){
+            out<<td.grid[i][j];
+        }
+        out<<endl;
+    }
+    out<< "Race: " << td.pc->getType()
+    << " Gold: "<< td.pc->getGold()
+    << right << setw(td.grid[0].size()-27) << "Floor "<< td.currFloor << endl
+    << "HP: "<< td.pc->getHP() << endl
+    << "Atk: "<< td.pc->getAttack() << endl
+    << "Def: "<< td.pc->getDefense() << endl
+    << "Action: "<<endl;
+
+}
+void Text::drawLayout(istream &in) {
+    for (int row = 0; row < h; row++) {
+        for (int col = 0; col < w; col++) {
+            char c;
+            in >> std::noskipws >> c;
+            grid[row][col] = c;
+        }
+
 }
