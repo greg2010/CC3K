@@ -34,8 +34,8 @@ protected:
 
     virtual void doInteract(PotHP &hpPot);
 
-    unsigned int getPotAttack();
-    unsigned int getPotDefence();
+    int getPotAttack();
+    int getPotDefence();
 
 private:
     std::shared_ptr<Potion> potDec;

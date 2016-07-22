@@ -1,5 +1,6 @@
 #include "Player.h"
-#include "Potion.h"
+#include "ConcreteRH.h"
+#include "ConcretePH.h"
 
 #include "ConcreteGoldStashNormal.h"
 #include "ConcreteGoldStashGuarded.h"
@@ -26,7 +27,7 @@ void Player::pushPotion(Potion &pot) {
     if (potDec) {
         potDec->push(pot);
     } else {
-        potDec = pot;
+        potDec = std::static_pointer_cast<Potion>(pot.shared_from_this());
     }
 }
 
@@ -36,9 +37,9 @@ void Player::interact(ConcreteGoldStashNormal &item) {
 }
 
 void Player::interact(ConcreteGoldStashGuarded &item) {
-    if (!item->isGuardianAlive()) {
+    if (!item.isGuardianAlive()) {
         this->doInteract(item);
-        item->remove();
+        item.remove();
     }
 }
 
@@ -55,15 +56,15 @@ void Player::interact(ConcreteStairway &item) {
 }
 
 void Player::doInteract(ConcreteGoldStashNormal &item) {
-    this->addGold(item->getValue());
+    this->addGold(item.getGoldValue());
 }
 
 void Player::doInteract(ConcreteGoldStashGuarded &item) {
-    this->addGold(item->getValue());
+    this->addGold(item.getGoldValue());
 }
 
 void Player::doInteract(PotHP &hpPot) {
-    this->changeHP(hpPot->getHP);
+    this->changeHP(hpPot.getHP());
 }
 
 void Player::assignCoords(std::pair<int, int> coords) {
@@ -71,11 +72,11 @@ void Player::assignCoords(std::pair<int, int> coords) {
     notifyObservers();
 }
 
-unsigned int Player::getPotAttack() {
+int Player::getPotAttack() {
     return potDec->getAtk();
 }
 
-unsigned int Player::getPotDefence() {
-    potDec->getDef();
+int Player::getPotDefence() {
+    return potDec->getDef();
 }
 

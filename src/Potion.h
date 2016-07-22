@@ -4,7 +4,7 @@
 
 class Player;
 
-class Potion: public Item{
+class Potion: public Item {
 	public:
 		Potion();
 		virtual void taken(Player &p) = 0;
