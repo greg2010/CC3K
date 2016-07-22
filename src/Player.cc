@@ -1,8 +1,8 @@
-//
-// Created by greg2010 on 18/07/16.
-//
-
 #include "Player.h"
+#include "Potion.h"
+
+#include "ConcreteGoldStashNormal.h"
+#include "ConcreteGoldStashGuarded.h"
 
 
 SubjectType Player::getType() {
@@ -14,11 +14,11 @@ Player::Player(int HP, int atk, int def, std::pair<int,int> coords) : Character{
 }
 
 unsigned int Player::getAttack() {
-    return potDec ? Character::getAttack() + potDec->getAtk() : Character::getAttack();
+    return potDec ? Character::getAttack() + this->getPotAttack() : Character::getAttack();
 }
 
 unsigned int Player::getDefence() {
-    return potDec ? Character::getDefence() + potDec->getDef() : Character::getDefence();
+    return potDec ? Character::getDefence() + this->getPotDefence() : Character::getDefence();
 }
 
 
@@ -69,5 +69,13 @@ void Player::doInteract(std::shared_ptr<PotHP> hpPot) {
 void Player::assignCoords(std::pair<int, int> coords) {
     this->coords = coords;
     notifyObservers();
+}
+
+unsigned int Player::getPotAttack() {
+    return potDec->getAtk();
+}
+
+unsigned int Player::getPotDefence() {
+    potDec->getDef();
 }
 

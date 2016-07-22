@@ -33,6 +33,9 @@ protected:
 
     virtual void doInteract(std::shared_ptr<PotHP> hpPot);
 
+    unsigned int getPotAttack();
+    unsigned int getPotDefence();
+
 private:
     std::shared_ptr<Potion> potDec;
 };
