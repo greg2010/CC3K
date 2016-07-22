@@ -1,5 +1,5 @@
 //
-//  Observer.hpp
+//  Observer.h
 //  cc3k
 //
 //  Created by YoY on 2016-07-18.
@@ -16,4 +16,4 @@ public:
     virtual void Notify(Subject* sub) = 0;
     virtual ~Observer();
 };
-#endif /* Observer_hpp */
+#endif /* Observer_h */

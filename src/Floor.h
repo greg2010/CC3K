@@ -1,5 +1,5 @@
 //
-//  Floor.hpp
+//  Floor.h
 //  cc3k
 //
 //  Created by YoY on 2016-07-18.
@@ -16,13 +16,24 @@
 class Subject;
 class Player;
 class TextDisplay;
+enum class ObjectType {
+    Wall_h,
+    Wall_v,
+    Door,
+    Brige,
+    Space,
+    Cell
+};
 class Floor {
     std::vector<std::vector <std::shared_ptr<Subject> > > floorMap;  // row < col>
     std::shared_ptr<Player> player;
     std::shared_ptr<TextDisplay> td;
+    std::map<pair<int, int>, ObjectType > content;
 public:
-    void readLayout();
-    Floor(Player* player);
+    int currFloor;
+    const int cols = 75, rows = 25;
+    void readLayout(std::istream &in);
+    Floor(std::shared_ptr<Player> player, int currFloor);
     ~Floor();
     void notify(std::shared_ptr<Subject> s);
     void deleteSubject(std::shared_ptr<Subject> s);
@@ -30,4 +41,4 @@ public:
     bool move(std::string dir, std::shared_ptr<Subject> s);
 };
 
-#endif /* Floor_hpp */
+#endif /* Floor_h */

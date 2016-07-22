@@ -1,5 +1,5 @@
 //
-//  Layout.hpp
+//  Layout.h
 //  cc3k
 //
 //  Created by YoY on 2016-07-18.
@@ -18,4 +18,4 @@ public:
     
 };
 
-#endif /* Layout_hpp */
+#endif /* Layout_h */
