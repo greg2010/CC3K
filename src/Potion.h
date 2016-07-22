@@ -5,8 +5,6 @@
 class Player;
 
 class Potion: public Item{
-	Potion * decPot;
-
 	public:
 		Potion();
 		virtual void taken(Player &p) = 0;
@@ -14,7 +12,9 @@ class Potion: public Item{
 		virtual int getAtk() = 0;
 		virtual int getDef() = 0;
 		SubjectType getType();
-		
+
+protected:
+	std::shared_ptr<Potion> decPot;
 };
 
 

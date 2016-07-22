@@ -2,7 +2,7 @@
 #define _CONCRETEBD_
 #include "PotDE.h"
 
-class ConcreteBD{
+class ConcreteBD : public PotDE {
 	int value;
 
 	public:

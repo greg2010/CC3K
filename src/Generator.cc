@@ -3,6 +3,13 @@
 //
 
 #include "Generator.h"
+#include "ConcreteRH.h"
+#include "ConcretePH.h"
+#include "ConcreteBA.h"
+#include "ConcreteWA.h"
+#include "ConcreteBD.h"
+#include "ConcreteWD.h"
+#include "ConcreteDragon.h"
 
 Generator::Generator(std::shared_ptr<Floor> floor,
                      std::shared_ptr<Observer> display,
@@ -52,7 +59,7 @@ bool Generator::generateGold(std::pair<int,int> coords){
 	int rand = RNG.getRandom(8);
 
 	if (rand >= 0 and rand <= 4){
-		ConcreteGoldStashGNormal(coords, 1);
+		ConcreteGoldStashNormal(coords, 1);
 	} else if (rand == 5){
 		ConcreteGoldStashGuarded(coords);
 		// somehow check for a valid location for dragon

@@ -1,6 +1,6 @@
 #include "ConcreteMerchant.h"
 
-ConcreteMerchant::hostile = false;
+bool ConcreteMerchant::hostile = false;
 
 ConcreteMerchant::ConcreteMerchant(std::pair<int,int> coords) : Enemy{defaultHP, defaultAtk, defaultDef, coords} { }
 

@@ -1,6 +1,6 @@
 #include "ConcreteStairway.h"
 using namespace std;
 
-SubjectType Concrete::StairwayC(){
+SubjectType ConcreteStairway::getType(){
 	return SubjectType::Stairway;
 }
