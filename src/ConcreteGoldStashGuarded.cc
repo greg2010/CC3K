@@ -1,6 +1,8 @@
 #include "ConcreteGoldStashGuarded.h"
 #include "Player.h"
 
+ConcreteGoldStashGuarded::ConcreteGoldStashGuarded(std::pair<int,int> coords, int value): GoldStash{coords}, value{value}{}
+
 void ConcreteGoldStashGuarded::freeGold(){
 	free = true;
 }

@@ -6,6 +6,7 @@ class ConcreteWD : public PotDE{
 	int value;
 
 	public:
+		ConcreteWD(std::pair<int,int> coords);
 		int getDef();
 };
 
