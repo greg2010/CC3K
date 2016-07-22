@@ -1,5 +1,7 @@
 
 #include "ConcreteDwarf.h"
+#include "ConcreteGoldStashNormal.h"
+#include "ConcreteGoldStashGuarded.h"
 
 ConcreteDwarf::ConcreteDwarf(std::pair<int,int> coords) : Player{defaultHP, defaultAtk, defaultDef, coords} { }
 

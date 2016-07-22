@@ -1,4 +1,6 @@
 #include "ConcreteOrc.h"
+#include "ConcreteGoldStashNormal.h"
+#include "ConcreteGoldStashGuarded.h"
 
 ConcreteOrc::ConcreteOrc(std::pair<int,int> coords) : Player{defaultHP, defaultAtk, defaultDef, coords} { }
 

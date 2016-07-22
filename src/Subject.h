@@ -21,7 +21,7 @@ enum class SubjectType {
 };
 
 
-class Subject {
+class Subject : public std::enable_shared_from_this<Subject> {
 public:
     Subject (int x, int y);
     Subject(std::pair<int,int> coords);

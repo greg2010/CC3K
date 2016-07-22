@@ -10,10 +10,12 @@
 #define Observer_h
 
 #include <stdio.h>
+#include <memory>
+
 class Subject;
 class Observer{
 public:
-    virtual void Notify(Subject* sub) = 0;
+    virtual void notify(std::shared_ptr<Subject> sub) = 0;
     virtual ~Observer();
 };
 #endif /* Observer_hpp */

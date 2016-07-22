@@ -3,7 +3,7 @@
 
 Subject::Subject(int x, int y) : coords{std::make_pair(x,y)}, visible{true} { }
 
-Subject::Subject(std::pair<int, int> coords) : coords{coords} { }
+Subject::Subject(std::pair<int, int> coords) : coords{coords}, visible{true} { }
 
 void Subject::attach(std::shared_ptr<Observer> observer) {
     for (auto ob : observers) {
@@ -39,15 +39,6 @@ void Subject::remove() {
 
 void Subject::notifyObservers() {
     for (auto ob : observers) {
-        ob->notify(*this);
+        ob->notify(shared_from_this());
     }
-}
-
-std::shared_ptr<Observer> Subject::getController() {
-    for (auto ob : observers) {
-        if (ob->obsType() == ObserverType::Controller) {
-            return ob;
-        }
-    }
-    return nullptr;
 }
