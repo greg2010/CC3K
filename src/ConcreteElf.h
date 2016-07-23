@@ -4,10 +4,6 @@
 
 #include <Player.h>
 
-const int defaultHP = 140;
-const int defaultAtk = 30;
-const int defaultDef = 10;
-
 class ConcreteElf : public Player {
 public:
     ConcreteElf(std::pair<int,int> coords);

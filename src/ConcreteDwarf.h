@@ -4,12 +4,6 @@
 
 #include <Player.h>
 
-const int defaultHP = 100;
-const int defaultAtk = 20;
-const int defaultDef = 30;
-
-const int goldMultiplier = 2;
-
 class ConcreteDwarf : public Player {
 public:
     ConcreteDwarf(std::pair<int,int> coords);
