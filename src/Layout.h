@@ -5,7 +5,7 @@
 
 class Layout {
 public:
-    virtual void addCoord(std::pair<int,int> wallCoord) = 0;
+    virtual void addCoord(std::pair<int,int> coord) = 0;
     virtual std::vector<std::pair<int,int>> getCoords() = 0;
 };
 
