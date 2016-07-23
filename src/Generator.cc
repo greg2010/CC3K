@@ -3,22 +3,20 @@
 //
 
 #include "Generator.h"
-#include "ConcreteRH.h"
-#include "ConcretePH.h"
-#include "ConcreteBA.h"
-#include "ConcreteWA.h"
-#include "ConcreteBD.h"
-#include "ConcreteWD.h"
-#include "ConcreteDragon.h"
-#include "ConcreteGoldStashNormal.h"
-#include "ConcreteGoldStashGuarded.h"
-#include "ConcreteDragon.h"
 
 Generator::Generator(std::shared_ptr<Floor> floor,
                      std::shared_ptr<Observer> display,
                      std::shared_ptr<Player> player, unsigned int seed) : FloorPtr{floor},
                                                                           PlayerPtr{player},
-                                                                          RNG{RandGen::getInstance(seed)} { }
+                                                                          RNG{RandGen::getInstance(seed)}{
+									  
+										  std::vector<ConcreteChamber> chambers = FloorPtr->getChambers();
+										  
+										  for (auto ch : chambers){
+											  rooms.push_back(ch.getCellCoords());
+										  }
+										
+									  }
 
 void Generator::generate() {
     std::pair<int,int> playerCoords = generateLocation();
@@ -38,23 +36,31 @@ void Generator::generate() {
 
 std::pair<int, int> Generator::generateLocation() {
     // do magic
+    int rand = RNG.getRandom(5);
+
+    std::vector<std::vector<std::pair<int,int>>> emptyCells = rooms[rand]
+    int size = emptyCells.size();
+    int location = RNG.getRandom(size);
+    std::pair<int,int> val = rooms[rand][location];
+    rooms[rand].erase(location);
+    return val;
 }
 
 void Generator::generatePotion(std::pair<int,int> coords){
 	int rand = RNG.getRandom(6);
 
 	if (rand == 0){
-		ConcreteRH{coords};
+		ConcreteRH(coords);
 	} else if (rand == 1){
-        ConcretePH{coords};
+		ConcretePH(coords);
 	} else if (rand == 2){
-		ConcreteBA{coords};
+		ConcreteBA(coords);
 	} else if (rand == 3){
-		ConcreteWA{coords};
+		ConcreteWA(coords);
 	} else if (rand == 4){
-		ConcreteBD{coords};
+		ConcreteBD(coords);
 	} else {
-		ConcreteWD{coords};
+		ConcreteWD(coords);
 	}
 }
 
@@ -62,13 +68,31 @@ bool Generator::generateGold(std::pair<int,int> coords){
 	int rand = RNG.getRandom(8);
 
 	if (rand >= 0 and rand <= 4){
-		ConcreteGoldStashNormal{coords, 1};
+		ConcreteGoldStashGNormal(coords, 1);
 	} else if (rand == 5){
-		ConcreteGoldStashGuarded{coords, 6};
+		ConcreteGoldStashGuarded(coords);
 		// somehow check for a valid location for dragon
-		ConcreteDragon{};
+		ConcreteDragon();
 	} else {
-		ConcreteGoldStashNormal{coords, 2};
+		ConcreteGoldStashNormal(coords, 2);
+	}
+}
+
+void Generator::generateEnemy(std::pair<int, int> coords){
+	int rand = RNG.getRandom(18);
+
+	if (rand >= 0 and rand <= 3){
+		ConcreteWerewolf(coords);
+	} else if (rand >= 4 and rand <= 6){
+		ConcreteVampire(coords);
+	} else if (rand >= 7 and rand <= 11){
+		ConcreteGoblin(coords);
+	} else if (rand >= 12 and rand <= 13){
+		ConcreteTroll(coords);
+	} else if (rand >= 14 and rand <= 15){
+		ConcretePhoenix(coords);
+	} else {
+		ConcreteMerchant(coords);
 	}
 }
 
