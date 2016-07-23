@@ -1,9 +1,22 @@
-//
-// Created by greg2010 on 19/07/16.
-//
-
+#include <memory>
+#include "Floor.h"
 #include "Generator.h"
 #include "ConcreteChamber.h"
+#include "ConcreteRH.h"
+#include "ConcretePH.h"
+#include "ConcreteBA.h"
+#include "ConcreteWA.h"
+#include "ConcreteBD.h"
+#include "ConcreteWD.h"
+#include "ConcreteDragon.h"
+#include "ConcreteWerewolf.h"
+#include "ConcreteVampire.h"
+#include "ConcreteGoblin.h"
+#include "ConcreteTroll.h"
+#include "ConcreteGoldStashNormal.h"
+#include "ConcreteGoldStashGuarded.h"
+#include "ConcretePhoenix.h"
+#include "ConcreteMerchant.h"
 
 Generator::Generator(std::shared_ptr<Floor> floor,
                      std::shared_ptr<Observer> display,
@@ -11,10 +24,10 @@ Generator::Generator(std::shared_ptr<Floor> floor,
                                                                           PlayerPtr{player},
                                                                           RNG{RandGen::getInstance(seed)}{
 									  
-										  std::vector<ConcreteChamber> chambers = FloorPtr->getChambers();
+										  std::vector<std::shared_ptr<ConcreteChamber>> chambers = FloorPtr->getChamber();
 										  
 										  for (auto ch : chambers){
-											  rooms.push_back(ch.getCellCoords());
+											  rooms.push_back(ch->getCellCoords());
 										  }
 										
 									  }
@@ -35,32 +48,28 @@ void Generator::generate() {
     }
 }
 
-std::pair<int, int> Generator::generateLocation() {
-    // do magic
-    int rand = RNG.getRandom(rooms.size());
-
-    std::vector<std::pair<int,int>> emptyCells = rooms[rand];
-    int location = RNG.getRandom(emptyCells.size());
-    std::pair<int,int> val = rooms[rand][location];
-    rooms[rand].erase(rooms[rand].begin() + location);
-    return val;
-}
-
 void Generator::generatePotion(std::pair<int,int> coords){
 	int rand = RNG.getRandom(6);
 
 	if (rand == 0){
-		ConcreteRH(coords);
+        std::shared_ptr<ConcreteRH> pot = std::make_shared<ConcreteRH>(coords);
+        pot->attach(FloorPtr);
 	} else if (rand == 1){
-		ConcretePH(coords);
+        std::shared_ptr<ConcretePH> pot = std::make_shared<ConcretePH>(coords);
+        //pot->attach(std::dynamic_pointer_cast<Observer>(FloorPtr));
+        pot->attach(FloorPtr);
 	} else if (rand == 2){
-		ConcreteBA(coords);
+        std::shared_ptr<ConcreteBA> pot = std::make_shared<ConcreteBA>(coords);
+        pot->attach(FloorPtr);
 	} else if (rand == 3){
-		ConcreteWA(coords);
+        std::shared_ptr<ConcreteWA> pot = std::make_shared<ConcreteWA>(coords);
+        pot->attach(FloorPtr);
 	} else if (rand == 4){
-		ConcreteBD(coords);
+        std::shared_ptr<ConcreteBD> pot = std::make_shared<ConcreteBD>(coords);
+        pot->attach(FloorPtr);
 	} else {
-		ConcreteWD(coords);
+        std::shared_ptr<ConcreteWD> pot = std::make_shared<ConcreteWD>(coords);
+        pot->attach(FloorPtr);
 	}
 }
 
@@ -70,29 +79,36 @@ bool Generator::generateGold(std::pair<int,int> coords){
 	if (rand >= 0 and rand <= 4){
 		ConcreteGoldStashNormal(coords, 1);
 	} else if (rand == 5){
-		ConcreteGoldStashGuarded(coords);
+		ConcreteGoldStashGuarded(coords, 6);
 		// somehow check for a valid location for dragon
-		ConcreteDragon();
+		// TODO: ConcreteDragon();
 	} else {
 		ConcreteGoldStashNormal(coords, 2);
 	}
+    return true;
 }
 
 void Generator::generateEnemy(std::pair<int, int> coords){
 	int rand = RNG.getRandom(18);
 
 	if (rand >= 0 and rand <= 3){
-		ConcreteWerewolf(coords);
+        std::shared_ptr<ConcreteWerewolf> enemy = std::make_shared<ConcreteWerewolf>(coords);
+        enemy->attach(FloorPtr);
 	} else if (rand >= 4 and rand <= 6){
-		ConcreteVampire(coords);
+        std::shared_ptr<ConcreteVampire> enemy = std::make_shared<ConcreteVampire>(coords);
+        enemy->attach(FloorPtr);
 	} else if (rand >= 7 and rand <= 11){
-		ConcreteGoblin(coords);
+        std::shared_ptr<ConcreteGoblin> enemy = std::make_shared<ConcreteGoblin>(coords);
+        enemy->attach(FloorPtr);
 	} else if (rand >= 12 and rand <= 13){
-		ConcreteTroll(coords);
+        std::shared_ptr<ConcreteTroll> enemy = std::make_shared<ConcreteTroll>(coords);
+        enemy->attach(FloorPtr);
 	} else if (rand >= 14 and rand <= 15){
-		ConcretePhoenix(coords);
+        std::shared_ptr<ConcretePhoenix> enemy = std::make_shared<ConcretePhoenix>(coords);
+        enemy->attach(FloorPtr);
 	} else {
-		ConcreteMerchant(coords);
+        std::shared_ptr<ConcreteMerchant> enemy = std::make_shared<ConcreteMerchant>(coords);
+        enemy->attach(FloorPtr);
 	}
 }
 
@@ -114,15 +130,4 @@ std::pair<int, int> Generator::generateLocation(bool player, bool skip) {
 	rooms[rand].erase(rooms[rand].begin() + location);
 	return val;
 }
-
-std::pair<int, int> Generator::generateLocation(std::pair<int, int> exclude) {
-	int rand = RNG.getRandom(rooms.size());
-
-	std::vector<std::pair<int,int>> emptyCells = rooms[rand];
-	int location = RNG.getRandom(emptyCells.size());
-	std::pair<int,int> val = rooms[rand][location];
-	rooms[rand].erase(rooms[rand].begin() + location);
-	return val;
-}
-
 

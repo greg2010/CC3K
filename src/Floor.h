@@ -10,8 +10,13 @@
 #define Floor_h
 
 #include <stdio.h>
+#include <map>
+#include <memory>
 #include <vector>
 #include <string>
+
+#include "ConcreteChamber.h"
+#include "Observer.h"
 
 class Subject;
 class Player;
@@ -24,12 +29,12 @@ enum class ObjectType {
     Space,
     Cell
 };
-class Floor {
+class Floor : public Observer {
     std::vector<std::vector <std::shared_ptr<Subject> > > floorMap;  // row < col>
     std::shared_ptr<Player> player;
     std::shared_ptr<TextDisplay> td;
-    std::map<pair<int, int>, ObjectType > content;
-    std::vector<shared_ptr<Chamber> > chambers;
+    std::map<std::pair<int, int>, ObjectType > content;
+    std::vector<std::shared_ptr<ConcreteChamber> > chambers;
 public:
     int currFloor;
     const int cols = 75, rows = 25;
@@ -42,7 +47,7 @@ public:
     bool move(std::string dir, std::shared_ptr<Subject> s);
     bool searchInChambers(int row, int col);
     void createNewChamber(int row, int col);
-    std::vector<std::shared_ptr<Chamber> > getChamber();
+    std::vector<std::shared_ptr<ConcreteChamber> > getChamber();
 };
 
 #endif /* Floor_h */

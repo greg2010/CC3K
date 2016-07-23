@@ -1,3 +1,4 @@
+#include "Player.h"
 #include "PotDE.h"
 
 PotDE::PotDE(std::pair<int,int> coords):Potion{coords}{}

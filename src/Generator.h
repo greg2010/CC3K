@@ -29,10 +29,8 @@ private:
 
     void generatePotion(std::pair<int, int> coords);
     bool generateGold(std::pair<int, int> coords);
-    void generateGoldGuarded (std::pair<int, int> goldPosn, std::pair<int, int> guardianPosn);
     void generateEnemy(std::pair<int, int> coords);
-    std::pair<int, int> generateLocation();
-    std::pair<int, int> generateLocation(int &room);
+    std::pair<int, int> generateLocation(bool player, bool skip);
     //std::pair<int, int> generateLocation(std::pair<int, int> exclude);
 };
 

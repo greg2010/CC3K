@@ -1,17 +1,8 @@
-//
-//  Floor.cc
-//  cc3k
-//
-//  Created by YoY on 2016-07-18.
-//  Copyright © 2016 YoY. All rights reserved.
-//
-
 #include "Floor.h"
 #include "Generator.h"
 #include "TextDisplay.h"
 #include "Game.h"
 #include <vector>
-#include <istringstream>
 #include <string>
 #include <algorithm>
 
@@ -62,7 +53,7 @@ void Floor::readLayout(istream &in){
     }
         int coordRow = 0;
         int coordCol = 0;
-        for (auto objType : contents) {
+        for (auto objType : content) {
             if ((objType == ObjectType::Wall_v || obj == ObjectType::Wall_h) && !this->searchInChambers(coordRow, coordCol){
                 this->createNewChamber(coordRow, coordCol);
             }

@@ -3,10 +3,6 @@
 
 #include "Enemy.h"
 
-const int defaultHP = 30;
-const int defaultAtk = 70;
-const int defaultDef = 5;
-
 class ConcreteMerchant : public Enemy {
     ConcreteMerchant(std::pair<int,int> coords);
     virtual bool isMoving();

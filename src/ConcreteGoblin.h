@@ -7,14 +7,11 @@
 
 #include "Enemy.h"
 
-const int defaultHP = 70;
-const int defaultAtk = 5;
-const int defaultDef = 10;
-
 class ConcreteGoblin : public Enemy {
-
+public:
     ConcreteGoblin(std::pair<int,int> coords);
 
+    virtual SubjectType getType();
 };
 
 

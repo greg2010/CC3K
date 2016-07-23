@@ -13,22 +13,11 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include "Player.h"
 
 class Item;
 class Subject;
-enum class SubjectType {
-    Player,
-    Vampire,
-    Werewolf,
-    Troll,
-    Goblin,
-    Dragon,
-    Phoenix,
-    Merchant,
-    Stairway,
-    Potion,
-    Gold
-};
+
 class TextDisplay{
     std::map<SubjectType, char> charMap;
     std::vector<std::vector <char> > grid;

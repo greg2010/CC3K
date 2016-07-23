@@ -3,13 +3,11 @@
 
 #include "Enemy.h"
 
-const int defaultHP = 50;
-const int defaultAtk = 25;
-const int defaultDef = 25;
-
 class ConcreteVampire : public Enemy {
-
+public:
     ConcreteVampire(std::pair<int,int> coords);
+
+    virtual SubjectType getType();
 
 };
 

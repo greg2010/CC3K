@@ -17,8 +17,8 @@
 using namespace std;
 
 Game::Game(){
-    player = generatePlayer();
-    currFloor = 1;
+    shared_ptr<Player> player = generatePlayer();
+    int currFloor = 1;
     floor = shared_ptr<Floor>(player, currFloor);
 }
 

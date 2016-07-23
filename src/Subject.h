@@ -11,6 +11,7 @@ enum class SubjectType {
     Player,
     Goblin,
     Vampire,
+    Werewolf,
     Troll,
     Merchant,
     Dragon,

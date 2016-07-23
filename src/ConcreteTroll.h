@@ -7,14 +7,11 @@
 
 #include "Enemy.h"
 
-const int defaultHP = 120;
-const int defaultAtk = 25;
-const int defaultDef = 15;
-
 class ConcreteTroll : public Enemy {
-
+public:
     ConcreteTroll(std::pair<int,int> coords);
 
+    virtual SubjectType getType();
 };
 
 #endif //A05_CONCRETETROLL_H

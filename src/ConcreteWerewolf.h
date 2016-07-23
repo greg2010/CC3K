@@ -3,14 +3,11 @@
 
 #include "Enemy.h"
 
-const int defaultHP = 120;
-const int defaultAtk = 30;
-const int defaultDef = 5;
-
 class ConcreteWerewolf : public Enemy {
-
+public:
     ConcreteWerewolf(std::pair<int,int> coords);
 
+    virtual SubjectType getType();
 };
 
 

@@ -33,7 +33,7 @@ void Player::pushPotion(Potion &pot) {
 
 void Player::interact(ConcreteGoldStashNormal &item) {
     this->doInteract(item);
-    item->remove();
+    item.remove();
 }
 
 void Player::interact(ConcreteGoldStashGuarded &item) {

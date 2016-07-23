@@ -1,8 +1,8 @@
+#include "Player.h"
 #include "PotHP.h"
 using namespace std;
 
-PotHP::PotHP(std::pair<int,int> coords):Potion{coors}{}
-
+PotHP::PotHP(std::pair<int,int> coords):Potion{coords}{}
 void PotHP::taken(Player &p){
 	p.interact(*this);
 }
