@@ -7,6 +7,7 @@
 
 
 #include <memory>
+#include <string>
 #include "Observer.h"
 #include "Player.h"
 #include "RandGen.h"
@@ -22,16 +23,17 @@ private:
     std::shared_ptr<Player> PlayerPtr;
     RandGen &RNG;
 
-    std::vector<std::vector<std::pair<int,int>>> rooms;
+    int playerRoom;
 
-    void parseStringToMap(std::string map); // parses map into vector of vector rooms
+    std::vector<std::vector<std::pair<int,int>>> rooms;
 
     void generatePotion(std::pair<int, int> coords);
     bool generateGold(std::pair<int, int> coords);
     void generateGoldGuarded (std::pair<int, int> goldPosn, std::pair<int, int> guardianPosn);
     void generateEnemy(std::pair<int, int> coords);
     std::pair<int, int> generateLocation();
-    std::pair<int, int> generateLocation(std::pair<int, int> exclude);
+    std::pair<int, int> generateLocation(int &room);
+    //std::pair<int, int> generateLocation(std::pair<int, int> exclude);
 };
 
 
