@@ -24,7 +24,7 @@ TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, int width, i
 }
 
 
-void Text::notify(std::shared_ptr<Subject> sub, bool off) {
+void TextDisplay::notify(std::shared_ptr<Subject> sub, bool off) {
     if (off){
         grid[sub->getCoordinates().first][sub->getCoordinates().second] = '.';
     }
@@ -33,12 +33,23 @@ void Text::notify(std::shared_ptr<Subject> sub, bool off) {
     }
 }
             
-void Text::notify(std::shared_ptr<Item> item), bool off) {
+void TextDisplay::notify(std::shared_ptr<Item> item), bool off) {
     if (off){
         grid[item->getCoordinates().first][item->getCoordinates().second] = '.';
     }
     else {
         grid[item->getCoordinates().first][item->getCoordinates().second] = charMap[item->getType()];
+    }
+}
+
+void TextDisplay::drawLayout(istream &in) {
+    for (int row = 0; row < h; row++) {
+        for (int col = 0; col < w; col++) {
+            char c;
+            in >> std::noskipws >> c;
+            grid[row][col] = c;
+        }
+        
     }
 }
 
@@ -58,12 +69,4 @@ friend void operator<<(std::ostream &out, const TextDisplay td) {
     << "Action: "<<endl;
 
 }
-void Text::drawLayout(istream &in) {
-    for (int row = 0; row < h; row++) {
-        for (int col = 0; col < w; col++) {
-            char c;
-            in >> std::noskipws >> c;
-            grid[row][col] = c;
-        }
 
-}

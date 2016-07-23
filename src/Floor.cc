@@ -168,7 +168,6 @@ void Floor::createNewChamber(int row, int col) {
     int newRow = row, newCol = col;
     do {
         newChamber.addCoords(pair<int,int>{newRow, newCol});
-        char dir;
         if (content[pair<int,int>{newRow, newCol + 1}] == ObjectType::Wall_h ||
             content[pair<int,int>{newRow, newCol + 1}] == ObjectType::Wall_v) {
             ++newCol;
