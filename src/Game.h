@@ -9,20 +9,23 @@
 
 #ifndef Game_h
 #define Game_h
-#include <iostream>
+
+#include <memory>
+#include <string>
 
 class Player;
 class Floor;
 class Subject;
 class Game {
-    Player * generatePlayer();
+    std::shared_ptr<Player> generatePlayer();
     int currFloor;
-    Floor* floor;
-    Player* player;
+    std::shared_ptr<Floor> floor;
+    std::shared_ptr<Player> player;
+    std::string playerType;
 public:
     Game();
     ~Game();
-    Floor * getCurrentFloor();
+    std::shared_ptr<Floor> getCurrentFloor();
     bool movePlayer (std::string dir);
     void generateNextFloor();
 };

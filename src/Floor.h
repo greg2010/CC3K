@@ -13,13 +13,16 @@
 #include <memory>
 #include <vector>
 #include <string>
-
-#include "ConcreteChamber.h"
 #include "Observer.h"
+
 
 class Subject;
 class Player;
 class TextDisplay;
+class Observer;
+class ConcreteChamber;
+class Generator;
+class Game;
 enum class ObjectType {
     Wall_h,
     Wall_v,
@@ -36,11 +39,14 @@ class Floor : public Observer {
     std::vector<std::shared_ptr<ConcreteChamber> > chambers;
     int hp, atk, def, gold;
     std::pair<int, int> coord;
+    std::shared_ptr<Generator> gen;
+    std::shared_ptr<Game> game;
+    std::string playerType;
 public:
     int currFloor;
     const int cols = 75, rows = 25;
     void readLayout(std::istream &in);
-    Floor(std::shared_ptr<Player> player, int currFloor);
+    Floor(std::shared_ptr<Player> player, int currFloor, std::string playerType);
     ~Floor();
     void notify(std::shared_ptr<Subject> s);
     void deleteSubject(std::shared_ptr<Subject> s);

@@ -24,7 +24,7 @@ using namespace std;
 Game::Game(){
     shared_ptr<Player> player = generatePlayer();
     int currFloor = 1;
-    shared_ptr<Floor> floor = make_shared<Floor>(player, currFloor);
+    shared_ptr<Floor> floor = make_shared<Floor>(player, currFloor, playerType);
 }
 
 Game::~Game(){
@@ -33,21 +33,31 @@ Game::~Game(){
 }
 
 shared_ptr<Player> Game::generatePlayer(){
-    char playerType;
-    string input;
+    char playerInput;
+    string input, playerType;
     getline(cin, input);
     pair<int, int> coord = {-1, -1};
-    if (input.empty())  playerType = 'h';
-    switch (playerType) {
-        case 'h':   return make_shared<ConcreteHuman>(coord);
+    if (input.empty())  playerInput = 'h';
+    switch (playerInput) {
+        case 'h':
+            playerType = "Human";
+            return make_shared<ConcreteHuman>(coord);
             break;
-        case 'e':   return make_shared<ConcreteElf>(coord);
+        case 'e':
+            playerType = "Elf";
+            return make_shared<ConcreteElf>(coord);
             break;
-        case 'd':   return make_shared<ConcreteDwarf>(coord);
+        case 'd':
+            playerType = "Dwarf";
+            return make_shared<ConcreteDwarf>(coord);
             break;
-        case 'o':   return make_shared<ConcreteOrc>(coord);
+        case 'o':
+            playerType = "Orc";
+            return make_shared<ConcreteOrc>(coord);
             break;
-        default:    return make_shared<ConcreteHuman>(coord);
+        default:
+            playerType = "Human";
+            return make_shared<ConcreteHuman>(coord);
     }
     return nullptr;
 }
@@ -58,7 +68,7 @@ shared_ptr<Floor> Game::getCurrentFloor(){
 
 bool Game::movePlayer(string dir)
 {
-    floor->move(dir, player);
+    return floor->move(dir, player);
     
     //    pair<int, int> coor = player->getCoordinates();
     //    int i = 0;  // assume vector<subject*> [0] starts from left most conor and moving right

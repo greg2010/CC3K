@@ -8,8 +8,14 @@
 
 #include "TextDisplay.h"
 #include "Subject.h"
+#include "Player.h"
+#include "Observer.h"
 
-TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, int width, int height): pc(pc), currFloor(currFloor), w(width), h(height) {
+#include <iomanip>
+#include <memory>
+
+using namespace std;
+TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, string race, int width, int height): pc(pc), race(race), currFloor(currFloor), w(width), h(height) {
     charMap[SubjectType::Player] = '@';
     charMap[SubjectType::Goblin] = 'N';
     charMap[SubjectType::Vampire] = 'V';
@@ -24,7 +30,7 @@ TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, int width, i
 }
 
 
-void Text::notify(std::shared_ptr<Subject> sub, bool off) {
+void TextDisplay::notify(std::shared_ptr<Subject> sub, bool off) {
     if (off){
         grid[sub->getCoordinates().first][sub->getCoordinates().second] = '.';
     }
@@ -32,8 +38,8 @@ void Text::notify(std::shared_ptr<Subject> sub, bool off) {
         grid[sub->getCoordinates().first][sub->getCoordinates().second] = charMap[sub->getType()];
     }
 }
-            
-void Text::notify(std::shared_ptr<Item> item), bool off) {
+
+void TextDisplay::notify(std::shared_ptr<Item> item, bool off) {
     if (off){
         grid[item->getCoordinates().first][item->getCoordinates().second] = '.';
     }
@@ -42,28 +48,29 @@ void Text::notify(std::shared_ptr<Item> item), bool off) {
     }
 }
 
-friend void operator<<(std::ostream &out, const TextDisplay td) {
-    for(int i = 0; i < td.grid.size(); i++){
-        for(int j = 0; j < td.grid[i].size(); j++){
-            out<<td.grid[i][j];
+void operator<<(std::ostream &out, const shared_ptr<TextDisplay> td) {
+    for(int i = 0; i < td->grid.size(); i++){
+        for(int j = 0; j < td->grid[i].size(); j++){
+            out << td->grid[i][j];
         }
-        out<<endl;
+        out << endl;
     }
-    out<< "Race: " << td.pc->getType()
-    << " Gold: "<< td.pc->getGold()
-    << right << setw(td.grid[0].size()-27) << "Floor "<< td.currFloor << endl
-    << "HP: "<< td.pc->getHP() << endl
-    << "Atk: "<< td.pc->getAttack() << endl
-    << "Def: "<< td.pc->getDefense() << endl
+    
+    out << "Race: " << td->race
+    << " Gold: "<< td->pc->getGold()
+    << right << setw(td->grid[0].size()-27) << "Floor "<< td->currFloor << endl
+    << "HP: "<< td->pc->getHP() << endl
+    << "Atk: "<< td->pc->getAttack() << endl
+    << "Def: "<< td->pc->getDefence() << endl
     << "Action: "<<endl;
-
+    
 }
-void Text::drawLayout(istream &in) {
+void TextDisplay::drawLayout(istream &in) {
     for (int row = 0; row < h; row++) {
         for (int col = 0; col < w; col++) {
             char c;
             in >> std::noskipws >> c;
             grid[row][col] = c;
         }
-
+    }
 }
