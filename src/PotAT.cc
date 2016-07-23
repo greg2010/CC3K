@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "PotAt.h"
+#include "PotAT.h"
 using namespace std;
 
 PotAT::PotAT(std::pair<int,int> coords):Potion{coords}{}

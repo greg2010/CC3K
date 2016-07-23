@@ -12,8 +12,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
-
-#include "Observer.h"
+#include <memory>
 
 class Item;
 class Subject;
@@ -21,7 +20,7 @@ class Player;
 class Observer;
 enum class SubjectType;
 
-class TextDisplay : public Observer {
+class TextDisplay{
     std::map<SubjectType, char> charMap;
     std::vector<std::vector <char> > grid;
     std::string race;
