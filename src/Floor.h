@@ -29,6 +29,7 @@ class Floor {
     std::shared_ptr<Player> player;
     std::shared_ptr<TextDisplay> td;
     std::map<pair<int, int>, ObjectType > content;
+    std::vector<shared_ptr<Chamber> > chambers;
 public:
     int currFloor;
     const int cols = 75, rows = 25;
@@ -39,6 +40,9 @@ public:
     void deleteSubject(std::shared_ptr<Subject> s);
     std::vector<std::shared_ptr<Subject> > adjacent(std::shared_ptr<Subject> s);
     bool move(std::string dir, std::shared_ptr<Subject> s);
+    bool searchInChambers(int row, int col);
+    void createNewChamber(int row, int col);
+    std::vector<std::shared_ptr<Chamber> > getChamber();
 };
 
 #endif /* Floor_h */

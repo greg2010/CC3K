@@ -11,6 +11,9 @@
 #include "TextDisplay.h"
 #include "Game.h"
 #include <vector>
+#include <istringstream>
+#include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -57,134 +60,18 @@ void Floor::readLayout(istream &in){
             }
         }
     }
-     //assume we can skip the outer layer of the game board INTIAL VALUE FOR COL, ROW = 2
-  
-    //the following code stores value of starting and ending point of walls in one chamber
-    //need to be modified - finding the 5 left corners of 5 chambers find which case is the corner belongs to
-    //the outmost condition is that endrow, endcol != originalrow, originalCol
-    //bridge is not considered at all...
-    
-    
-    vector<pair<pair<int, int>, pair<int, int> > > walls // begin<row, col> , end<row, col>
-    //left-top corner |--  1
-    //                |..
-    content[row-1, col] = ObjectType::Space;
-    content[row, col-1] = ObjectType::Space;
-    content[row, col]   = ObjectType::Wall_v;
-    content[row, col+1]   = ObjectType::Wall_h;
-    content[row+1, col]   = ObjectType::Wall_v;
-    
-    // FIND this case
-    int startRow = row, int startCol = col;
-    endRow = startRow, endCol = startCol;
-    while ((content[endRow, endCol+1] == ObjectType::Wall_h) || (content[endRow, endCol+1] == ObjectType::Brige)) {
-        endCol++;
-    }
-    walls[i] = make_pair(make_pair(startRow, ++endCol), make_pair(endRow, ++endCol));
-    
-    //--|   -- 2
-    //..|
-    content[row-1, col] = ObjectType::Space;
-    content[row, col-1] = ObjectType::Wall_h;
-    content[row, col]   = ObjectType::Wall_v;
-    content[row, col+1]   = ObjectType::Space;
-    content[row+1, col]   = ObjectType::Wall_v;
-    
-    startRow = endRow, startCol = endCol;
-    while ((content[endRow, endCol] == ObjectType::Wall_v) || (content[endRow, endCol+1] == ObjectType::Brige)) {
-        endRow++;
-    }
-    walls[i] = make_pair(make_pair(startRow, startCol), make_pair(endRow, endCol));
-    
-    //..|   --3
-    //--|
-    content[row-1, col] = ObjectType::Wall_v;
-    content[row, col-1] = ObjectType::Wall_h;
-    content[row, col]   = ObjectType::Wall_v;
-    content[row, col+1]   = ObjectType::Space;
-    content[row+1, col]   = ObjectType::Space;
-    
-    startRow = endRow, startCol = endCol;
-    while ((content[endRow, endCol-1] == ObjectType::Wall_h) || (content[endRow, endCol+1] == ObjectType::Brige)) {
-        endCol--;
-    }
-    walls[i] = make_pair(make_pair(startRow, startCol), make_pair(endRow, --endCol));
-    
-    //|..   --4
-    //|--
-    content[row-1, col] = ObjectType::Wall_v;
-    content[row, col-1] = ObjectType::Space;
-    content[row, col]   = ObjectType::Wall_v;
-    content[row, col+1]   = ObjectType::Wall_h;
-    content[row+1, col]   = ObjectType::Space;
-    
-    startRow = endRow, startCol = endCol;
-    while ((content[endRow, endCol] == ObjectType::Wall_v) || (content[endRow, endCol+1] == ObjectType::Brige)) {
-        endRow--;
-    }
-    walls[i] = make_pair(make_pair(startRow, startCol), make_pair(endRow, endCol));
-    
-    //.|        --5
-    //.|--
-    //....
-    content[row-1, col] = ObjectType::Wall_v;
-    content[row, col-1] = ObjectType::Cell;
-    content[row, col]   = ObjectType::Wall_v;
-    content[row, col+1]   = ObjectType::Wall_h;
-    content[row+1, col]   = ObjectType::Cell;
-    
-    startRow = endRow, startCol = endCol;
-    while ((content[endRow, endCol+1] == ObjectType::Wall_h) || (content[endRow, endCol+1] == ObjectType::Brige)) {
-        endCol++;
-    }
-    walls[i] = make_pair(make_pair(startRow, startCol), make_pair(endRow, ++endCol)); // same as left corner case
-    
-    //  |..     --6
-    //--|..
-    //.....
-    content[row-1, col] = ObjectType::Wall_v;
-    content[row, col-1] = ObjectType::Wall_h;
-    content[row, col]   = ObjectType::Wall_v;
-    content[row, col+1]   = ObjectType::Cell;
-    content[row+1, col]   = ObjectType::Cell;
-    
-    startRow = endRow, startCol = endCol;
-    while ((content[endRow, endCol-1] == ObjectType::Wall_h) || (content[endRow, endCol+1] == ObjectType::Brige)) {
-        endCol--;
-    }
-    walls[i] = make_pair(make_pair(startRow, startCol), make_pair(endRow, --endCol));
-    
-    //.....     --7
-    //..|--
-    //..|
-    content[row-1, col] = ObjectType::Cell;
-    content[row, col-1] = ObjectType::Cell;
-    content[row, col]   = ObjectType::Wall_v;
-    content[row, col+1]   = ObjectType::Wall_h;
-    content[row+1, col]   = ObjectType::Wall_v;
-    
-    startRow = endRow, startCol = endCol;
-    while ((content[endRow, endCol+1] == ObjectType::Wall_h) || (content[endRow, endCol+1] == ObjectType::Brige)) {
-        endCol++;
-    }
-    walls[i] = make_pair(make_pair(startRow, startCol), make_pair(endRow, ++endCol));
-    
-    
-    //.....     --8
-    //--|..
-    //  |..
-    content[row-1, col] = ObjectType::Cell;
-    content[row, col-1] = ObjectType::Wall_h;
-    content[row, col]   = ObjectType::Wall_v;
-    content[row, col+1]   = ObjectType::Cell;
-    content[row+1, col]   = ObjectType::Wall_v;
-    
-    startRow = endRow, startCol = endCol;
-    while ((content[endRow, endCol-1] == ObjectType::Wall_h) || (content[endRow, endCol+1] == ObjectType::Brige)) {
-        endCol--;
-    }
-    walls[i] = make_pair(make_pair(startRow, startCol), make_pair(endRow, --endCol));
-    
+        int coordRow = 0;
+        int coordCol = 0;
+        for (auto objType : contents) {
+            if ((objType == ObjectType::Wall_v || obj == ObjectType::Wall_h) && !this->searchInChambers(coordRow, coordCol){
+                this->createNewChamber(coordRow, coordCol);
+            }
+            ++coordCol;
+            if (coordCol == 79) {
+                coordCol = 0;
+                ++coordRow;
+            }
+        }
 }
 
 void Floor::notify(std::shared_ptr<Subject> s){
@@ -267,14 +154,78 @@ bool Floor::move(string dir, std::shared_ptr<Subject> s){
         }
         
         return false;
-
-    
+}
+                       
+bool Floor::searchInChambers(int row, int col){
+    for (auto ch : chambers) {
+        if(find(ch->getCoords().begin(), ch->getCoords().end(), pair<int,int>{row, col}))  return true;
+    }
+    return false;
+}
+                       
+void Floor::createNewChamber(int row, int col) {
+    shared_ptr<Chamber> newChamber;
+    int newRow = row, newCol = col;
+    do {
+        newChamber.addCoords(pair<int,int>{newRow, newCol});
+        char dir;
+        if (content[pair<int,int>{newRow, newCol + 1}] == ObjectType::Wall_h ||
+            content[pair<int,int>{newRow, newCol + 1}] == ObjectType::Wall_v) {
+            ++newCol;
+        } else if (content[pair<int,int>{newRow + 1, newCol}] == ObjectType::Wall_h ||
+                   content[pair<int,int>{newRow + 1, newCol}] == ObjectType::Wall_v) {
+            ++newRow;
+        } else if (content[pair<int,int>{newRow, newCol - 1}] == ObjectType::Wall_h ||
+                   content[pair<int,int>{newRow, newCol - 1}] == ObjectType::Wall_v) {
+            --newCol;
+        }  else if (content[pair<int,int>{newRow - 1, newCol}] == ObjectType::Wall_h ||
+                    content[pair<int,int>{newRow - 1, newCol}] == ObjectType::Wall_v) {
+            --newRow;
+        }
+        
+    } while (newRow != row && newCol != col);
+    /*
+    ObjectType type = content[make_pair(row, col)];
+    newChamber.addCoords(row, col);
+    int newRow = row, newCol = col;
+    char dir = 'e';
+    do {
+        if(type == ObjectType::Wall_v) {
+            type = ObjectType::Wall_h;
+        }
+        else if (type == ObjectType::Wall_h) {
+            type = ObjectType::Wall_v;
+        }
+        if (content[make_pair(newRow, newCol + 1)] == type)   dir = 'e';
+        else if (content[make_pair(newRow+1, newCol)] == type)   dir = 's';
+        else if (content[make_pair(newRow, newCol-1)] == type)   dir = 'w';
+        else if (content[make_pair(newRow-1, newCol)] == type)   dir = 'n';
+        while (content[make_pair(newRow, newCol)] == type) {
+            if (dir == 'e'){
+                newChamber->addCoords(make_pair(newRow, newCol++));
+            }
+            else if (dir == 's') {
+                newChamber->addCoords(make_pair(newRow++, newCol));
+            }
+            else if (dir == 'w') {
+                newChamber->addCoords(make_pair(newRow, newCol--));
+            }
+            else if (dir == 'n') {
+                newChamber->addCoords(make_pair(newRow--, newCol));
+            }
+        }
+        if(dir == 's')  newRow--;
+        if(dir == 'n')  newRow++;
+        type = content[make_pair(newRow, newCol)];
+    }while (newRow != row && newCol != col)
+     */
+    chambers.push_back[newChamber];
 }
 
-
-
-
-
+                       
+vector<shared_ptr<Chamber> > Floor::getChamber() {
+    return this->chambers;
+}
 
 
 
