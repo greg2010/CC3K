@@ -6,8 +6,17 @@
 #define A05_CONCRETEBRIDGE_H
 
 
-class ConcreteBridge {
+#include "Layout.h"
 
+class ConcreteBridge : public Layout {
+public:
+    ConcreteBridge();
+    void addCoord(std::pair<int,int> bridgeCoord);
+    std::vector<std::pair<int,int>> getCoords();
+
+private:
+    std::vector<std::pair<int,int>> bridgeCoords;
+    bool vertical;
 };
 
 
