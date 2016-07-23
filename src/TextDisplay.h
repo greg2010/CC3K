@@ -1,5 +1,5 @@
 //
-//  TextDisplay.hpp
+//  TextDisplay.h
 //  cc3k
 //
 //  Created by YoY on 2016-07-18.
@@ -32,14 +32,16 @@ enum class SubjectType {
 class TextDisplay{
     std::map<SubjectType, char> charMap;
     std::vector<std::vector <char> > grid;
+    
 public:
     int w, h;
-    TextDisplay(int width = 75, int height = 25);
+    std::shared_ptr<Player> pc;
+    TextDisplay(std::shared_ptr<Player> pc, int currFloor, int width = 75, int height = 25);
     ~TextDisplay();
-    void notify(std::shared_ptr<Subject> sub);
-    void notify(std::shared_ptr<Item> item);
+    void notify(std::shared_ptr<Subject> sub, bool off);
+    void notify(std::shared_ptr<Item> item, bool off);
     friend void operator<<(std::ostream &out, const TextDisplay td);
-    void drawLayout();
+    void drawLayout(std::istream &in);
 };
 
-#endif /* TextDisplay_hpp */
+#endif /* TextDisplay_h */

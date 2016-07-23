@@ -9,4 +9,4 @@ public:
     virtual std::vector<std::pair<int,int>> getCoords() = 0;
 };
 
-#endif
+#endif /* Layout_h */
