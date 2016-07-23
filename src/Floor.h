@@ -9,7 +9,6 @@
 #ifndef Floor_h
 #define Floor_h
 
-#include <stdio.h>
 #include <map>
 #include <memory>
 #include <vector>
@@ -35,6 +34,8 @@ class Floor : public Observer {
     std::shared_ptr<TextDisplay> td;
     std::map<std::pair<int, int>, ObjectType > content;
     std::vector<std::shared_ptr<ConcreteChamber> > chambers;
+    int hp, atk, def, gold;
+    std::pair<int, int> coord;
 public:
     int currFloor;
     const int cols = 75, rows = 25;

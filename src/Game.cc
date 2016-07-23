@@ -8,6 +8,11 @@
 
 #include "Game.h"
 #include "Floor.h"
+#include "Player.h"
+#include "ConcreteHuman.h"
+#include "ConcreteElf.h"
+#include "ConcreteOrc.h"
+#include "ConcreteDwarf.h"
 #include <stdio.h>
 #include <string>
 #include <iostream>
@@ -19,7 +24,7 @@ using namespace std;
 Game::Game(){
     shared_ptr<Player> player = generatePlayer();
     int currFloor = 1;
-    floor = shared_ptr<Floor>(player, currFloor);
+    shared_ptr<Floor> floor = make_shared<Floor>(player, currFloor);
 }
 
 Game::~Game(){
@@ -27,88 +32,89 @@ Game::~Game(){
     //delete floor;
 }
 
-Player * Game::generatePlayer(){
+shared_ptr<Player> Game::generatePlayer(){
     char playerType;
     string input;
     getline(cin, input);
+    pair<int, int> coord = {-1, -1};
     if (input.empty())  playerType = 'h';
     switch (playerType) {
-        case 'h':   return shared_ptr<Human>(make_pair(-1, -1));
+        case 'h':   return make_shared<ConcreteHuman>(coord);
             break;
-        case 'e':   return shared_ptr<Elf>(make_pair(-1, -1));
+        case 'e':   return make_shared<ConcreteElf>(coord);
             break;
-        case 'd':   return shared_ptr<Dwarf>(make_pair(-1, -1));
+        case 'd':   return make_shared<ConcreteDwarf>(coord);
             break;
-        case 'o':   return shared_ptr<Orc>(make_pair(-1, -1));
+        case 'o':   return make_shared<ConcreteOrc>(coord);
             break;
-        default:    return shared_ptr<Human>(make_pair(-1, -1));
+        default:    return make_shared<ConcreteHuman>(coord);
     }
     return nullptr;
 }
 
-Floor* Game::getCurrentFloor(){
+shared_ptr<Floor> Game::getCurrentFloor(){
     return this->floor;
 }
 
 bool Game::movePlayer(string dir)
 {
-    Floor::move(dir, player);
+    floor->move(dir, player);
     
-//    pair<int, int> coor = player->getCoordinates();
-//    int i = 0;  // assume vector<subject*> [0] starts from left most conor and moving right
-//    
-//    if (dir =="no"){
-//        coor.second -= 1;
-//        i = 1;
-//    }
-//    else if(dir == "so"){
-//        coor.second += 1;
-//        i = 5;
-//    }
-//    else if(dir == "ea"){
-//        coor.first += 1;
-//        i = 3;
-//    }
-//    else if(dir == "we"){
-//        coor.first -= 1;
-//        i = 7;
-//    }
-//    else if(dir == "ne"){
-//        coor.first += 1;
-//        coor.second -= 1;
-//        i = 2;
-//    }
-//    else if(dir == "nw"){
-//        coor.first -= 1;
-//        coor.second -= 1;
-//        i = 0;
-//    }
-//    else if(dir == "se"){
-//        coor.first += 1;
-//        coor.second += 1;
-//        i = 4;
-//    }
-//    else if(dir == "sw"){
-//        coor.first -= 1;
-//        coor.second += 1;
-//        i = 6;
-//    }
-//    
-//    vector<std::shared_ptr<Subject> > adj = Floor::adjacent(player);
-//    if (adj[i] != nullptr){
-//        if (dir == "we" && adj[i] -> Subject::getType() ==
-//            Stariway){
-//            generateNextFloor();
-//            return true;
-//        }
-//        else return false;
-//    }
-//    else{
-//        player->coords = coor;
-//        return true;
-//    }
-//    
-//    return false;
+    //    pair<int, int> coor = player->getCoordinates();
+    //    int i = 0;  // assume vector<subject*> [0] starts from left most conor and moving right
+    //
+    //    if (dir =="no"){
+    //        coor.second -= 1;
+    //        i = 1;
+    //    }
+    //    else if(dir == "so"){
+    //        coor.second += 1;
+    //        i = 5;
+    //    }
+    //    else if(dir == "ea"){
+    //        coor.first += 1;
+    //        i = 3;
+    //    }
+    //    else if(dir == "we"){
+    //        coor.first -= 1;
+    //        i = 7;
+    //    }
+    //    else if(dir == "ne"){
+    //        coor.first += 1;
+    //        coor.second -= 1;
+    //        i = 2;
+    //    }
+    //    else if(dir == "nw"){
+    //        coor.first -= 1;
+    //        coor.second -= 1;
+    //        i = 0;
+    //    }
+    //    else if(dir == "se"){
+    //        coor.first += 1;
+    //        coor.second += 1;
+    //        i = 4;
+    //    }
+    //    else if(dir == "sw"){
+    //        coor.first -= 1;
+    //        coor.second += 1;
+    //        i = 6;
+    //    }
+    //
+    //    vector<std::shared_ptr<Subject> > adj = Floor::adjacent(player);
+    //    if (adj[i] != nullptr){
+    //        if (dir == "we" && adj[i] -> Subject::getType() ==
+    //            Stariway){
+    //            generateNextFloor();
+    //            return true;
+    //        }
+    //        else return false;
+    //    }
+    //    else{
+    //        player->coords = coor;
+    //        return true;
+    //    }
+    //
+    //    return false;
 }
 
 void Game::generateNextFloor(){
@@ -118,7 +124,7 @@ void Game::generateNextFloor(){
     else {
         currFloor++;
         //delete floor;
-        floor = shared_ptr<Floor>(player, currFloor);
+        shared_ptr<Floor> floor = make_shared<Floor>(player, currFloor);
     }
     
 }
