@@ -1,21 +1,12 @@
-//
-//  Layout.hpp
-//  cc3k
-//
-//  Created by YoY on 2016-07-18.
-//  Copyright © 2016 YoY. All rights reserved.
-//
-
 #ifndef Layout_h
 #define Layout_h
 
-#include <stdio.h>
 #include <vector>
 
 class Layout {
 public:
-    const virtual std::vector< std::pair<int, int> > & getLocation();
-    
+    virtual void addCoord(std::pair<int,int> wallCoord) = 0;
+    virtual std::vector<std::pair<int,int>> getCoords() = 0;
 };
 
-#endif /* Layout_hpp */
+#endif

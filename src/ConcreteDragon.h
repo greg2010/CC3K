@@ -15,6 +15,8 @@ class ConcreteDragon : public Enemy {
 
     ConcreteDragon(std::pair<int,int> coords);
 
+    virtual SubjectType getType();
+
     virtual bool isMoving();
 
 };

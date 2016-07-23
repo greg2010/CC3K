@@ -6,3 +6,6 @@ bool ConcreteDragon::isMoving() {
     return false;
 }
 
+SubjectType ConcreteDragon::getType() {
+    return SubjectType::Dragon;
+}

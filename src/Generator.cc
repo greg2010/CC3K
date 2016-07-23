@@ -10,6 +10,9 @@
 #include "ConcreteBD.h"
 #include "ConcreteWD.h"
 #include "ConcreteDragon.h"
+#include "ConcreteGoldStashNormal.h"
+#include "ConcreteGoldStashGuarded.h"
+#include "ConcreteDragon.h"
 
 Generator::Generator(std::shared_ptr<Floor> floor,
                      std::shared_ptr<Observer> display,
@@ -41,17 +44,17 @@ void Generator::generatePotion(std::pair<int,int> coords){
 	int rand = RNG.getRandom(6);
 
 	if (rand == 0){
-		ConcreteRH(coords);
+		ConcreteRH{coords};
 	} else if (rand == 1){
-		ConcretePH(coords);
+        ConcretePH{coords};
 	} else if (rand == 2){
-		ConcreteBA(coords);
+		ConcreteBA{coords};
 	} else if (rand == 3){
-		ConcreteWA(coords);
+		ConcreteWA{coords};
 	} else if (rand == 4){
-		ConcreteBD(coords);
+		ConcreteBD{coords};
 	} else {
-		ConcreteWD(coords);
+		ConcreteWD{coords};
 	}
 }
 
@@ -59,13 +62,13 @@ bool Generator::generateGold(std::pair<int,int> coords){
 	int rand = RNG.getRandom(8);
 
 	if (rand >= 0 and rand <= 4){
-		ConcreteGoldStashNormal(coords, 1);
+		ConcreteGoldStashNormal{coords, 1};
 	} else if (rand == 5){
-		ConcreteGoldStashGuarded(coords);
+		ConcreteGoldStashGuarded{coords, 6};
 		// somehow check for a valid location for dragon
-		ConcreteDragon();
+		ConcreteDragon{};
 	} else {
-		ConcreteGoldStashNormal(coords, 2);
+		ConcreteGoldStashNormal{coords, 2};
 	}
 }
 
