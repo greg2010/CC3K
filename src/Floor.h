@@ -31,7 +31,7 @@ enum class ObjectType {
     Space,
     Cell
 };
-class Floor : public Observer {
+class Floor : public Observer, public std::enable_shared_from_this<Floor> {
     std::vector<std::vector <std::shared_ptr<Subject> > > floorMap;  // row < col>
     std::shared_ptr<Player> player;
     std::shared_ptr<TextDisplay> td;

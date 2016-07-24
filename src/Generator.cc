@@ -19,7 +19,7 @@
 #include "ConcreteMerchant.h"
 
 Generator::Generator(std::shared_ptr<Floor> floor,
-                     std::shared_ptr<Observer> display,
+                     std::shared_ptr<TextDisplay> display,
                      std::shared_ptr<Player> player, unsigned int seed) : FloorPtr{floor},
                                                                           PlayerPtr{player},
                                                                           RNG{RandGen::getInstance(seed)}{

@@ -20,7 +20,7 @@ using namespace std;
 
 Floor::Floor(std::shared_ptr<Player> pc, int currFloor, string playerType) : player(pc), currFloor(currFloor), playerType(playerType){
     shared_ptr<TextDisplay> td = make_shared<TextDisplay>(player, currFloor, playerType);
-    shared_ptr<Generator> gen = make_shared<Generator>(this, td, player);
+    shared_ptr<Generator> gen = make_shared<Generator>(shared_from_this(), td, player, 1);
     gen->generate();
 }
 
@@ -156,7 +156,7 @@ bool Floor::move(string dir, std::shared_ptr<Subject> s){
     if (neighbors[i] != nullptr ){
         if (dir == "we" && neighbors[i] -> Subject::getType() ==
             SubjectType::Stairway){
-            Game::generateNextFloor();
+            game->generateNextFloor();
             return true;
         }
         else return false;

@@ -22,7 +22,9 @@ void ConcreteMerchant::attackedBy(std::shared_ptr<Character> attacker) {
     Character::attackedBy(attacker);
 }
 
-
+SubjectType ConcreteMerchant::getType(){
+	return SubjectType::Merchant;
+}
 
 
 

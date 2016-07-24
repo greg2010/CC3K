@@ -16,7 +16,7 @@ class Floor;
 
 class Generator {
 public:
-    Generator(std::shared_ptr<Floor> floor, std::shared_ptr<Observer> display, std::shared_ptr<Player> player, unsigned int seed);
+    Generator(std::shared_ptr<Floor> floor, std::shared_ptr<TextDisplay> display, std::shared_ptr<Player> player, unsigned int seed);
     void generate();
 private:
     std::shared_ptr<Floor> FloorPtr;

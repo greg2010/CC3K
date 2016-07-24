@@ -134,7 +134,8 @@ void Game::generateNextFloor(){
     else {
         currFloor++;
         //delete floor;
-        shared_ptr<Floor> floor = make_shared<Floor>(player, currFloor);
+        shared_ptr<Floor> floor = make_shared<Floor>(player, currFloor, playerType);
+
     }
     
 }
