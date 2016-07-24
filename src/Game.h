@@ -28,6 +28,7 @@ public:
     std::shared_ptr<Floor> getCurrentFloor();
     bool movePlayer (std::string dir);
     void generateNextFloor();
+    void playGame();
 };
 
 #endif /* Game_h */

@@ -9,8 +9,8 @@ public:
     ConcreteDwarf(std::pair<int,int> coords);
 
 protected:
-    virtual void doInteract(ConcreteGoldStashNormal &item);
-    virtual void doInteract(ConcreteGoldStashGuarded &item);
+    void doInteract(ConcreteGoldStashNormal &item) override;
+    void doInteract(ConcreteGoldStashGuarded &item) override;
 };
 
 

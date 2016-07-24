@@ -7,9 +7,9 @@
 class ConcreteOrc : public Player {
 public:
     ConcreteOrc(std::pair<int,int> coords);
-
-    virtual void doInteract(ConcreteGoldStashNormal &item);
-    virtual void doInteract(ConcreteGoldStashGuarded &item);
+protected:
+    void doInteract(ConcreteGoldStashNormal &item) override;
+    void doInteract(ConcreteGoldStashGuarded &item) override;
 };
 
 

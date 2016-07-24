@@ -14,7 +14,8 @@
 #include <vector>
 #include <string>
 #include "Observer.h"
-
+#include "Subject.h"
+#include "TextDisplay.h"
 
 class Subject;
 class Player;
@@ -27,7 +28,7 @@ enum class ObjectType {
     Wall_h,
     Wall_v,
     Door,
-    Brige,
+    Bridge,
     Space,
     Cell
 };

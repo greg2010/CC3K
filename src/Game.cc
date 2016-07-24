@@ -21,6 +21,10 @@
 
 using namespace std;
 
+void Game::playGame(){
+	
+}
+
 Game::Game(){
     shared_ptr<Player> player = generatePlayer();
     int currFloor = 1;

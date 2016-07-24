@@ -8,8 +8,8 @@ class ConcreteElf : public Player {
 public:
     ConcreteElf(std::pair<int,int> coords);
 
-    virtual unsigned int getAttack();
-    virtual unsigned int getDefence();
+    unsigned int getAttack() override;
+    unsigned int getDefence() override;
 
 protected:
     virtual void doInteract(PotHP &hpPot);
