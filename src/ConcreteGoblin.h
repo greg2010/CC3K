@@ -11,7 +11,7 @@ class ConcreteGoblin : public Enemy {
 public:
     ConcreteGoblin(std::pair<int,int> coords);
 
-    virtual SubjectType getType();
+    SubjectType getType() override;
 };
 
 

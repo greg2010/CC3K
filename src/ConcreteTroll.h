@@ -11,7 +11,7 @@ class ConcreteTroll : public Enemy {
 public:
     ConcreteTroll(std::pair<int,int> coords);
 
-    virtual SubjectType getType();
+    SubjectType getType() override;
 };
 
 #endif //A05_CONCRETETROLL_H

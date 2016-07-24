@@ -7,7 +7,7 @@ class ConcreteVampire : public Enemy {
 public:
     ConcreteVampire(std::pair<int,int> coords);
 
-    virtual SubjectType getType();
+    SubjectType getType() override;
 
 };
 

@@ -15,7 +15,8 @@
 #include <string>
 #include <fstream>
 #include "Observer.h"
-
+#include "Subject.h"
+#include "TextDisplay.h"
 
 class Subject;
 class Player;

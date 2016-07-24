@@ -1,4 +1,4 @@
-#include <Observer.h>
+#include "Observer.h"
 #include "Subject.h"
 
 Subject::Subject(int x, int y) : coords{std::make_pair(x,y)}, visible{true} { }

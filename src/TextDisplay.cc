@@ -48,20 +48,20 @@ void TextDisplay::notify(std::shared_ptr<Item> item, bool off) {
     }
 }
 
-void operator<<(std::ostream &out, const shared_ptr<TextDisplay> td) {
-    for(int i = 0; i < td->grid.size(); i++){
-        for(int j = 0; j < td->grid[i].size(); j++){
-            out << td->grid[i][j];
+void operator<<(std::ostream &out, const TextDisplay &td) {
+    for(int i = 0; i < td.grid.size(); i++){
+        for(int j = 0; j < td.grid[i].size(); j++){
+            out<<td.grid[i][j];
         }
         out << endl;
     }
     
-    out << "Race: " << td->race
-    << " Gold: "<< td->pc->getGold()
-    << right << setw(td->grid[0].size()-27) << "Floor "<< td->currFloor << endl
-    << "HP: "<< td->pc->getHP() << endl
-    << "Atk: "<< td->pc->getAttack() << endl
-    << "Def: "<< td->pc->getDefence() << endl
+    out << "Race: " << td.race
+    << " Gold: "<< td.pc->getGold()
+    << right << setw(td.grid[0].size()-27) << "Floor "<< td.currFloor << endl
+    << "HP: "<< td.pc->getHP() << endl
+    << "Atk: "<< td.pc->getAttack() << endl
+    << "Def: "<< td.pc->getDefence() << endl
     << "Action: "<<endl;
 
 }

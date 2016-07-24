@@ -187,7 +187,6 @@ bool Floor::move(string dir, std::shared_ptr<Subject> s){
     // it might be better if move receives set of coods instead of dir
     vector<std::shared_ptr<Subject> > neighbors = adjacent(s);
     pair<int, int> coor = s->getCoordinates();
-    
         int i;
         if (dir =="no"){
             i = 1;
@@ -227,9 +226,9 @@ bool Floor::move(string dir, std::shared_ptr<Subject> s){
         }
         
         if (neighbors[i] != nullptr ){
-            if (dir == "we" && neighbors[i] -> Subject::getType() ==
+            if (dir == "we" && neighbors[i] -> getType() ==
                 SubjectType::Stairway){
-                Game::generateNextFloor();
+                game->generateNextFloor();
                 return true;
             }
             else return false;

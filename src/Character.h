@@ -1,7 +1,6 @@
 #ifndef A05_CHARACTER_H
 #define A05_CHARACTER_H
 
-
 #include "Subject.h"
 
 class Character : public Subject {

@@ -4,19 +4,13 @@
 
 #include "Player.h"
 
-const int defaultHP = 100;
-const int defaultAtk = 20;
-const int defaultDef = 30;
-
-const int goldMultiplier = 2;
-
 class ConcreteDwarf : public Player {
 public:
     ConcreteDwarf(std::pair<int,int> coords);
 
 protected:
-    virtual void doInteract(ConcreteGoldStashNormal &item);
-    virtual void doInteract(ConcreteGoldStashGuarded &item);
+    void doInteract(ConcreteGoldStashNormal &item) override;
+    void doInteract(ConcreteGoldStashGuarded &item) override;
 };
 
 

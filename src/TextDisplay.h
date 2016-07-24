@@ -32,7 +32,7 @@ public:
     ~TextDisplay();
     void notify(std::shared_ptr<Subject> sub, bool off);
     void notify(std::shared_ptr<Item> item, bool off);
-    friend void operator<<(std::ostream &out, std::shared_ptr<TextDisplay> td);
+    friend void operator<<(std::ostream &out, const TextDisplay &td);
     void drawLayout(std::istream &in);
 };
 

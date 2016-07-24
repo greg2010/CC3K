@@ -12,12 +12,12 @@ const int defaultAtk = 20;
 const int defaultDef = 20;
 
 class ConcreteDragon : public Enemy {
-
+public:
     ConcreteDragon(std::pair<int,int> coords);
 
-    virtual SubjectType getType();
+    SubjectType getType() override;
 
-    virtual bool isMoving();
+    bool isMoving() override;
 
 };
 

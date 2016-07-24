@@ -2,14 +2,16 @@
 #define A05_CONCRETEMERCHANT_H
 
 #include "Enemy.h"
+#include "Subject.h"
 
 class ConcreteMerchant : public Enemy {
+public:
     ConcreteMerchant(std::pair<int,int> coords);
-    virtual bool isMoving();
-    virtual bool isHostile();
+    bool isMoving() override;
+    bool isHostile() override;
 
-    virtual void attackedBy(std::shared_ptr<Character> attacker);
-
+    void attackedBy(std::shared_ptr<Character> attacker) override;
+    SubjectType getType() override;
 private:
     static bool hostile;
 };
