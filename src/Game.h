@@ -12,6 +12,7 @@
 
 #include <memory>
 #include <string>
+#include <fstream>
 
 class Player;
 class Floor;
@@ -22,12 +23,16 @@ class Game {
     std::shared_ptr<Floor> floor;
     std::shared_ptr<Player> player;
     std::string playerType;
+    std::fstream file;
+    int seed;
 public:
-    Game();
+    Game(std::fstream &file, int seed);
     ~Game();
     std::shared_ptr<Floor> getCurrentFloor();
     bool movePlayer (std::string dir);
     void generateNextFloor();
+    void usePotion(std::string dir);
+    void attack(std::string dir);
 };
 
 #endif /* Game_h */
