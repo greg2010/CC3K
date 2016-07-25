@@ -24,8 +24,9 @@ using namespace std;
 
 Game::Game(fstream &file, int seed) : file(file), seed(seed){
     shared_ptr<Player> player = generatePlayer();
+    td = make_shared<TextDisplay>(player, currFloor, playerType,23, 28 );
     int currFloor = 1;
-    shared_ptr<Floor> floor = make_shared<Floor>(player, currFloor, playerType, file, seed);
+    shared_ptr<Floor> floor = make_shared<Floor>(player, currFloor, playerType, file, seed, td);
 }
 
 Game::~Game(){
@@ -147,7 +148,7 @@ void Game::generateNextFloor(){
     else {
         currFloor++;
         //delete floor;
-        shared_ptr<Floor> floor = make_shared<Floor>(player, currFloor, playerType, file, seed);
+        shared_ptr<Floor> floor = make_shared<Floor>(player, currFloor, playerType, file, seed, td);
     }
     
 }
@@ -163,5 +164,5 @@ void Game::attack(string dir) {
 }
 
 void Game::display(std::ostream &out = std::cout) {
-    out << 
+    out << td;
 }

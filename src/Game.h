@@ -17,6 +17,7 @@
 class Player;
 class Floor;
 class Subject;
+class TextDisplay;
 class Game {
     std::shared_ptr<Player> generatePlayer();
     int currFloor;
@@ -25,6 +26,7 @@ class Game {
     std::string playerType;
     std::fstream &file;
     int seed;
+    std::shared_ptr<TextDisplay> td;
 public:
     Game(std::fstream &file, int seed);
     ~Game();
@@ -33,7 +35,7 @@ public:
     void generateNextFloor();
     void usePotion(std::string dir);
     void attack(std::string dir);
-    void display(std::ostream & out);
+    void display(std::ostream & out = std::cout);
 };
 
 #endif /* Game_h */

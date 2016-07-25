@@ -34,8 +34,8 @@
 
 using namespace std;
 
-Floor::Floor(std::shared_ptr<Player> player, int currFloor, string playerType, fstream& file, int seed) : player(player), currFloor(currFloor), playerType(playerType), file(file), seed(seed){
-	td = make_shared<TextDisplay>(player, currFloor, playerType,23, 28 );
+Floor::Floor(std::shared_ptr<Player> player, int currFloor, string playerType, fstream& file, int seed, std::shared_ptr<TextDisplay> &td) : player(player), currFloor(currFloor), playerType(playerType), file(file), seed(seed), td(td) {
+	
 }
 
 Floor::~Floor() {}

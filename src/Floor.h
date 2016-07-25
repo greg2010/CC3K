@@ -36,7 +36,7 @@ enum class ObjectType {
 class Floor : public Observer, public std::enable_shared_from_this<Floor>{
     std::vector<std::vector <std::shared_ptr<Subject> > > floorMap;  // row < col>
     std::shared_ptr<Player> player;
-    std::shared_ptr<TextDisplay> td;
+    std::shared_ptr<TextDisplay> &td;
     std::map<std::pair<int, int>, ObjectType > content;
     std::vector<std::shared_ptr<ConcreteChamber> > chambers;
     int hp, atk, def, gold, seed;
@@ -51,7 +51,7 @@ public:
     int currFloor;
     const int cols = 79, rows = 25;
     void readLayout(std::istream &in);
-    Floor(std::shared_ptr<Player> player, int currFloor, std::string playerType, std::fstream &file, int seed);
+    Floor(std::shared_ptr<Player> player, int currFloor, std::string playerType, std::fstream &file, int seed, std::shared_ptr<TextDisplay> &td);
     ~Floor();
     void notify(std::shared_ptr<Subject> s, bool off = true);
     void deleteSubject(std::shared_ptr<Subject> s);

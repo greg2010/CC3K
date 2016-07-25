@@ -74,7 +74,7 @@ int main(int argc, const char * argv[]) {
         else if (c == 'q') {
             exit(0);
         }
-        
+        game->display();
     }
     
     
