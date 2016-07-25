@@ -1,6 +1,13 @@
 #include "ConcreteChamber.h"
 
 void ConcreteChamber::addCoord(std::pair<int, int> wallCoord) {
+    if (wallCoords.size() <= wallCoord.first - firstRow) {
+        wallCoords.resize(wallCoord.first + 1 - firstRow);
+    }
+    int i = 0;
+    while (i < wallCoords[wallCoord.first - firstRow].size() && wallCoords[wallCoord.first - firstRow][i].second < wallCoord.second) ++i;
+    wallCoords[wallCoord.first - firstRow].insert(wallCoords[wallCoord.first -firstRow].begin() + i, wallCoord);
+    /*
     std::vector<std::pair<int,int>> emptyRow;
     if (wallCoords.size() == 0) {
         wallCoords.push_back(emptyRow);
@@ -15,7 +22,7 @@ void ConcreteChamber::addCoord(std::pair<int, int> wallCoord) {
         int j = 0;
         while (j < wallCoords[wallCoord.first].size() && wallCoords[wallCoord.first][j].second < wallCoord.second) ++j;
         wallCoords[wallCoord.first].insert(wallCoords[wallCoord.first].begin() + j, wallCoord);
-    }
+    }*/
 }
 
 std::vector<std::pair<int, int>> ConcreteChamber::getCoords() {
@@ -43,3 +50,6 @@ std::vector<std::pair<int, int>> ConcreteChamber::getCellCoords() {
     return cellCoords;
 }
 
+ConcreteChamber::ConcreteChamber(int firstRow) : firstRow{firstRow} {
+
+}

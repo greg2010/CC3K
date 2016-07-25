@@ -24,7 +24,8 @@ enum class SubjectType {
     WD,
     Gold,
     Stairway,
-    Wall,
+    WallH,
+    WallV,
     Bridge,
     Door,
     Cell

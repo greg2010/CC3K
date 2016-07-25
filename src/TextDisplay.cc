@@ -15,7 +15,7 @@
 #include <memory>
 
 using namespace std;
-TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, string race, int width, int height): pc(pc), race(race), currFloor(currFloor), w(width), h(height), messageCounter(0), message("") {
+TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, string race, int width, int height): pc{pc}, race{race}, currFloor{currFloor}, w{width}, h{height}, messageCounter{0}, message{""} {
     charMap[SubjectType::Player] = '@';
     charMap[SubjectType::Goblin] = 'N';
     charMap[SubjectType::Vampire] = 'V';
@@ -35,7 +35,17 @@ TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, string race,
     charMap[SubjectType::Cell] = '.';
     charMap[SubjectType::Door] = '+';
     charMap[SubjectType::Bridge] = '#';
+    charMap[SubjectType::WallV] = '|';
+    charMap[SubjectType::WallH] = '-';
     string message = " Player character has spawned.";
+
+    vector<char> empty;
+    for (int i = 0; i < height; ++i) {
+        grid.push_back(empty);
+        for (int j = 0; j < width; ++j) {
+            grid[i].push_back(' ');
+        }
+    }
 }
 
 
@@ -78,7 +88,7 @@ void operator<<(std::ostream &out, std::shared_ptr<TextDisplay> td) {
     td->message = "";
     td->messageCounter = 0;
 }
-void TextDisplay::drawLayout(istream &in) {
+/*void TextDisplay::drawLayout(ifstream in) {
     vector<char> emp;
     for (int row = 0; row < h; row++) {
         grid.push_back(emp);
@@ -94,7 +104,7 @@ void TextDisplay::drawLayout(istream &in) {
             grid[row].push_back(c);
         }
     }
-}
+}*/
 
 void TextDisplay::potionMessage(std::shared_ptr<Subject> sub) {
     string potName = "";

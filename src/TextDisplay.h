@@ -30,12 +30,12 @@ class TextDisplay : public Observer {
     int w, h, currFloor;
 public:
     std::shared_ptr<Player> pc;
-    TextDisplay(std::shared_ptr<Player> pc, int currFloor, std::string race, int width = 75, int height = 25);
+    TextDisplay(std::shared_ptr<Player> pc, int currFloor, std::string race, int width = 79, int height = 25);
     ~TextDisplay() override;
     void notify(std::shared_ptr<Subject> sub, bool off) override;
     void notify(std::shared_ptr<Item> item, bool off);
     friend void operator<<(std::ostream &out, std::shared_ptr<TextDisplay> td);
-    void drawLayout(std::istream &in);
+    //void drawLayout(std::ifstream in);
     void finishTurn();
     void potionMessage(std::shared_ptr<Subject> sub);
     void attackMessage(std::shared_ptr<Subject> attacker, std::shared_ptr<Subject>beingAttacked, int damage);

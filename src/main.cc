@@ -20,15 +20,18 @@ int main(int argc, const char * argv[]) {
     //check command line arguments
     
     int seed = 1;
-    fstream file;
+    ifstream file;
     if (argc >= 2) {
-        file.open(argv[1], fstream::in);
+        file.open(argv[1], ifstream::in);
+        if (!file.is_open()) {
+            cerr << argv[1] << " is not found." << endl;
+        }
         if (argc == 3) {
             seed = stoi(argv[2]);
         }
     }
     else {
-        file.open("defaultLayout.txt", fstream::in);
+        file.open("defaultLayout.txt");
     }
     
     // start game

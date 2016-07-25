@@ -22,11 +22,11 @@
 
 using namespace std;
 
-Game::Game(fstream &file, int seed) : file(file), seed(seed){
-    shared_ptr<Player> player = generatePlayer();
-    td = make_shared<TextDisplay>(player, currFloor, playerType,23, 28 );
-    int currFloor = 1;
-    floor = make_shared<Floor>(player, currFloor, playerType, file, seed, td);
+Game::Game(ifstream &file, int seed) : file(file), seed(seed){
+    currFloor = 1;
+    player = generatePlayer();
+    td = make_shared<TextDisplay>(player, currFloor, playerType);
+    floor = make_shared<Floor>(player, currFloor, playerType, seed, td);
     floor->readLayout(file);
 }
 
@@ -149,7 +149,7 @@ void Game::generateNextFloor(){
     else {
         currFloor++;
         //delete floor;
-        shared_ptr<Floor> floor = make_shared<Floor>(player, currFloor, playerType, file, seed, td);
+        shared_ptr<Floor> floor = make_shared<Floor>(player, currFloor, playerType, seed, td);
         floor->readLayout(file);
     }
     

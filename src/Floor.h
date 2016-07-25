@@ -44,14 +44,13 @@ class Floor : public Observer, public std::enable_shared_from_this<Floor>{
     std::shared_ptr<Generator> gen;
     std::shared_ptr<Game> game;
     std::string playerType;
-    std::fstream& file;
     void doAttack(std::shared_ptr<Subject> attacker);
     void doMove(std::shared_ptr<Subject> enemy);
 public:
     int currFloor;
-    const int cols = 79, rows = 25;
-    void readLayout(std::istream &in);
-    Floor(std::shared_ptr<Player> player, int currFloor, std::string playerType, std::fstream &file, int seed, std::shared_ptr<TextDisplay> td);
+    const int cols = 80, rows = 25;
+    void readLayout(std::ifstream &in);
+    Floor(std::shared_ptr<Player> player, int currFloor, std::string playerType, int seed, std::shared_ptr<TextDisplay> td);
     ~Floor();
     void notify(std::shared_ptr<Subject> s, bool off = true);
     void deleteSubject(std::shared_ptr<Subject> s);
@@ -64,7 +63,7 @@ public:
     std::vector<std::shared_ptr<ConcreteChamber> > getChamber();
     void enemyTurn();
 
-    shared_ptr <Subject> getObjectAtCoords(std::pair<int, int> coor);
+    std::shared_ptr <Subject> getObjectAtCoords(std::pair<int, int> coor);
 };
 
 #endif /* Floor_h */

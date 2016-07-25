@@ -11,7 +11,7 @@
 ConcreteBridge::ConcreteBridge(std::pair<int,int>coords):Item{coords}{}
 
 SubjectType ConcreteBridge::getType() {
-    return SubjectType::Door;
+    return SubjectType::Bridge;
 }
 
 bool ConcreteBridge::walkable() {

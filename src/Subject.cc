@@ -3,13 +3,14 @@
 
 Subject::Subject(int x, int y) : coords{std::make_pair(x,y)}, visible{true} { }
 
-Subject::Subject(std::pair<int, int> coords) : coords{coords}, visible{true} { }
+Subject::Subject(std::pair<int, int> coords) : coords{coords}, visible{true} {}
 
 void Subject::attach(std::shared_ptr<Observer> observer) {
     for (auto ob : observers) {
         if (ob == observer) return;
     }
     observers.push_back(observer);
+    notifyObservers();
 }
 
 void Subject::detach(std::shared_ptr<Observer> observer) {

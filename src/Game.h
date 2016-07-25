@@ -25,11 +25,11 @@ class Game {
     std::shared_ptr<Floor> floor;
     std::shared_ptr<Player> player;
     std::string playerType;
-    std::fstream &file;
+    std::ifstream &file;
     int seed;
     std::shared_ptr<TextDisplay> td;
 public:
-    Game(std::fstream &file, int seed);
+    Game(std::ifstream &file, int seed);
     ~Game();
     std::shared_ptr<Floor> getCurrentFloor();
     void movePlayer (std::string dir);
