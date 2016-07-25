@@ -26,12 +26,12 @@
 #include "ConcreteWD.h"
 #include "ConcreteGoldStashNormal.h"
 #include "ConcreteGoldStashGuarded.h"
-#include "Door.h"
-#include "Wall.h"
-#include "Bridge.h"
+#include "ConcreteDoor.h"
+#include "ConcreteWall.h"
+#include "ConcreteBridge.h"
 #include "Game.h"
 #include "Subject.h"
-#include "Cell.h"
+#include "ConcreteCell.h"
 #include <vector>
 #include <string>
 #include <algorithm>
@@ -58,74 +58,91 @@ void Floor::readLayout(istream &in){
                     floorMap[row].push_back(nullptr);
                     break;
                 case '|':
-                    floorMap[row].push_back(make_shared<Wall>(make_pair(row,col)));
+                    floorMap[row].push_back(make_shared<ConcreteWall>(make_pair(row,col)));
                     break;
                 case '-':
-                    floorMap[row].push_back(make_shared<Wall>(make_pair(row,col)));
+                    floorMap[row].push_back(make_shared<ConcreteWall>(make_pair(row,col)));
                     break;
                 case '.':
-                    floorMap[row].push_back(make_shared<Cell>(make_pair(row,col)));
+                    floorMap[row].push_back(make_shared<ConcreteCell>(make_pair(row,col)));
                     break;
                 case '+':
-                    floorMap[row].push_back(make_shared<Door>(make_pair(row,col)));
+                    floorMap[row].push_back(make_shared<ConcreteDoor>(make_pair(row,col)));
                     break;
                 case '#':
-                    floorMap[row].push_back(make_shared<Bridge>(make_pair(row,col)));
+                    floorMap[row].push_back(make_shared<ConcreteBridge>(make_pair(row,col)));
                     break;
                 case '@':
                     player->assignCoords(make_pair(row, col));
                     doGeneration = false;
                     break;
                 case 'N':
-                    floorMap[row].push_back(make_shared<ConcreteGoblin>(make_pair(row,col)));
+                    floorMap[row].push_back(make_shared<ConcreteCell>(make_pair(row,col)));
+                    objects.push_back(make_shared<ConcreteGoblin>(make_pair(row,col)));
                     break;
                 case 'V':
-                    floorMap[row].push_back(make_shared<ConcreteVampire>(make_pair(row,col)));
+                    floorMap[row].push_back(make_shared<ConcreteCell>(make_pair(row,col)));
+                    objects.push_back(make_shared<ConcreteVampire>(make_pair(row,col)));
                     break;
                 case 'T':
-                    floorMap[row].push_back(make_shared<ConcreteTroll>(make_pair(row,col)));
+                    floorMap[row].push_back(make_shared<ConcreteCell>(make_pair(row,col)));
+                    objects.push_back(make_shared<ConcreteTroll>(make_pair(row,col)));
                     break;
                 case 'M':
-                    floorMap[row].push_back(make_shared<ConcreteMerchant>(make_pair(row,col)));
+                    floorMap[row].push_back(make_shared<ConcreteCell>(make_pair(row,col)));
+                    objects.push_back(make_shared<ConcreteMerchant>(make_pair(row,col)));
                     break;
                 case 'D':
-                    floorMap[row].push_back(make_shared<ConcreteDragon>(make_pair(row,col)));
+                    floorMap[row].push_back(make_shared<ConcreteCell>(make_pair(row,col)));
+                    objects.push_back(make_shared<ConcreteDragon>(make_pair(row,col)));
                     break;
                 case 'P':
-                    floorMap[row].push_back(make_shared<ConcretePhoenix>(make_pair(row,col)));
+                    floorMap[row].push_back(make_shared<ConcreteCell>(make_pair(row,col)));
+                    objects.push_back(make_shared<ConcretePhoenix>(make_pair(row,col)));
                     break;
                 case 'W':
-                    floorMap[row].push_back(make_shared<ConcreteWerewolf>(make_pair(row,col)));
+                    floorMap[row].push_back(make_shared<ConcreteCell>(make_pair(row,col)));
+                    objects.push_back(make_shared<ConcreteWerewolf>(make_pair(row,col)));
                     break;
                 case '0':
-                    floorMap[row].push_back(make_shared<ConcreteRH>(make_pair(row,col)));
+                    floorMap[row].push_back(make_shared<ConcreteCell>(make_pair(row,col)));
+                    objects.push_back(make_shared<ConcreteRH>(make_pair(row,col)));
                     break;
                 case '1':
-                    floorMap[row].push_back(make_shared<ConcreteBA>(make_pair(row,col)));
+                    floorMap[row].push_back(make_shared<ConcreteCell>(make_pair(row,col)));
+                    objects.push_back(make_shared<ConcreteBA>(make_pair(row,col)));
                     break;
                 case '2':
-                    floorMap[row].push_back(make_shared<ConcreteBD>(make_pair(row,col)));
+                    floorMap[row].push_back(make_shared<ConcreteCell>(make_pair(row,col)));
+                    objects.push_back(make_shared<ConcreteBD>(make_pair(row,col)));
                     break;
                 case '3':
-                    floorMap[row].push_back(make_shared<ConcretePH>(make_pair(row,col)));
+                    floorMap[row].push_back(make_shared<ConcreteCell>(make_pair(row,col)));
+                    objects.push_back(make_shared<ConcretePH>(make_pair(row,col)));
                     break;
                 case '4':
-                    floorMap[row].push_back(make_shared<ConcreteWA>(make_pair(row,col)));
+                    floorMap[row].push_back(make_shared<ConcreteCell>(make_pair(row,col)));
+                    objects.push_back(make_shared<ConcreteWA>(make_pair(row,col)));
                     break;
                 case '5':
-                    floorMap[row].push_back(make_shared<ConcreteWD>(make_pair(row,col)));
+                    floorMap[row].push_back(make_shared<ConcreteCell>(make_pair(row,col)));
+                    objects.push_back(make_shared<ConcreteWD>(make_pair(row,col)));
                     break;
                 case '6':
-                    floorMap[row].push_back(make_shared<ConcreteGoldStashNormal>(make_pair(row,col), 1));
+                    floorMap[row].push_back(make_shared<ConcreteCell>(make_pair(row,col)));
+                    objects.push_back(make_shared<ConcreteGoldStashNormal>(make_pair(row,col), 1));
                     break;
                 case '7':
-                    floorMap[row].push_back(make_shared<ConcreteGoldStashNormal>(make_pair(row, col), 2));
+                    floorMap[row].push_back(make_shared<ConcreteCell>(make_pair(row,col)));
+                    objects.push_back(make_shared<ConcreteGoldStashNormal>(make_pair(row, col), 2));
                     break;
                 case '8':
-                    floorMap[row].push_back(make_shared<ConcreteGoldStashNormal>(make_pair(row, col), 4));
+                    floorMap[row].push_back(make_shared<ConcreteCell>(make_pair(row,col)));
+                    objects.push_back(make_shared<ConcreteGoldStashNormal>(make_pair(row, col), 4));
                     break;
                 case '9':
-                    floorMap[row].push_back(make_shared<ConcreteGoldStashGuarded>(make_pair(row, col), 6));
+                    floorMap[row].push_back(make_shared<ConcreteCell>(make_pair(row,col)));
+                    objects.push_back(make_shared<ConcreteGoldStashGuarded>(make_pair(row, col), 6));
                     break;
                 default: break;
             }
@@ -161,9 +178,15 @@ void Floor::readLayout(istream &in){
 }
 
 void Floor::notify(std::shared_ptr<Subject> s, bool off){
-    
-    if(!s->isVisible()) td->notify(s, true);
+    shared_ptr<Subject> toDisplay;
+    if (!s->isVisible()) {
+        toDisplay = floorMap[s->getCoordinates().first][s->getCoordinates().second];
+    } else {
+        toDisplay = s;
+    }
+    td->notify(s, true);
     this->coord = s->getCoordinates();
+    /*
     if ((s->getType() != SubjectType::RH || s->getType() != SubjectType::PH || s->getType() != SubjectType::BA || s->getType() != SubjectType::WA || s->getType() != SubjectType::BD || s->getType() != SubjectType::WD) && (s->getType() != SubjectType::Gold)){
         shared_ptr<Character> character = dynamic_pointer_cast<Character> (s);
         this->gold = character->getGold();
@@ -171,6 +194,7 @@ void Floor::notify(std::shared_ptr<Subject> s, bool off){
         this->atk = character->getAttack();
         this->def = character->getDefence();
     }
+     */
 }
 
 
@@ -178,17 +202,24 @@ void Floor::deleteSubject(std::shared_ptr<Subject> s) {
     s->Subject::remove();
  }
 
+shared_ptr<Subject> Floor::getObjectAtCoords(pair<int, int> coor) {
+    for (auto &sub : objects) {
+        if (sub->getCoordinates() == coor) return sub;
+    }
+    return floorMap[coor.first][coor.second];
+}
+
 vector<std::shared_ptr<Subject> > Floor::adjacent(std::shared_ptr<Subject> s) {
     pair<int, int> coor = s->getCoordinates();
     vector<std::shared_ptr<Subject> > neighbors;
-    
-    neighbors.push_back(floorMap[coor.first - 1][coor.second - 1]);
-    neighbors.push_back(floorMap[coor.first - 1][coor.second]);
-    neighbors.push_back(floorMap[coor.first - 1][coor.second + 1]);
-    neighbors.push_back(floorMap[coor.first][coor.second + 1]);
-    neighbors.push_back(floorMap[coor.first + 1][coor.second + 1]);
-    neighbors.push_back(floorMap[coor.first + 1][coor.second]);
-    neighbors.push_back(floorMap[coor.first + 1][coor.second - 1]);
+    getObjectAtCoords(
+    neighbors.push_back(getObjectAtCoords(make_pair(coor.first - 1, coor.second - 1)));
+    neighbors.push_back(getObjectAtCoords(make_pair(coor.first - 1, coor.second)));
+    neighbors.push_back(getObjectAtCoords(make_pair(coor.first - 1, coor.second + 1)));
+    neighbors.push_back(getObjectAtCoords(make_pair(coor.first, coor.second + 1)));
+    neighbors.push_back(getObjectAtCoords(make_pair(coor.first + 1, coor.second + 1)));
+    neighbors.push_back(getObjectAtCoords(make_pair(coor.first + 1, coor.second)));
+    neighbors.push_back(getObjectAtCoords(make_pair(coor.first + 1, coor.second - 1)));
     return neighbors;
 }
 

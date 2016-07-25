@@ -40,12 +40,15 @@ TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, string race,
 
 
 void TextDisplay::notify(std::shared_ptr<Subject> sub, bool off) {
+    grid[sub->getCoordinates().first][sub->getCoordinates().second] = charMap[sub->getType()];
+    /*
     if (off){
         grid[sub->getCoordinates().first][sub->getCoordinates().second] = '.';
     }
     else {
         grid[sub->getCoordinates().first][sub->getCoordinates().second] = charMap[sub->getType()];
     }
+     */
 }
             
 void TextDisplay::notify(std::shared_ptr<Item> item, bool off) {

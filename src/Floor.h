@@ -63,6 +63,8 @@ public:
     void attack(std::string dir);
     std::vector<std::shared_ptr<ConcreteChamber> > getChamber();
     void enemyTurn();
+
+    shared_ptr <Subject> getObjectAtCoords(std::pair<int, int> coor);
 };
 
 #endif /* Floor_h */

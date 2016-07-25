@@ -5,7 +5,9 @@
 class ConcreteStairway: public Item{
 	
 	public:
-		SubjectType getType();
+	ConcreteStairway(std::pair<int, int> coords);
+
+	SubjectType getType();
         bool walkable();
 };
 
