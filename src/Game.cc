@@ -163,6 +163,6 @@ void Game::attack(string dir) {
     floor->enemyTurn();
 }
 
-void Game::display(std::ostream &out = std::cout) {
+void Game::display(std::ostream &out) {
     out << td;
 }

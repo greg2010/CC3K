@@ -101,9 +101,11 @@ string TextDisplay::potionMessage(std::shared_ptr<Subject> sub) {
 
 string TextDisplay::attackMessage(shared_ptr<Subject> attacker, shared_ptr<Subject> beingAttacked, int damage) {
     if (attacker->getType() == SubjectType::Player) {
-        message = " PC deals " + to_string(damage) + " damage to " + charMap[beingAttacked->getType()] + " (" + beingAttacked->getHP() + " HP). ";
+        message = " PC deals " + to_string(damage) + " damage to " + charMap[beingAttacked->getType()] + " (" + to_string(dynamic_pointer_cast<Character>(beingAttacked)->getHP()) + " HP). ";
     }
-    
+    return message;
 }
+
+TextDisplay::~TextDisplay() { }
 
 

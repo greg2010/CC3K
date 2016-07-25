@@ -13,6 +13,7 @@
 #include <memory>
 #include <string>
 #include <fstream>
+#include <iostream>
 
 class Player;
 class Floor;

@@ -33,8 +33,8 @@ public:
     int w, h, currFloor;
     std::shared_ptr<Player> pc;
     TextDisplay(std::shared_ptr<Player> pc, int currFloor, std::string race, int width = 75, int height = 25);
-    ~TextDisplay();
-    void notify(std::shared_ptr<Subject> sub, bool off);
+    ~TextDisplay() override;
+    void notify(std::shared_ptr<Subject> sub, bool off) override;
     void notify(std::shared_ptr<Item> item, bool off);
     friend void operator<<(std::ostream &out, const TextDisplay &td);
     void drawLayout(std::istream &in);
