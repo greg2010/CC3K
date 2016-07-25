@@ -85,6 +85,4 @@ void Character::changeHP(int val) {
     }
 }
 
-
-
-
+Character::~Character() {}
