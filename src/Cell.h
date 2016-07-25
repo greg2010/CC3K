@@ -6,7 +6,7 @@
 
 class Cell : public Subject {
 public:
-    Cell(std::pair<int,int> coords);
+    Cell(std::pair<int,int> coords, ObjectType objType);
     Cell(Cell &rhs);
     Cell(Cell &&rhs);
     Cell &operator=(std::shared_ptr<Subject> &rhs);
@@ -14,6 +14,7 @@ public:
     std::shared_ptr<Subject> &operator->();
 private:
     std::shared_ptr<Subject> element;
+    ObjectType objType;
 };
 
 #endif //A05_CELL_H

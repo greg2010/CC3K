@@ -10,5 +10,6 @@ class GoldStash: public Item{
 		GoldStash(std::pair<int,int>coords);
 		virtual void taken(Player &p) = 0;
 		SubjectType getType();
+        bool walkable();
 };
 #endif

@@ -13,6 +13,7 @@ class Potion: public Item {
 		virtual int getAtk() = 0;
 		virtual int getDef() = 0;
 		void push(Potion &other);
+        bool walkable();
 
 	protected:
 		std::shared_ptr<Potion> decPot;

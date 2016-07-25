@@ -26,6 +26,9 @@
 #include "ConcreteWD.h"
 #include "ConcreteGoldStashNormal.h"
 #include "ConcreteGoldStashGuarded.h"
+#include "Door.h"
+#include "Wall.h"
+#include "Bridge.h"
 #include "Game.h"
 #include "Subject.h"
 #include <vector>
@@ -56,11 +59,11 @@ void Floor::readLayout(istream &in){
                     content[make_pair(row, col)] = ObjectType::Space;
                     break;
                 case '|':
-                    floorMap[row][col] = nullptr; // not valid space for any object
+                    floorMap[row][col] = make_shared<Wall>(make_pair(row, col));
                     content[make_pair(row, col)] = ObjectType::Wall_v;
                     break;
                 case '-':
-                    floorMap[row][col] = nullptr; // not valid space for any object
+                    floorMap[row][col] = make_shared<Wall>(make_pair(row, col));
                     content[make_pair(row, col)] = ObjectType::Wall_h;
                     break;
                 case '.':
@@ -68,11 +71,11 @@ void Floor::readLayout(istream &in){
                     content[make_pair(row, col)] = ObjectType::Cell;
                     break;
                 case '+':
-                    floorMap[row][col] = nullptr; // not valid space for any object
+                    floorMap[row][col] = make_shared<Door>(make_pair(row, col));
                     content[make_pair(row, col)] = ObjectType::Door;
                     break;
                 case '#':
-                    floorMap[row][col] = nullptr; // not valid space for any object
+                    floorMap[row][col] = make_shared<Bridge>(make_pair(row, col));
                     content[make_pair(row, col)] = ObjectType::Bridge;
                     break;
                 case '@':
@@ -173,15 +176,13 @@ vector<std::shared_ptr<Subject> > Floor::adjacent(std::shared_ptr<Subject> s) {
     pair<int, int> coor = s->getCoordinates();
     vector<std::shared_ptr<Subject> > neighbors;
     
-    neighbors[0] = floorMap[coor.second - 1][coor.first - 1];
-    neighbors[1] = floorMap[coor.second - 1][coor.first];
-    neighbors[2] = floorMap[coor.second - 1][coor.first + 1];
-    neighbors[3] = floorMap[coor.second][coor.first + 1];
-    neighbors[4] = floorMap[coor.second + 1][coor.first + 1];
-    neighbors[5] = floorMap[coor.second + 1][coor.first];
-    neighbors[6] = floorMap[coor.second + 1][coor.first - 1];
-    neighbors[7] = floorMap[coor.second][coor.first - 1];
-    
+    neighbors.push_back(floorMap[coor.first - 1][coor.second - 1]);
+    neighbors.push_back(floorMap[coor.first - 1][coor.second]);
+    neighbors.push_back(floorMap[coor.first - 1][coor.second + 1]);
+    neighbors.push_back(floorMap[coor.first][coor.second + 1]);
+    neighbors.push_back(floorMap[coor.first + 1][coor.second + 1]);
+    neighbors.push_back(floorMap[coor.first + 1][coor.second]);
+    neighbors.push_back(floorMap[coor.first + 1][coor.second - 1]);
     return neighbors;
 }
 
@@ -227,9 +228,8 @@ bool Floor::move(string dir, std::shared_ptr<Subject> s){
             coor.second--;
         }
         
-        if (neighbors[i] != nullptr ){
-            if (dir == "we" && neighbors[i] -> getType() ==
-                SubjectType::Stairway){
+    if (neighbors[i] != nullptr && neighbors[i] != SubjectType::Wall){
+            if (s->getType() == SubjectType::Player && dir == "we" && neighbors[i] -> getType() == SubjectType::Stairway){
                 game->generateNextFloor();
                 return true;
             }
