@@ -34,6 +34,7 @@ int main(int argc, const char * argv[]) {
     // start game
     shared_ptr<Game> game = make_shared<Game>(file, seed);
     string input;
+    game->display();
     while (getline(cin, input)){
         istringstream iss(input);
         char c;
