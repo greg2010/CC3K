@@ -15,7 +15,7 @@
 class Subject;
 class Observer{
 public:
-    virtual void notify(std::shared_ptr<Subject> sub) = 0;
+    virtual void notify(std::shared_ptr<Subject> sub, bool off) = 0;
     virtual ~Observer();
 };
 #endif /* Observer_h */

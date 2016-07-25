@@ -35,7 +35,7 @@
 using namespace std;
 
 Floor::Floor(std::shared_ptr<Player> player, int currFloor, string playerType, fstream& file, int seed) : player(player), currFloor(currFloor), playerType(playerType), file(file), seed(seed){
-    shared_ptr<TextDisplay> td = make_shared<TextDisplay>(player, currFloor, playerType);
+	td = make_shared<TextDisplay>(player, currFloor, playerType,23, 28 );
 }
 
 Floor::~Floor() {}
@@ -133,7 +133,7 @@ void Floor::readLayout(istream &in){
         }
     }
     
-    shared_ptr<Generator> gen = make_shared<Generator>(shared_from_this(), player, seed);
+    shared_ptr<Generator> gen = make_shared<Generator>(shared_from_this(),td, player, seed);
     gen->generate();
         int coordRow = 0;
         int coordCol = 0;
@@ -149,7 +149,7 @@ void Floor::readLayout(istream &in){
         }
 }
 
-void Floor::notify(std::shared_ptr<Subject> s){
+void Floor::notify(std::shared_ptr<Subject> s, bool off){
     
     if(!s->isVisible()) td->notify(s, true);
     this->coord = s->getCoordinates();
@@ -342,7 +342,7 @@ void Floor::usePotion(string dir) {
         i = 6;
     }
     if (neighbors[i]->getType() == SubjectType::Potion) {
-        neighbors[i]->taken(player);
+        dynamic_pointer_cast<Potion>(neighbors[i])->taken(*player);
     }
 }
 
@@ -374,14 +374,14 @@ void Floor::attack(string dir) {
         i = 6;
     }
     if (neighbors[i]->getType() == SubjectType::Goblin || neighbors[i]->getType() == SubjectType::Vampire || neighbors[i]->getType() == SubjectType::Troll || neighbors[i]->getType() == SubjectType::Merchant || neighbors[i]->getType() == SubjectType::Dragon || neighbors[i]->getType() == SubjectType::Phoenix || neighbors[i]->getType() == SubjectType::Werewolf) {
-        neighbors[i]->attackedBy(neighbors[i]);
+        (dynamic_pointer_cast<Character>(neighbors[i]))->attackedBy(player);
     }
 }
 
 void Floor::enemyTurn() {
     for (auto &row : floorMap) {
         for (auto &enemy : row) {
-            if ((enemy->getType() == SubjectType::Goblin || enemy->getType() == SubjectType::Vampire || enemy->getType() == SubjectType::Troll || enemy->getType() == SubjectType::Merchant || enemy->getType() == SubjectType::Dragon || enemy->getType() == SubjectType::Phoenix || enemy->getType() == SubjectType::Werewolf) && (!enemy->hasMoved()) {
+            if ((enemy->getType() == SubjectType::Goblin || enemy->getType() == SubjectType::Vampire || enemy->getType() == SubjectType::Troll || enemy->getType() == SubjectType::Merchant || enemy->getType() == SubjectType::Dragon || enemy->getType() == SubjectType::Phoenix || enemy->getType() == SubjectType::Werewolf) && (!(dynamic_pointer_cast<Character>(enemy))->hasMoved())) {
                  vector<std::shared_ptr<Subject> > neighbors = adjacent(enemy);
                 for (auto &sub : neighbors) {
                     if (sub->getType() == SubjectType::Player) {
@@ -397,7 +397,7 @@ void Floor::enemyTurn() {
     }
     for (auto &row : floorMap) {
         for (auto &enemy : row) {
-            enemy->resetMove();
+            (dynamic_pointer_cast<Character>(enemy))->resetMove();
         }
     }
 }
@@ -406,20 +406,20 @@ void Floor::doAttack(std::shared_ptr<Subject> attacker) {
     RandGen& RNG = RandGen::getInstance(seed);
     bool hit = RNG.getRandom(2);
     if (hit) {
-        player->attackedBy(attacker);
+        (dynamic_pointer_cast<Character>(player))->attackedBy(dynamic_pointer_cast<Character>(attacker));
     }
 }
                 
 void Floor::doMove(std::shared_ptr<Subject> enemy) {
     vector<std::shared_ptr<Subject> > neighbors = adjacent(enemy);
-    neighbors = std::remove_if(neighbors.begin(), neighbors.end(),
-                [](shared_ptr<Subject> ptr) {
+    std::remove_if(neighbors.begin(), neighbors.end(), [](auto ptr) {
                     if(ptr) {
                         return true;
                     } else {
                         return false;
                     }
-                }
+    });
+	
     if (neighbors.size() == 0) return;
     RandGen& RNG = RandGen::getInstance(seed);
     int choice = RNG.getRandom(neighbors.size());

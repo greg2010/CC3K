@@ -15,7 +15,7 @@
 #include <memory>
 
 using namespace std;
-TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, string race, int width, int height): pc(pc), race(race), currFloor(currFloor), w(width), h(height) {
+TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, string race, int width, int height): pc(pc), currFloor(currFloor), race(race), w(width), h(height) {
     charMap[SubjectType::Player] = '@';
     charMap[SubjectType::Goblin] = 'N';
     charMap[SubjectType::Vampire] = 'V';
