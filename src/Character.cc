@@ -57,10 +57,11 @@ void Character::move(std::pair<int,int> newCoords) {
     this->notifyObservers();
 }
 
-void Character::attackedBy(std::shared_ptr<Character> attacker) {
+int Character::attackedBy(std::shared_ptr<Character> attacker) {
     int damage = std::ceil((100/(100+this->getDefence())) * attacker->getAttack());
     this->changeHP(damage);
     this->notifyObservers();
+    return damage;
 }
 
 bool Character::hasMoved() {

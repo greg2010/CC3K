@@ -11,7 +11,7 @@ public:
     Cell(Cell &&rhs);
     Cell &operator=(std::shared_ptr<Subject> &rhs);
     Cell &operator=(std::shared_ptr<Subject> &&rhs);
-    std::shared_ptr<Subject> &operator->() const;
+    std::shared_ptr<Subject> &operator->();
 private:
     std::shared_ptr<Subject> element;
 };

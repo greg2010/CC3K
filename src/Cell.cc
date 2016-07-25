@@ -2,7 +2,7 @@
 
 Cell::Cell(std::pair<int, int> coords) : Subject{coords}, element{nullptr} { }
 
-std::shared_ptr<Subject> &Cell::operator->() const {
+std::shared_ptr<Subject> &Cell::operator->() {
     return element;
 }
 
