@@ -24,7 +24,12 @@ TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, string race,
     charMap[SubjectType::Dragon] = 'D';
     charMap[SubjectType::Phoenix] = 'X';
     charMap[SubjectType::Troll] = 'T';
-    charMap[SubjectType::Potion] = 'P';
+    charMap[SubjectType::RH] = 'P';
+    charMap[SubjectType::PH] = 'P';
+    charMap[SubjectType::BA] = 'P';
+    charMap[SubjectType::WA] = 'P';
+    charMap[SubjectType::BD] = 'P';
+    charMap[SubjectType::WD] = 'P';
     charMap[SubjectType::Gold] = 'G';
     charMap[SubjectType::Stairway] = '\\';
 }
