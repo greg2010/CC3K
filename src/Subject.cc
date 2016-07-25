@@ -42,3 +42,7 @@ void Subject::notifyObservers() {
         ob->notify(shared_from_this(),visible);
     }
 }
+
+bool Subject::walkable() {
+    return false;
+}

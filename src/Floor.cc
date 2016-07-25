@@ -31,6 +31,7 @@
 #include "Bridge.h"
 #include "Game.h"
 #include "Subject.h"
+#include "Cell.h"
 #include <vector>
 #include <string>
 #include <algorithm>
@@ -46,103 +47,107 @@ Floor::~Floor() {}
 void Floor::readLayout(istream &in){
     td->drawLayout(in);
     bool doGeneration = true;
-    vector<shared_ptr<Subject>> emp;
+    vector<shared_ptr<Subject>> empty;
     for (int row = 0; row < rows; row++) {
-        floorMap.push_back(emp);
+        floorMap.push_back(empty);
         for (int col = 0; col < cols; col++) {
             char c;
             in >> std::noskipws >> c;
-            floorMap[row].push_back(nullptr);
             switch (c) {
                 case ' ':
-                    floorMap[row][col] = nullptr; // not valid space for any object
-                    content[make_pair(row, col)] = ObjectType::Space;
+                    floorMap[row].push_back(nullptr);
                     break;
                 case '|':
-                    floorMap[row][col] = make_shared<Wall>(make_pair(row, col));
-                    content[make_pair(row, col)] = ObjectType::Wall_v;
+                    floorMap[row].push_back(make_shared<Wall>(make_pair(row,col)));
                     break;
                 case '-':
-                    floorMap[row][col] = make_shared<Wall>(make_pair(row, col));
-                    content[make_pair(row, col)] = ObjectType::Wall_h;
+                    floorMap[row].push_back(make_shared<Wall>(make_pair(row,col)));
                     break;
                 case '.':
-                    floorMap[row][col] = nullptr; 
-                    content[make_pair(row, col)] = ObjectType::Cell;
+                    floorMap[row].push_back(make_shared<Cell>(make_pair(row,col)));
                     break;
                 case '+':
-                    floorMap[row][col] = make_shared<Door>(make_pair(row, col));
-                    content[make_pair(row, col)] = ObjectType::Door;
+                    floorMap[row].push_back(make_shared<Door>(make_pair(row,col)));
                     break;
                 case '#':
-                    floorMap[row][col] = make_shared<Bridge>(make_pair(row, col));
-                    content[make_pair(row, col)] = ObjectType::Bridge;
+                    floorMap[row].push_back(make_shared<Bridge>(make_pair(row,col)));
                     break;
                 case '@':
                     player->assignCoords(make_pair(row, col));
                     doGeneration = false;
                     break;
                 case 'N':
-                    floorMap[row][col] = dynamic_pointer_cast<Subject>(make_shared<ConcreteGoblin>(make_pair(row, col)));
+                    floorMap[row].push_back(make_shared<ConcreteGoblin>(make_pair(row,col)));
                     break;
                 case 'V':
-                    floorMap[row][col] = dynamic_pointer_cast<Subject>(make_shared<ConcreteVampire>(make_pair(row, col)));
+                    floorMap[row].push_back(make_shared<ConcreteVampire>(make_pair(row,col)));
                     break;
                 case 'T':
-                    floorMap[row][col] = dynamic_pointer_cast<Subject>(make_shared<ConcreteTroll>(make_pair(row, col)));
+                    floorMap[row].push_back(make_shared<ConcreteTroll>(make_pair(row,col)));
                     break;
                 case 'M':
-                    floorMap[row][col] = dynamic_pointer_cast<Subject>(make_shared<ConcreteMerchant>(make_pair(row, col)));
+                    floorMap[row].push_back(make_shared<ConcreteMerchant>(make_pair(row,col)));
                     break;
                 case 'D':
-                    floorMap[row][col] = dynamic_pointer_cast<Subject>(make_shared<ConcreteDragon>(make_pair(row, col)));
+                    floorMap[row].push_back(make_shared<ConcreteDragon>(make_pair(row,col)));
                     break;
                 case 'P':
-                    floorMap[row][col] = dynamic_pointer_cast<Subject>(make_shared<ConcretePhoenix>(make_pair(row, col)));
+                    floorMap[row].push_back(make_shared<ConcretePhoenix>(make_pair(row,col)));
                     break;
                 case 'W':
-                    floorMap[row][col] = dynamic_pointer_cast<Subject>(make_shared<ConcreteWerewolf>(make_pair(row, col)));
+                    floorMap[row].push_back(make_shared<ConcreteWerewolf>(make_pair(row,col)));
                     break;
                 case '0':
-                    floorMap[row][col] = dynamic_pointer_cast<Subject>(make_shared<ConcreteRH>(make_pair(row, col)));
+                    floorMap[row].push_back(make_shared<ConcreteRH>(make_pair(row,col)));
                     break;
                 case '1':
-                    floorMap[row][col] = dynamic_pointer_cast<Subject>(make_shared<ConcreteBA>(make_pair(row, col)));
+                    floorMap[row].push_back(make_shared<ConcreteBA>(make_pair(row,col)));
                     break;
                 case '2':
-                    floorMap[row][col] = dynamic_pointer_cast<Subject>(make_shared<ConcreteBD>(make_pair(row, col)));
+                    floorMap[row].push_back(make_shared<ConcreteBD>(make_pair(row,col)));
                     break;
                 case '3':
-                    floorMap[row][col] = dynamic_pointer_cast<Subject>(make_shared<ConcretePH>(make_pair(row, col)));
+                    floorMap[row].push_back(make_shared<ConcretePH>(make_pair(row,col)));
                     break;
                 case '4':
-                    floorMap[row][col] = dynamic_pointer_cast<Subject>(make_shared<ConcreteWA>(make_pair(row, col)));
+                    floorMap[row].push_back(make_shared<ConcreteWA>(make_pair(row,col)));
                     break;
                 case '5':
-                    floorMap[row][col] = dynamic_pointer_cast<Subject>(make_shared<ConcreteWD>(make_pair(row, col)));
+                    floorMap[row].push_back(make_shared<ConcreteWD>(make_pair(row,col)));
                     break;
                 case '6':
-                    floorMap[row][col] = dynamic_pointer_cast<Subject>(make_shared<ConcreteGoldStashNormal>(make_pair(row, col), 1));
+                    floorMap[row].push_back(make_shared<ConcreteGoldStashNormal>(make_pair(row,col), 1));
                     break;
                 case '7':
-                    floorMap[row][col] = dynamic_pointer_cast<Subject>(make_shared<ConcreteGoldStashNormal>(make_pair(row, col), 2));
+                    floorMap[row].push_back(make_shared<ConcreteGoldStashNormal>(make_pair(row, col), 2));
                     break;
                 case '8':
-                    floorMap[row][col] = dynamic_pointer_cast<Subject>(make_shared<ConcreteGoldStashNormal>(make_pair(row, col), 5));
+                    floorMap[row].push_back(make_shared<ConcreteGoldStashNormal>(make_pair(row, col), 4));
                     break;
                 case '9':
-                    floorMap[row][col] = dynamic_pointer_cast<Subject>(make_shared<ConcreteGoldStashGuarded>(make_pair(row, col), 6));
+                    floorMap[row].push_back(make_shared<ConcreteGoldStashGuarded>(make_pair(row, col), 6));
                     break;
                 default: break;
             }
         }
     }
-    
-    shared_ptr<Generator> gen = make_shared<Generator>(shared_from_this(),td, player, seed);
-    if (doGeneration) gen->generate();
-        int coordRow = 0;
-        int coordCol = 0;
-        for (auto objType : content) {
+    if (doGeneration) {
+        shared_ptr<Generator> gen = make_shared<Generator>(shared_from_this(),td, player, seed);
+        gen->generate();
+    }
+    int coordRow = 0;
+    int coordCol = 0;
+    for (auto &row : floorMap) {
+        for (auto &sub : row) {
+            if (sub->getType() == SubjectType::Wall && !this->searchInChambers(coordRow, coordCol)) {
+                this->createNewChamber(coordRow, coordCol);
+            }
+            ++coordCol;
+        }
+        coordCol = 0;
+        ++coordRow;
+    }
+        /*for (auto objType : content) {
             if ((objType.second == ObjectType::Wall_v || objType.second == ObjectType::Wall_h) && !this->searchInChambers(coordRow, coordCol)){
                 this->createNewChamber(coordRow, coordCol);
             }
@@ -152,6 +157,7 @@ void Floor::readLayout(istream &in){
                 ++coordRow;
             }
         }
+         */
 }
 
 void Floor::notify(std::shared_ptr<Subject> s, bool off){
@@ -186,70 +192,68 @@ vector<std::shared_ptr<Subject> > Floor::adjacent(std::shared_ptr<Subject> s) {
     return neighbors;
 }
 
-bool Floor::move(string dir, std::shared_ptr<Subject> s){
+bool Floor::move(string dir, std::shared_ptr<Subject> s) {
     // it might be better if move receives set of coods instead of dir
     vector<std::shared_ptr<Subject> > neighbors = adjacent(s);
     pair<int, int> coor = s->getCoordinates();
-        int i;
-        if (dir =="no"){
-            i = 1;
-            coor.first--;
-        }
-        else if(dir == "so"){
-            i = 5;
-            coor.first++;
-        }
-        else if(dir == "ea"){
-            i = 3;
-            coor.second++;
-        }
-        else if(dir == "we"){
-            i = 7;
-            coor.second--;
-        }
-        else if(dir == "ne"){
-            i = 2;
-            coor.first--;
-            coor.second++;
-        }
-        else if(dir == "nw"){
-            i = 0;
-            coor.first--;
-            coor.second--;
-        }
-        else if(dir == "se"){
-            i = 4;
-            coor.first++;
-            coor.second++;
-        }
-        else if(dir == "sw"){
-            i = 6;
-            coor.first++;
-            coor.second--;
-        }
-        
-    if (neighbors[i] != nullptr && neighbors[i] != SubjectType::Wall){
-            if (s->getType() == SubjectType::Player && dir == "we" && neighbors[i] -> getType() == SubjectType::Stairway){
+    int i;
+    if (dir == "no") {
+        i = 1;
+        coor.first--;
+    }
+    else if (dir == "so") {
+        i = 5;
+        coor.first++;
+    }
+    else if (dir == "ea") {
+        i = 3;
+        coor.second++;
+    }
+    else if (dir == "we") {
+        i = 7;
+        coor.second--;
+    }
+    else if (dir == "ne") {
+        i = 2;
+        coor.first--;
+        coor.second++;
+    }
+    else if (dir == "nw") {
+        i = 0;
+        coor.first--;
+        coor.second--;
+    }
+    else if (dir == "se") {
+        i = 4;
+        coor.first++;
+        coor.second++;
+    }
+    else if (dir == "sw") {
+        i = 6;
+        coor.first++;
+        coor.second--;
+    }
+    for (auto &neighbor : neighbors) {
+        if (neighbor && neighbor->getCoordinates() == coor) {
+            if (s->getType() == SubjectType::Player && neighbor->getType() == SubjectType::Stairway) {
                 game->generateNextFloor();
                 return true;
             }
-            else return false;
+            if (neighbor->walkable()) {
+                td->notify(s, true);
+                dynamic_pointer_cast<Character> (s)->move(coor);
+                td->notify(s, false);
+                return true;
+            }
         }
-        else{
-            td->notify(s, true);
-            shared_ptr<Character> character = dynamic_pointer_cast<Character> (s);
-            character->move(coor);
-            td->notify(s, false);
-            return true;
-        }
-        
-        return false;
+    }
+    return false;
 }
                        
 bool Floor::searchInChambers(int row, int col){
-    for (auto ch : chambers) {
+    for (auto &ch : chambers) {
         auto coords = ch->getCoords();
-        if(find(coords.begin(), coords.end(), pair<int,int>{row, col}) != coords.end())  return true;
+        if(find(coords.begin(), coords.end(), make_pair(row, col)) != coords.end())  return true;
     }
     return false;
 }
@@ -258,57 +262,18 @@ void Floor::createNewChamber(int row, int col) {
     shared_ptr<ConcreteChamber> newChamber = make_shared<ConcreteChamber>();
     int newRow = row, newCol = col;
     do {
-        newChamber->addCoord(pair<int,int>{newRow, newCol});
-        if (content[pair<int,int>{newRow, newCol + 1}] == ObjectType::Wall_h ||
-            content[pair<int,int>{newRow, newCol + 1}] == ObjectType::Wall_v) {
+        newChamber->addCoord(make_pair(newRow, newCol));
+        if (floorMap[newRow][newCol + 1] && floorMap[newRow][newCol + 1]->getType() == SubjectType::Wall) {
             ++newCol;
-        } else if (content[pair<int,int>{newRow + 1, newCol}] == ObjectType::Wall_h ||
-                   content[pair<int,int>{newRow + 1, newCol}] == ObjectType::Wall_v) {
+        } else if (floorMap[newRow + 1][newCol] && floorMap[newRow + 1][newCol]->getType() == SubjectType::Wall) {
             ++newRow;
-        } else if (content[pair<int,int>{newRow, newCol - 1}] == ObjectType::Wall_h ||
-                   content[pair<int,int>{newRow, newCol - 1}] == ObjectType::Wall_v) {
+        } else if (floorMap[newRow][newCol - 1] && floorMap[newRow][newCol - 1]->getType() == SubjectType::Wall) {
             --newCol;
-        }  else if (content[pair<int,int>{newRow - 1, newCol}] == ObjectType::Wall_h ||
-                    content[pair<int,int>{newRow - 1, newCol}] == ObjectType::Wall_v) {
+        }  else if (floorMap[newRow - 1][newCol] && floorMap[newRow - 1][newCol]->getType() == SubjectType::Wall) {
             --newRow;
         }
         
     } while (newRow != row && newCol != col);
-    /*
-    ObjectType type = content[make_pair(row, col)];
-    newChamber.addCoords(row, col);
-    int newRow = row, newCol = col;
-    char dir = 'e';
-    do {
-        if(type == ObjectType::Wall_v) {
-            type = ObjectType::Wall_h;
-        }
-        else if (type == ObjectType::Wall_h) {
-            type = ObjectType::Wall_v;
-        }
-        if (content[make_pair(newRow, newCol + 1)] == type)   dir = 'e';
-        else if (content[make_pair(newRow+1, newCol)] == type)   dir = 's';
-        else if (content[make_pair(newRow, newCol-1)] == type)   dir = 'w';
-        else if (content[make_pair(newRow-1, newCol)] == type)   dir = 'n';
-        while (content[make_pair(newRow, newCol)] == type) {
-            if (dir == 'e'){
-                newChamber->addCoords(make_pair(newRow, newCol++));
-            }
-            else if (dir == 's') {
-                newChamber->addCoords(make_pair(newRow++, newCol));
-            }
-            else if (dir == 'w') {
-                newChamber->addCoords(make_pair(newRow, newCol--));
-            }
-            else if (dir == 'n') {
-                newChamber->addCoords(make_pair(newRow--, newCol));
-            }
-        }
-        if(dir == 's')  newRow--;
-        if(dir == 'n')  newRow++;
-        type = content[make_pair(newRow, newCol)];
-    }while (newRow != row && newCol != col)
-     */
     chambers.push_back(newChamber);
 }
 

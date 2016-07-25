@@ -35,9 +35,9 @@ enum class ObjectType {
 };
 class Floor : public Observer, public std::enable_shared_from_this<Floor>{
     std::vector<std::vector <std::shared_ptr<Subject> > > floorMap;  // row < col>
+    std::vector<std::shared_ptr<Subject>> objects;
     std::shared_ptr<Player> player;
     std::shared_ptr<TextDisplay> td;
-    std::map<std::pair<int, int>, ObjectType > content;
     std::vector<std::shared_ptr<ConcreteChamber> > chambers;
     int hp, atk, def, gold, seed;
     std::pair<int, int> coord;
@@ -62,7 +62,6 @@ public:
     void usePotion(std::string dir);
     void attack(std::string dir);
     std::vector<std::shared_ptr<ConcreteChamber> > getChamber();
-    void cutFile(std::fstream& file);
     void enemyTurn();
 };
 

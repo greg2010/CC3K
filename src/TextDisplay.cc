@@ -32,6 +32,9 @@ TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, string race,
     charMap[SubjectType::WD] = 'P';
     charMap[SubjectType::Gold] = 'G';
     charMap[SubjectType::Stairway] = '\\';
+    charMap[SubjectType::Cell] = '.';
+    charMap[SubjectType::Door] = '+';
+    charMap[SubjectType::Bridge] = '#';
     string message = " Player character has spawned.";
 }
 

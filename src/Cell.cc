@@ -1,21 +1,11 @@
 #include "Cell.h"
 
-Cell::Cell(std::pair<int, int> coords) : Subject{coords}, element{nullptr} { }
+Cell::Cell(std::pair<int,int>coords):Item{coords}{}
 
-std::shared_ptr<Subject> &Cell::operator->() {
-    return element;
+SubjectType Cell::getType() {
+    return SubjectType::Cell;
 }
 
-Cell &Cell::operator=(std::shared_ptr<Subject> &rhs) {
-    element = rhs;
-    return *this;
+bool Cell::walkable() {
+    return true;
 }
-
-Cell &Cell::operator=(std::shared_ptr<Subject> &&rhs) {
-    element = rhs;
-    return *this;
-}
-
-Cell::Cell(Cell &rhs) : Subject{rhs.getCoordinates()} { }
-
-Cell::Cell(Cell &&rhs) : Subject{rhs.getCoordinates()} { }

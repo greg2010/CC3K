@@ -24,6 +24,10 @@ enum class SubjectType {
     WD,
     Gold,
     Stairway,
+    Wall,
+    Bridge,
+    Door,
+    Cell
 };
 
 
@@ -35,6 +39,7 @@ public:
     void attach (std::shared_ptr<Observer> observer);
     void detach (std::shared_ptr<Observer> observer);
     std::pair<int, int> getCoordinates();
+    virtual bool walkable();
     virtual SubjectType getType() = 0;
     virtual bool isVisible();
     virtual void remove();
