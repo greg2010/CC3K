@@ -10,7 +10,7 @@ public:
     virtual unsigned int getAttack();
     virtual unsigned int getDefence();
     void move(std::pair<int,int> newCoords); // Moves chararcter in direction dir. Assumes that new coords are valid
-    virtual void attackedBy(std::shared_ptr<Character> attacker); // Handles attacks
+    virtual int attackedBy(std::shared_ptr<Character> attacker); // Handles attacks
     unsigned int getGold();
     bool hasMoved(); // getter for hasMovedThisTurn
     void resetMove(); // resets hasMovedThisTurn

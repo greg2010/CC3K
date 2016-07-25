@@ -9,7 +9,3 @@ void Potion::push(Potion &other) {
         decPot = std::static_pointer_cast<Potion>(other.shared_from_this());
     }
 }
-
-SubjectType Potion::getType(){
-	return SubjectType::Potion;
-}

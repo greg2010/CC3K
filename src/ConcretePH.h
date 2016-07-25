@@ -6,6 +6,7 @@ class ConcretePH: public PotHP{
 	int value;
 	public:
 		ConcretePH(std::pair<int,int> coords);
+		SubjectType getType() override;
 		int getHP() override;
 };
 

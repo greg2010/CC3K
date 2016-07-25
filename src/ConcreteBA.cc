@@ -9,3 +9,7 @@ int ConcreteBA::getAtk(){
 		return value ;
 	}
 }
+
+SubjectType ConcreteBA::getType() {
+    return SubjectType::BA;
+}

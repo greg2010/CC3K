@@ -12,7 +12,7 @@ public:
     unsigned int getDefence() override;
 
 protected:
-    virtual void doInteract(PotHP &hpPot);
+    virtual void doInteract(PotHP &hpPot) override;
 };
 
 

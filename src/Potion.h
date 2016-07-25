@@ -12,7 +12,6 @@ class Potion: public Item {
 		virtual int getHP() = 0;
 		virtual int getAtk() = 0;
 		virtual int getDef() = 0;
-		SubjectType getType();
 		void push(Potion &other);
 
 	protected:

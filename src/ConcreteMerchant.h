@@ -10,7 +10,7 @@ public:
     bool isMoving() override;
     bool isHostile() override;
 
-    void attackedBy(std::shared_ptr<Character> attacker) override;
+    int attackedBy(std::shared_ptr<Character> attacker) override;
     SubjectType getType() override;
 private:
     static bool hostile;

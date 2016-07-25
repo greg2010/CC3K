@@ -16,7 +16,12 @@ enum class SubjectType {
     Merchant,
     Dragon,
     Phoenix,
-    Potion,
+    RH,
+    PH,
+    BA,
+    WA,
+    BD,
+    WD,
     Gold,
     Stairway,
 };

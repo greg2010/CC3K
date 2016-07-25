@@ -23,7 +23,7 @@ class Game {
     std::shared_ptr<Floor> floor;
     std::shared_ptr<Player> player;
     std::string playerType;
-    std::fstream file;
+    std::fstream &file;
     int seed;
 public:
     Game(std::fstream &file, int seed);

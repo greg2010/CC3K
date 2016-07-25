@@ -9,3 +9,7 @@ int ConcreteWD::getDef(){
 		return value;
 	}
 }
+
+SubjectType ConcreteWD::getType() {
+    return SubjectType::WD;
+}

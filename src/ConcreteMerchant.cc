@@ -17,9 +17,9 @@ bool ConcreteMerchant::isMoving() {
     return false;
 }
 
-void ConcreteMerchant::attackedBy(std::shared_ptr<Character> attacker) {
+int ConcreteMerchant::attackedBy(std::shared_ptr<Character> attacker) {
     ConcreteMerchant::hostile = true;
-    Character::attackedBy(attacker);
+    return Character::attackedBy(attacker);
 }
 
 SubjectType ConcreteMerchant::getType(){

@@ -9,3 +9,7 @@ int ConcreteBD::getDef(){
 		return value;
 	}
 }
+
+SubjectType ConcreteBD::getType() {
+    return SubjectType::BD;
+}

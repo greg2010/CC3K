@@ -7,7 +7,8 @@ class ConcreteBD : public PotDE {
 
 	public:
 		ConcreteBD(std::pair<int,int> coords);
-		int getDef();
+		SubjectType getType() override;
+		int getDef() override;
 };
 
 #endif

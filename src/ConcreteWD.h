@@ -7,7 +7,8 @@ class ConcreteWD : public PotDE{
 
 	public:
 		ConcreteWD(std::pair<int,int> coords);
-		int getDef();
+		SubjectType getType() override;
+		int getDef() override;
 };
 
 #endif
