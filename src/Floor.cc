@@ -43,11 +43,13 @@ Floor::~Floor() {}
 void Floor::readLayout(istream &in){
     td->drawLayout(in);
     bool doGeneration = true;
+    vector<shared_ptr<Subject>> emp;
     for (int row = 0; row < rows; row++) {
+        floorMap.push_back(emp);
         for (int col = 0; col < cols; col++) {
             char c;
             in >> std::noskipws >> c;
-            
+            floorMap[row].push_back(nullptr);
             switch (c) {
                 case ' ':
                     floorMap[row][col] = nullptr; // not valid space for any object
@@ -246,13 +248,14 @@ bool Floor::move(string dir, std::shared_ptr<Subject> s){
                        
 bool Floor::searchInChambers(int row, int col){
     for (auto ch : chambers) {
-        if(find(ch->getCoords().begin(), ch->getCoords().end(), pair<int,int>{row, col}) != ch->getCoords().end())  return true;
+        auto coords = ch->getCoords();
+        if(find(coords.begin(), coords.end(), pair<int,int>{row, col}) != coords.end())  return true;
     }
     return false;
 }
                        
 void Floor::createNewChamber(int row, int col) {
-    shared_ptr<ConcreteChamber> newChamber;
+    shared_ptr<ConcreteChamber> newChamber = make_shared<ConcreteChamber>();
     int newRow = row, newCol = col;
     do {
         newChamber->addCoord(pair<int,int>{newRow, newCol});
@@ -426,7 +429,7 @@ void Floor::doMove(std::shared_ptr<Subject> enemy) {
     if (neighbors.size() == 0) return;
     RandGen& RNG = RandGen::getInstance(seed);
     int choice = RNG.getRandom(neighbors.size());
-                               
+    
 }
                 
 

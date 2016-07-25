@@ -26,7 +26,8 @@ Game::Game(fstream &file, int seed) : file(file), seed(seed){
     shared_ptr<Player> player = generatePlayer();
     td = make_shared<TextDisplay>(player, currFloor, playerType,23, 28 );
     int currFloor = 1;
-    shared_ptr<Floor> floor = make_shared<Floor>(player, currFloor, playerType, file, seed, td);
+    floor = make_shared<Floor>(player, currFloor, playerType, file, seed, td);
+    floor->readLayout(file);
 }
 
 Game::~Game(){
@@ -149,6 +150,7 @@ void Game::generateNextFloor(){
         currFloor++;
         //delete floor;
         shared_ptr<Floor> floor = make_shared<Floor>(player, currFloor, playerType, file, seed, td);
+        floor->readLayout(file);
     }
     
 }

@@ -8,7 +8,6 @@
 
 class ConcreteChamber : public Layout {
 public:
-    ConcreteChamber() = default;
     void addCoord(std::pair<int,int> wallCoord);
     std::vector<std::pair<int,int>> getCoords();
     std::vector<std::pair<int,int>> getCellCoords();

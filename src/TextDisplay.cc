@@ -73,7 +73,9 @@ void operator<<(std::ostream &out, std::shared_ptr<TextDisplay> td) {
     td->messageCounter = 0;
 }
 void TextDisplay::drawLayout(istream &in) {
+    vector<char> emp;
     for (int row = 0; row < h; row++) {
+        grid.push_back(emp);
         for (int col = 0; col < w; col++) {
             char c;
             in >> std::noskipws >> c;
@@ -83,7 +85,7 @@ void TextDisplay::drawLayout(istream &in) {
             if (c == '6' || c == '7' || c == '8' || c == '8') {
                 c = 'G';
             }
-            grid[row][col] = c;
+            grid[row].push_back(c);
         }
     }
 }

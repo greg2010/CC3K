@@ -5,7 +5,7 @@ void ConcreteChamber::addCoord(std::pair<int, int> wallCoord) {
     if (wallCoords.size() == 0) {
         wallCoords.push_back(emptyRow);
     } else if (wallCoords.size() <= wallCoord.first) {
-        wallCoords.push_back(emptyRow);
+        wallCoords.resize(wallCoord.first);
     }
 
 
@@ -13,7 +13,7 @@ void ConcreteChamber::addCoord(std::pair<int, int> wallCoord) {
         wallCoords[wallCoord.first].push_back(wallCoord);
     } else {
         int j = 0;
-        while (j < wallCoords[wallCoord.first].size() &&wallCoords[wallCoord.first][j].second < wallCoord.second) ++j;
+        while (j < wallCoords[wallCoord.first].size() && wallCoords[wallCoord.first][j].second < wallCoord.second) ++j;
         wallCoords[wallCoord.first].insert(wallCoords[wallCoord.first].begin() + j, wallCoord);
     }
 }
