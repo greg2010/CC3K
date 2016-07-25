@@ -153,7 +153,7 @@ void Floor::notify(std::shared_ptr<Subject> s, bool off){
     
     if(!s->isVisible()) td->notify(s, true);
     this->coord = s->getCoordinates();
-    if ((s->getType() != SubjectType::Potion) && (s->getType() != SubjectType::Gold)){
+    if ((s->getType() != SubjectType::RH || s->getType() != SubjectType::PH || s->getType() != SubjectType::BA || s->getType() != SubjectType::WA || s->getType() != SubjectType::BD || s->getType() != SubjectType::WD) && (s->getType() != SubjectType::Gold)){
         shared_ptr<Character> character = dynamic_pointer_cast<Character> (s);
         this->gold = character->getGold();
         this->hp = character->getHP();
@@ -341,7 +341,7 @@ void Floor::usePotion(string dir) {
     else if(dir == "sw"){
         i = 6;
     }
-    if (neighbors[i]->getType() == SubjectType::Potion) {
+    if (neighbors[i]->getType() == SubjectType::RH || neighbors[i]->getType() == SubjectType::PH || neighbors[i]->getType() == SubjectType::BA || neighbors[i]->getType() == SubjectType::WA || neighbors[i]->getType() == SubjectType::BD || neighbors[i]->getType() == SubjectType::WD) {
         dynamic_pointer_cast<Potion>(neighbors[i])->taken(*player);
     }
 }

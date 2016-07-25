@@ -39,6 +39,6 @@ void Subject::remove() {
 
 void Subject::notifyObservers() {
     for (auto ob : observers) {
-        ob->notify(shared_from_this());
+        ob->notify(shared_from_this(),visible);
     }
 }
