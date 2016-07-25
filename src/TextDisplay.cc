@@ -15,7 +15,7 @@
 #include <memory>
 
 using namespace std;
-TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, string race, int width, int height): pc(pc), currFloor(currFloor), race(race), w(width), h(height) {
+TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, string race, int width, int height): pc(pc), race(race), currFloor(currFloor), w(width), h(height) {
     charMap[SubjectType::Player] = '@';
     charMap[SubjectType::Goblin] = 'N';
     charMap[SubjectType::Vampire] = 'V';
@@ -27,6 +27,7 @@ TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, string race,
     charMap[SubjectType::Potion] = 'P';
     charMap[SubjectType::Gold] = 'G';
     charMap[SubjectType::Stairway] = '\\';
+    string message = " Player character has spawned.";
 }
 
 
@@ -62,7 +63,7 @@ void operator<<(std::ostream &out, const TextDisplay &td) {
     << "HP: "<< td.pc->getHP() << endl
     << "Atk: "<< td.pc->getAttack() << endl
     << "Def: "<< td.pc->getDefence() << endl
-    << "Action: "<<endl;
+    << "Action: " << td.message <<endl;
 
 }
 void TextDisplay::drawLayout(istream &in) {
@@ -80,3 +81,24 @@ void TextDisplay::drawLayout(istream &in) {
         }
     }
 }
+
+string TextDisplay::potionMessage(std::shared_ptr<Subject> sub) {
+    if (sub->getType() == SubjectType :: RH) message = "RH";
+    else if (sub->getType() == SubjectType :: PH) message = "PH";
+    else if (sub->getType() == SubjectType :: BA) message = "BA";
+    else if (sub->getType() == SubjectType :: WA) message = "WA";
+    else if (sub->getType() == SubjectType :: BD) message = "BD";
+    else if (sub->getType() == SubjectType :: WD) message = "WD";
+    else return  "";
+    message = "PC uses " + message;
+    return message;
+}
+
+string TextDisplay::attackMessage(shared_ptr<Subject> attacker, shared_ptr<Subject> beingAttacked, int damage) {
+    if (attacker->getType() == SubjectType::Player) {
+        message = " PC deals " + to_string(damage) + " damage to " + charMap[beingAttacked->getType()] + " (" + beingAttacked->getHP() + " HP). ";
+    }
+    
+}
+
+

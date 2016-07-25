@@ -76,11 +76,12 @@ shared_ptr<Floor> Game::getCurrentFloor(){
     return this->floor;
 }
 
-bool Game::movePlayer(string dir)
+void Game::movePlayer(string dir)
 {
    
     
-    return floor->move(dir, player);
+    floor->move(dir, player);
+    floor->enemyTurn();
     
 //    pair<int, int> coor = player->getCoordinates();
 //    int i = 0;  // assume vector<subject*> [0] starts from left most conor and moving right
@@ -153,8 +154,14 @@ void Game::generateNextFloor(){
 
 void Game::usePotion(string dir) {
     floor->usePotion(dir);
+    floor->enemyTurn();
 }
 
 void Game::attack(string dir) {
     floor->attack(dir);
+    floor->enemyTurn();
+}
+
+void Game::display(std::ostream &out = std::cout) {
+    out << 
 }

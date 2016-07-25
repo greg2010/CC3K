@@ -68,11 +68,13 @@ int main(int argc, const char * argv[]) {
 
         }
         else if (c == 'r') {
-            game = make_shared<Game>(file, seed);
+            game = make_shared<Game>(file);
+            continue;
         }
         else if (c == 'q') {
             exit(0);
         }
+        
     }
     
     
