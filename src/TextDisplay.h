@@ -26,11 +26,9 @@ class TextDisplay : public Observer {
     std::vector<std::vector <char> > grid;
     std::string race;
     std::string message;
-    std::string potionMessage(std::shared_ptr<Subject> sub);
-    std::string attackMessage(std::shared_ptr<Subject> attacker, std::shared_ptr<Subject> beingAttacked, int damage);
     int messageCounter;
-public:
     int w, h, currFloor;
+public:
     std::shared_ptr<Player> pc;
     TextDisplay(std::shared_ptr<Player> pc, int currFloor, std::string race, int width = 75, int height = 25);
     ~TextDisplay() override;
@@ -39,6 +37,8 @@ public:
     friend void operator<<(std::ostream &out, const TextDisplay &td);
     void drawLayout(std::istream &in);
     void finishTurn();
+    void potionMessage(std::shared_ptr<Subject> sub);
+    void attackMessage(std::shared_ptr<Subject> attacker, std::shared_ptr<Subject>beingAttacked, int damage);
 };
 
 #endif /* TextDisplay_h */

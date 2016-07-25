@@ -15,7 +15,7 @@
 #include <memory>
 
 using namespace std;
-TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, string race, int width, int height): pc(pc), race(race), currFloor(currFloor), w(width), h(height) {
+TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, string race, int width, int height): pc(pc), race(race), currFloor(currFloor), w(width), h(height), messageCounter(0), message("") {
     charMap[SubjectType::Player] = '@';
     charMap[SubjectType::Goblin] = 'N';
     charMap[SubjectType::Vampire] = 'V';
@@ -68,8 +68,9 @@ void operator<<(std::ostream &out, const TextDisplay &td) {
     << "HP: "<< td.pc->getHP() << endl
     << "Atk: "<< td.pc->getAttack() << endl
     << "Def: "<< td.pc->getDefence() << endl
-    << "Action: " << td.message <<endl;
-
+    << "Action: " << td.message << endl;
+    td.message = "";
+    td.messageCounter = 0;
 }
 void TextDisplay::drawLayout(istream &in) {
     for (int row = 0; row < h; row++) {
@@ -87,23 +88,28 @@ void TextDisplay::drawLayout(istream &in) {
     }
 }
 
-string TextDisplay::potionMessage(std::shared_ptr<Subject> sub) {
-    if (sub->getType() == SubjectType :: RH) message = "RH";
-    else if (sub->getType() == SubjectType :: PH) message = "PH";
-    else if (sub->getType() == SubjectType :: BA) message = "BA";
-    else if (sub->getType() == SubjectType :: WA) message = "WA";
-    else if (sub->getType() == SubjectType :: BD) message = "BD";
-    else if (sub->getType() == SubjectType :: WD) message = "WD";
-    else return  "";
-    message = "PC uses " + message;
-    return message;
+void TextDisplay::potionMessage(std::shared_ptr<Subject> sub) {
+    string potName = "";
+    if (sub->getType() == SubjectType :: RH) potName = "RH";
+    else if (sub->getType() == SubjectType :: PH) potName = "PH";
+    else if (sub->getType() == SubjectType :: BA) potName = "BA";
+    else if (sub->getType() == SubjectType :: WA) potName = "WA";
+    else if (sub->getType() == SubjectType :: BD) potName = "BD";
+    else if (sub->getType() == SubjectType :: WD) potName = "WD";
+    if (messageCounter) message += " ";
+    message += "PC uses " + potName;
+    ++messageCounter;
 }
 
-string TextDisplay::attackMessage(shared_ptr<Subject> attacker, shared_ptr<Subject> beingAttacked, int damage) {
+void TextDisplay::attackMessage(shared_ptr<Subject> attacker, shared_ptr<Subject> beingAttacked, int damage) {
+    if (messageCounter) message += " ";
     if (attacker->getType() == SubjectType::Player) {
-        message = " PC deals " + to_string(damage) + " damage to " + charMap[beingAttacked->getType()] + " (" + to_string(dynamic_pointer_cast<Character>(beingAttacked)->getHP()) + " HP). ";
+        message += "PC deals " + to_string(damage) + " damage to " + string{charMap[beingAttacked->getType()]} + " (" + to_string(dynamic_pointer_cast<Character>(beingAttacked)->getHP()) + " HP).";
     }
-    return message;
+    else  {
+        message += string{charMap[beingAttacked->getType()]} + " deals " + to_string(damage) + " damage to PC.";
+    }
+    ++messageCounter;
 }
 
 TextDisplay::~TextDisplay() { }

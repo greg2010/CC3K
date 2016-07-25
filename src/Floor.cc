@@ -34,14 +34,14 @@
 
 using namespace std;
 
-Floor::Floor(std::shared_ptr<Player> player, int currFloor, string playerType, fstream& file, int seed, std::shared_ptr<TextDisplay> &td) : player(player), currFloor(currFloor), playerType(playerType), file(file), seed(seed), td(td) {
+Floor::Floor(std::shared_ptr<Player> player, int currFloor, string playerType, fstream& file, int seed, TextDisplay &td) : player(player), currFloor(currFloor), playerType(playerType), file(file), seed(seed), td(td) {
 	
 }
 
 Floor::~Floor() {}
 
 void Floor::readLayout(istream &in){
-    td->drawLayout(in);
+    td.drawLayout(in);
     bool doGeneration = true;
     for (int row = 0; row < rows; row++) {
         for (int col = 0; col < cols; col++) {
@@ -151,7 +151,7 @@ void Floor::readLayout(istream &in){
 
 void Floor::notify(std::shared_ptr<Subject> s, bool off){
     
-    if(!s->isVisible()) td->notify(s, true);
+    if(!s->isVisible()) td.notify(s, true);
     this->coord = s->getCoordinates();
     if ((s->getType() != SubjectType::RH || s->getType() != SubjectType::PH || s->getType() != SubjectType::BA || s->getType() != SubjectType::WA || s->getType() != SubjectType::BD || s->getType() != SubjectType::WD) && (s->getType() != SubjectType::Gold)){
         shared_ptr<Character> character = dynamic_pointer_cast<Character> (s);
@@ -234,10 +234,10 @@ bool Floor::move(string dir, std::shared_ptr<Subject> s){
             else return false;
         }
         else{
-            td->notify(s, true);
+            td.notify(s, true);
             shared_ptr<Character> character = dynamic_pointer_cast<Character> (s);
             character->move(coor);
-            td->notify(s, false);
+            td.notify(s, false);
             return true;
         }
         
@@ -343,6 +343,7 @@ void Floor::usePotion(string dir) {
     }
     if (neighbors[i]->getType() == SubjectType::RH || neighbors[i]->getType() == SubjectType::PH || neighbors[i]->getType() == SubjectType::BA || neighbors[i]->getType() == SubjectType::WA || neighbors[i]->getType() == SubjectType::BD || neighbors[i]->getType() == SubjectType::WD) {
         dynamic_pointer_cast<Potion>(neighbors[i])->taken(*player);
+        td.potionMessage(neighbors[i]);
     }
 }
 
@@ -374,7 +375,8 @@ void Floor::attack(string dir) {
         i = 6;
     }
     if (neighbors[i]->getType() == SubjectType::Goblin || neighbors[i]->getType() == SubjectType::Vampire || neighbors[i]->getType() == SubjectType::Troll || neighbors[i]->getType() == SubjectType::Merchant || neighbors[i]->getType() == SubjectType::Dragon || neighbors[i]->getType() == SubjectType::Phoenix || neighbors[i]->getType() == SubjectType::Werewolf) {
-        (dynamic_pointer_cast<Character>(neighbors[i]))->attackedBy(player);
+        int damage = (dynamic_pointer_cast<Character>(neighbors[i]))->attackedBy(player);
+        td.attackMessage(player, neighbors[i], damage);
     }
 }
 
@@ -406,7 +408,8 @@ void Floor::doAttack(std::shared_ptr<Subject> attacker) {
     RandGen& RNG = RandGen::getInstance(seed);
     bool hit = RNG.getRandom(2);
     if (hit) {
-        (dynamic_pointer_cast<Character>(player))->attackedBy(dynamic_pointer_cast<Character>(attacker));
+        int damage = (dynamic_pointer_cast<Character>(player))->attackedBy(dynamic_pointer_cast<Character>(attacker));
+        td.attackMessage(attacker, player, damage);
     }
 }
                 
