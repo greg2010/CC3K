@@ -11,6 +11,8 @@ const int defaultDef = 20;
 class ConcreteHuman : public Player {
 public:
     ConcreteHuman(std::pair<int,int> coords);
+
+    int getScore() override;
 };
 
 

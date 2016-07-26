@@ -144,6 +144,7 @@ void TextDisplay::endGame(bool cond) {
     message += " You";
     if (cond) {
         message += " won!";
+        message += "\nYour score: " + to_string(pc->getScore());
     } else {
         message += " lost!";
     }

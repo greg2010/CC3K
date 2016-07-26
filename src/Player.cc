@@ -73,14 +73,18 @@ void Player::assignCoords(std::pair<int, int> coords) {
 }
 
 int Player::getPotAttack() {
-    return potDec->getAtk();
+    return potDec ? potDec->getAtk() : 0;
 }
 
 int Player::getPotDefence() {
-    return potDec->getDef();
+    return potDec ? potDec->getDef() : 0;
 }
 
 void Player::resetPotions() {
     potDec = nullptr;
+}
+
+int Player::getScore() {
+    return getGold();
 }
 
