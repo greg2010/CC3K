@@ -14,7 +14,7 @@ bool ConcreteMerchant::isHostile() {
 }
 
 bool ConcreteMerchant::isMoving() {
-    return false;
+    return true;
 }
 
 int ConcreteMerchant::attackedBy(std::shared_ptr<Character> attacker) {

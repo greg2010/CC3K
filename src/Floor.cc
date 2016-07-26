@@ -220,6 +220,7 @@ void Floor::notify(std::shared_ptr<Subject> s, bool off){
 
 void Floor::deleteSubject(std::shared_ptr<Subject> s) {
     s->Subject::remove();
+
  }
 
 shared_ptr<Subject> Floor::getObjectAtCoords(pair<int, int> coor) {
@@ -452,6 +453,7 @@ void Floor::enemyTurn() {
                 else {
                     doMove(obj);
                 }
+                break;
             }
         }
     }
@@ -480,14 +482,18 @@ void Floor::doAttack(std::shared_ptr<Subject> attacker) {
                 
 void Floor::doMove(std::shared_ptr<Subject> enemy) {
     vector<std::shared_ptr<Subject> > neighbors = adjacent(enemy);
-    std::remove_if(neighbors.begin(), neighbors.end(), [](shared_ptr<Subject> ptr) {
-        return (ptr && !ptr->walkable());
-    });
-	
-    if (neighbors.size() == 0) return;
+    vector<std::shared_ptr<Subject> > validNeighbors;
+    for (auto ptr : neighbors) {
+        if (ptr && ptr->walkable()) {
+            validNeighbors.push_back(ptr);
+        }
+    }
+    if (validNeighbors.size() == 0) return;
     RandGen& RNG = RandGen::getInstance(seed);
-    int choice = RNG.getRandom(neighbors.size());
-    dynamic_pointer_cast<Character>(enemy)->move(neighbors[choice]->getCoordinates());
+    int choice = RNG.getRandom(validNeighbors.size());
+    auto currCoords = enemy->getCoordinates();
+    dynamic_pointer_cast<Character>(enemy)->move(validNeighbors[choice]->getCoordinates());
+    getObjectAtCoords(currCoords)->notifyObservers();
 }
                 
 
