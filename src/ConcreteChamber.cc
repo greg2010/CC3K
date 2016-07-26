@@ -38,12 +38,15 @@ std::vector<std::pair<int, int>> ConcreteChamber::getCoords() {
 std::vector<std::pair<int, int>> ConcreteChamber::getCellCoords() {
     std::vector<std::pair<int,int>> cellCoords;
     for (auto row : wallCoords) {
-        for (auto it = row.begin(); it != row.end() - 1; ++it) {
-            auto next = it+1;
-            if (!(*it).second + 1 == (*next).second) {
-                for (int i = (*it).second + 1; i < (*next).second; ++i) {
-                    cellCoords.push_back(std::pair<int,int>{(*it).first, i});
-                }
+        auto it = row.begin();
+        auto next = it + 1;
+        while (next != row.end() && (*it).second + 1 == (*next).second) {
+            ++it;
+            ++next;
+        }
+        if (next != row.end()) {
+            for (int i = (*it).second + 1; i < (*next).second; ++i) {
+                cellCoords.push_back(std::pair<int, int>{(*it).first, i});
             }
         }
     }

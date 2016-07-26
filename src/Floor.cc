@@ -179,16 +179,16 @@ void Floor::readLayout(ifstream &in){
             if (floorMap[row][col]) floorMap[row][col]->attach(shared_from_this());
         }
     }
-    if (doGeneration) {
-        shared_ptr<Generator> gen = make_shared<Generator>(shared_from_this(),td, player, seed);
-        gen->generate();
-    }
     for (int i = 1; i < floorMap.size() - 1; ++i) {
         for (int j = 1; j < floorMap[i].size() - 1; ++j) {
             if (floorMap[i][j] && (floorMap[i][j]->getType() == SubjectType::WallH || floorMap[i][j]->getType() == SubjectType::WallV) && !this->searchInChambers(i, j)) {
                 this->createNewChamber(i, j);
             }
         }
+    }
+    if (doGeneration) {
+        shared_ptr<Generator> gen = make_shared<Generator>(shared_from_this(),td, player, seed);
+        gen->generate();
     }
         /*for (auto objType : content) {
             if ((objType.second == ObjectType::Wall_v || objType.second == ObjectType::Wall_h) && !this->searchInChambers(coordRow, coordCol)){
@@ -212,6 +212,9 @@ void Floor::notify(std::shared_ptr<Subject> s, bool off){
                 deleteSubject(s);
             }
         }
+    }
+    if (s->getType() == SubjectType::Stairway) {
+        floorMap[s->getCoordinates().first][s->getCoordinates().second] = s;
     }
     td->notify(getObjectAtCoords(s->getCoordinates()), true);
     // this->coord = s->getCoordinates();
@@ -512,6 +515,10 @@ void Floor::doMove(std::shared_ptr<Subject> enemy) {
     auto currCoords = enemy->getCoordinates();
     dynamic_pointer_cast<Character>(enemy)->move(validNeighbors[choice]->getCoordinates());
     getObjectAtCoords(currCoords)->notifyObservers();
+}
+
+void Floor::addToObjects(std::shared_ptr<Subject> s) {
+    objects.push_back(s);
 }
                 
 
