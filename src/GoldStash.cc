@@ -9,3 +9,8 @@ SubjectType GoldStash::getType() {
 bool GoldStash::walkable() {
     return false;
 }
+
+void GoldStash::taken(Player &p) {
+    doTaken(p);
+    remove();
+}

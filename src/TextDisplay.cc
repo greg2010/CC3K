@@ -141,7 +141,7 @@ void TextDisplay::attackMessage(shared_ptr<Subject> attacker, shared_ptr<Subject
 TextDisplay::~TextDisplay() { }
 
 void TextDisplay::endGame(bool cond) {
-    message += "You";
+    message += " You";
     if (cond) {
         message += " won!";
     } else {

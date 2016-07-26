@@ -297,6 +297,10 @@ bool Floor::move(string dir, std::shared_ptr<Subject> s) {
     }
     for (auto &neighbor : neighbors) {
         if (neighbor && neighbor->getCoordinates() == coor) {
+            if (s->getType() == SubjectType::Player && neighbor->getType() == SubjectType::Gold) {
+                auto pl = dynamic_pointer_cast<Player>(s);
+                dynamic_pointer_cast<GoldStash>(neighbor)->taken(*pl);
+            }
             if (s->getType() == SubjectType::Player && neighbor->getType() == SubjectType::Stairway) {
                 game->generateNextFloor();
                 return true;
@@ -455,15 +459,17 @@ void Floor::enemyTurn() {
             ((dynamic_pointer_cast<Enemy>(obj))->isMoving()) &&
             (!(dynamic_pointer_cast<Character>(obj))->hasMoved())) {
             vector<std::shared_ptr<Subject> > neighbors = adjacent(obj);
+            bool hasPlayerNearby = false;
             for (auto &sub : neighbors) {
                 if (sub->getType() == SubjectType::Player &&
                     (dynamic_pointer_cast<Enemy>(obj)->isHostile())) {
-                    doAttack(obj);
+                    hasPlayerNearby = true;
                 }
-                else {
-                    doMove(obj);
-                }
-                break;
+            }
+            if (hasPlayerNearby) {
+                doAttack(obj);
+            } else {
+                doMove(obj);
             }
         }
     }

@@ -8,7 +8,8 @@ class GoldStash: public Item{
 
 	public:
 		GoldStash(std::pair<int,int>coords);
-		virtual void taken(Player &p) = 0;
+		void taken (Player &p);
+		virtual void doTaken(Player &p) = 0;
 		SubjectType getType();
         bool walkable();
 };

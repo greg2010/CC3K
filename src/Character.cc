@@ -62,7 +62,7 @@ void Character::move(std::pair<int,int> newCoords) {
 
 int Character::attackedBy(std::shared_ptr<Character> attacker) {
     int damage = std::ceil((100/(100 + (double) this->getDefence())) * attacker->getAttack());
-    this->changeHP(damage);
+    this->changeHP(-damage);
     this->notifyObservers();
     return damage;
 }
@@ -82,6 +82,7 @@ void Character::addGold(int val) {
 void Character::changeHP(int val) {
     int newHP = std::min<int>(this->getHP() + val, maxHP);
     if (newHP <= 0) {
+        this->HP = 0;
         this->remove();
     } else {
         this->HP = newHP;

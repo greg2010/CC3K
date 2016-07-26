@@ -170,4 +170,6 @@ void Game::display(std::ostream &out) {
 
 void Game::endGame(bool cond) {
     td->endGame(cond);
+    display();
+    exit(0);
 }

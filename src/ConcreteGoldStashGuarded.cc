@@ -7,7 +7,7 @@ void ConcreteGoldStashGuarded::freeGold(){
 	free = true;
 }
 
-void ConcreteGoldStashGuarded::taken(Player &p){
+void ConcreteGoldStashGuarded::doTaken(Player &p){
 	p.interact(*this);
 }
 

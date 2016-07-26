@@ -10,7 +10,7 @@ class ConcreteGoldStashNormal: public GoldStash{
 
 	public:
 		ConcreteGoldStashNormal(std::pair<int,int> coords, int value);
-		void taken(Player & p) override;
+		void doTaken(Player &p) override;
 		int getGoldValue();
 };
 
