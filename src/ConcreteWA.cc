@@ -1,6 +1,8 @@
 #include "ConcreteWA.h"
 
-ConcreteWA::ConcreteWA(std::pair<int,int>coords):PotAT{coords}{}
+const int woundAtk = -5;
+
+ConcreteWA::ConcreteWA(std::pair<int,int>coords):PotAT{coords}, value{woundAtk}{}
 
 int ConcreteWA::getAtk(){
 	if (decPot){

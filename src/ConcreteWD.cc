@@ -1,6 +1,8 @@
 #include "ConcreteWD.h"
 
-ConcreteWD::ConcreteWD(std::pair<int,int>coords):PotDE{coords}{}
+const int woundDef = -5;
+
+ConcreteWD::ConcreteWD(std::pair<int,int>coords):PotDE{coords}, value{woundDef}{}
 
 int ConcreteWD::getDef(){
 	if (decPot){

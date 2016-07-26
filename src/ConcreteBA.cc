@@ -1,6 +1,8 @@
 #include "ConcreteBA.h"
 
-ConcreteBA::ConcreteBA(std::pair<int,int> coords):PotAT{coords}{}
+const int boostAtk = 5;
+
+ConcreteBA::ConcreteBA(std::pair<int,int> coords):PotAT{coords}, value {boostAtk}{}
 
 int ConcreteBA::getAtk(){
 	if (decPot){

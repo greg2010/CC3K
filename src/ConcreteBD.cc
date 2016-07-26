@@ -1,6 +1,8 @@
 #include "ConcreteBD.h"
 
-ConcreteBD::ConcreteBD(std::pair<int,int> coords): PotDE{coords}{}
+const int boostDef = 5;
+
+ConcreteBD::ConcreteBD(std::pair<int,int> coords): PotDE{coords}, value {boostDef}{}
 
 int ConcreteBD::getDef(){
 	if (decPot){
