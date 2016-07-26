@@ -37,7 +37,11 @@ TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, string race,
     charMap[SubjectType::Bridge] = '#';
     charMap[SubjectType::WallV] = '|';
     charMap[SubjectType::WallH] = '-';
-    message = currFloor ? "You moved to the next level." : "Player character has spawned.";
+    if (currFloor == 1) {
+        message = "Player character has spawned.";
+    } else {
+        message = "You moved to the next level.";
+    }
 
     vector<char> empty;
     for (int i = 0; i < height; ++i) {

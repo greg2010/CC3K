@@ -25,7 +25,6 @@ using namespace std;
 Game::Game(ifstream &file, int seed) : file(file), seed(seed){
     currFloor = 0;
     player = generatePlayer();
-    td = make_shared<TextDisplay>(player, currFloor, playerType);
 }
 
 Game::~Game(){
@@ -35,10 +34,10 @@ Game::~Game(){
 
 shared_ptr<Player> Game::generatePlayer(){
     char playerInput;
-    string input, playerType;
+    string input;
     cout << "Please enter \"h\", \"e\", \"d\", or \"o\" to choose the race you wish to be - (h)uman, (e)lf, (d)warf, (o)rc: ";
     getline(cin, input);
-    
+    playerInput = input[0];
     cout << endl;
     cout << "Type \"no\" \"so\" \"ea\" \"we\" \"ne\" \"nw\" \"se\" \"sw\" to move one block in the cardinal direction." << endl;
     cout << "Type \"u <direction>\" to use the potion indicated by the direction (e.g. no, so, ea)." << endl;
@@ -47,7 +46,7 @@ shared_ptr<Player> Game::generatePlayer(){
     cout << "Type \"q\" to quit the game." << endl;
     
     pair<int, int> coord = {-1, -1};
-    if (input.empty())  playerInput = 'h';
+    // if (input.empty())  playerInput = 'h';
     switch (playerInput) {
         case 'h':
             playerType = "Human";
