@@ -17,6 +17,7 @@ void Subject::detach(std::shared_ptr<Observer> observer) {
     for (auto it = observers.begin(); it != observers.end(); ++it) {
         if (*it == observer) {
             observers.erase(it);
+            return;
         }
     }
 }

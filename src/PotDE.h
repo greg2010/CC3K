@@ -7,7 +7,7 @@ class Player;
 class PotDE: public Potion{
 	public:
 		PotDE(std::pair<int,int> coords);
-		void taken(Player &p) override;
+		void doTaken(Player &p) override;
 		int getHP() override;
 		int getAtk() override;
 };

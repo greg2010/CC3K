@@ -40,7 +40,7 @@
 
 using namespace std;
 
-Floor::Floor(std::shared_ptr<Player> player, int currFloor, string playerType, int seed, std::shared_ptr<TextDisplay> td) : player(player), currFloor(currFloor), playerType(playerType), seed(seed), td(td) {
+Floor::Floor(std::shared_ptr<Player> player, int currFloor, string playerType, std::shared_ptr<Game> game, int seed, std::shared_ptr<TextDisplay> td) : player(player), currFloor(currFloor), playerType(playerType), game(game), seed(seed), td(td) {
 }
 
 Floor::~Floor() {}
@@ -204,6 +204,15 @@ void Floor::readLayout(ifstream &in){
 }
 
 void Floor::notify(std::shared_ptr<Subject> s, bool off){
+    if (shared_ptr<Character> character = dynamic_pointer_cast<Character>(s)) {
+        if (character->getHP() == 0) {
+            if (character->getType() == SubjectType::Player) {
+                game->endGame(false);
+            } else {
+                deleteSubject(s);
+            }
+        }
+    }
     td->notify(getObjectAtCoords(s->getCoordinates()), true);
     // this->coord = s->getCoordinates();
     /*
@@ -219,13 +228,14 @@ void Floor::notify(std::shared_ptr<Subject> s, bool off){
 
 
 void Floor::deleteSubject(std::shared_ptr<Subject> s) {
-    s->Subject::remove();
-
+    for (auto it = objects.begin(); it != objects.end(); ++it) {
+        if (*it == s) objects.erase(it);
+    }
  }
 
 shared_ptr<Subject> Floor::getObjectAtCoords(pair<int, int> coor) {
     for (auto &sub : objects) {
-        if (sub->getCoordinates() == coor) return sub;
+        if (sub->getCoordinates() == coor && sub->isVisible()) return sub;
     }
     return floorMap[coor.first][coor.second];
 }
@@ -477,6 +487,8 @@ void Floor::doAttack(std::shared_ptr<Subject> attacker) {
     if (hit) {
         int damage = (dynamic_pointer_cast<Character>(player))->attackedBy(dynamic_pointer_cast<Character>(attacker));
         td->attackMessage(attacker, player, damage);
+    } else {
+        td->attackMessage(attacker, player, 0);
     }
 }
                 
@@ -484,7 +496,7 @@ void Floor::doMove(std::shared_ptr<Subject> enemy) {
     vector<std::shared_ptr<Subject> > neighbors = adjacent(enemy);
     vector<std::shared_ptr<Subject> > validNeighbors;
     for (auto ptr : neighbors) {
-        if (ptr && ptr->walkable()) {
+        if (ptr && ptr->walkable() && ptr->getType() != SubjectType::Door) {
             validNeighbors.push_back(ptr);
         }
     }

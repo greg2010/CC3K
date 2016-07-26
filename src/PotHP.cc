@@ -3,7 +3,7 @@
 using namespace std;
 
 PotHP::PotHP(std::pair<int,int> coords):Potion{coords}{}
-void PotHP::taken(Player &p){
+void PotHP::doTaken(Player &p){
 	p.interact(*this);
 }
 

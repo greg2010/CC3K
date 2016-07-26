@@ -37,7 +37,7 @@ TextDisplay::TextDisplay(std::shared_ptr<Player> pc, int currFloor, string race,
     charMap[SubjectType::Bridge] = '#';
     charMap[SubjectType::WallV] = '|';
     charMap[SubjectType::WallH] = '-';
-    string message = " Player character has spawned.";
+    message = currFloor ? "You moved to the next level." : "Player character has spawned.";
 
     vector<char> empty;
     for (int i = 0; i < height; ++i) {
@@ -125,11 +125,24 @@ void TextDisplay::attackMessage(shared_ptr<Subject> attacker, shared_ptr<Subject
         message += "PC deals " + to_string(damage) + " damage to " + string{charMap[beingAttacked->getType()]} + " (" + to_string(dynamic_pointer_cast<Character>(beingAttacked)->getHP()) + " HP).";
     }
     else  {
-        message += string{charMap[beingAttacked->getType()]} + " deals " + to_string(damage) + " damage to PC.";
+        if (damage) {
+            message += string{charMap[attacker->getType()]} + " deals " + to_string(damage) + " damage to PC.";
+        } else {
+            message += string{charMap[attacker->getType()]} + " misses.";
+        }
     }
     ++messageCounter;
 }
 
 TextDisplay::~TextDisplay() { }
+
+void TextDisplay::endGame(bool cond) {
+    message += "You";
+    if (cond) {
+        message += " won!";
+    } else {
+        message += " lost!";
+    }
+}
 
 

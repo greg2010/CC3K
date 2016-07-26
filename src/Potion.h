@@ -8,7 +8,8 @@ class Potion: public Item {
 	public:
 		
 		Potion(std::pair<int,int>coords);
-		virtual void taken(Player &p) = 0;
+		void taken(Player &p);
+		virtual void doTaken(Player &p) = 0;
 		virtual int getHP() = 0;
 		virtual int getAtk() = 0;
 		virtual int getDef() = 0;

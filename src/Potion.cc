@@ -13,3 +13,8 @@ void Potion::push(Potion &other) {
 bool Potion::walkable() {
     return false;
 }
+
+void Potion::taken(Player &p) {
+    doTaken(p);
+    this->remove();
+}

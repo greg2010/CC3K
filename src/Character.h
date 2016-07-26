@@ -22,6 +22,7 @@ protected:
 private:
     bool hasMovedThisTurn;
     int HP;
+    const int maxHP;
     int atk;
     int def;
     int gold;

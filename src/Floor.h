@@ -50,7 +50,7 @@ public:
     int currFloor;
     const int cols = 80, rows = 25;
     void readLayout(std::ifstream &in);
-    Floor(std::shared_ptr<Player> player, int currFloor, std::string playerType, int seed, std::shared_ptr<TextDisplay> td);
+    Floor(std::shared_ptr<Player> player, int currFloor, std::string playerType, std::shared_ptr<Game> game, int seed, std::shared_ptr<TextDisplay> td);
     ~Floor();
     void notify(std::shared_ptr<Subject> s, bool off = true);
     void deleteSubject(std::shared_ptr<Subject> s);

@@ -8,7 +8,7 @@ class PotHP: public Potion{
 
 	public:
 		PotHP(std::pair<int,int> coords);
-		void taken(Player &p) override;
+		void doTaken(Player &p) override;
 		int getAtk() override;
 		int getDef() override;
 

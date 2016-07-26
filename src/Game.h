@@ -19,7 +19,7 @@ class Player;
 class Floor;
 class Subject;
 class TextDisplay;
-class Game {
+class Game : public std::enable_shared_from_this<Game> {
     std::shared_ptr<Player> generatePlayer();
     int currFloor;
     std::shared_ptr<Floor> floor;
@@ -37,6 +37,7 @@ public:
     void usePotion(std::string dir);
     void attack(std::string dir);
     void display(std::ostream & out = std::cout);
+    void endGame(bool cond);
 };
 
 #endif /* Game_h */

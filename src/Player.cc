@@ -80,3 +80,7 @@ int Player::getPotDefence() {
     return potDec->getDef();
 }
 
+void Player::resetPotions() {
+    potDec = nullptr;
+}
+

@@ -3,7 +3,7 @@
 
 PotDE::PotDE(std::pair<int,int> coords):Potion{coords}{}
 
-void PotDE::taken(Player &p){
+void PotDE::doTaken(Player &p){
 	p.interact(*this);
 }
 

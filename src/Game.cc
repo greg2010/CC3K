@@ -23,11 +23,9 @@
 using namespace std;
 
 Game::Game(ifstream &file, int seed) : file(file), seed(seed){
-    currFloor = 1;
+    currFloor = 0;
     player = generatePlayer();
     td = make_shared<TextDisplay>(player, currFloor, playerType);
-    floor = make_shared<Floor>(player, currFloor, playerType, seed, td);
-    floor->readLayout(file);
 }
 
 Game::~Game(){
@@ -144,12 +142,14 @@ void Game::movePlayer(string dir)
 
 void Game::generateNextFloor(){
     if (currFloor >= 5){
-        cout << "You won" << endl;
+        this->endGame(true);
     }
     else {
         currFloor++;
         //delete floor;
-        shared_ptr<Floor> floor = make_shared<Floor>(player, currFloor, playerType, seed, td);
+        player->resetPotions();
+        td = make_shared<TextDisplay>(player, currFloor, playerType);
+        floor = make_shared<Floor>(player, currFloor, playerType, shared_from_this(), seed, td);
         floor->readLayout(file);
     }
     
@@ -167,4 +167,8 @@ void Game::attack(string dir) {
 
 void Game::display(std::ostream &out) {
     out << td;
+}
+
+void Game::endGame(bool cond) {
+    td->endGame(cond);
 }

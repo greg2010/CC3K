@@ -36,6 +36,7 @@ int main(int argc, const char * argv[]) {
     
     // start game
     shared_ptr<Game> game = make_shared<Game>(file, seed);
+    game->generateNextFloor();
     string input;
     game->display();
     while (getline(cin, input)){

@@ -1,9 +1,11 @@
+#include <algorithm>
 #include <cmath>
 #include <string>
 #include "Character.h"
 
 Character::Character(int HP, int atk, int def, std::pair<int,int> coords) : Subject{coords},
                                                                             HP{HP},
+                                                                            maxHP{HP},
                                                                             atk{atk},
                                                                             def{def},
                                                                             gold{0},
@@ -78,9 +80,9 @@ void Character::addGold(int val) {
 }
 
 void Character::changeHP(int val) {
-    int newHP = this->getHP() - val;
+    int newHP = std::min<int>(this->getHP() + val, maxHP);
     if (newHP <= 0) {
-        //TODO: death logic
+        this->remove();
     } else {
         this->HP = newHP;
     }

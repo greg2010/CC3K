@@ -27,6 +27,8 @@ public:
     virtual unsigned int getAttack();
     virtual unsigned int getDefence();
 
+    void resetPotions();
+
     void pushPotion(Potion &pot); // Adds potion as decorator
 protected:
     virtual void doInteract(ConcreteGoldStashNormal &item);

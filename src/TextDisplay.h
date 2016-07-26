@@ -35,6 +35,7 @@ public:
     void notify(std::shared_ptr<Subject> sub, bool off) override;
     void notify(std::shared_ptr<Item> item, bool off);
     friend void operator<<(std::ostream &out, std::shared_ptr<TextDisplay> td);
+    void endGame(bool cond);
     //void drawLayout(std::ifstream in);
     void finishTurn();
     void potionMessage(std::shared_ptr<Subject> sub);

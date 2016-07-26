@@ -4,7 +4,7 @@ using namespace std;
 
 PotAT::PotAT(std::pair<int,int> coords):Potion{coords}{}
 
-void PotAT::taken(Player &p){
+void PotAT::doTaken(Player &p){
 	p.interact(*this);
 }
 
